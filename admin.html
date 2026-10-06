@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — Football Club Manager</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: Inter, system-ui, sans-serif; }
+    .nav-item.active { background: rgba(16,185,129,0.15); color: #34d399; border-color: rgba(16,185,129,0.4); }
+    .panel { display: none; }
+    .panel.active { display: block; }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen">
+  <!-- Gate: must be admin -->
+  <div id="gate" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950 p-4">
+    <div class="bg-slate-900 border border-slate-700 rounded-2xl p-8 max-w-md w-full text-center">
+      <i class="fa-solid fa-shield-halved text-4xl text-emerald-400 mb-4"></i>
+      <h1 class="text-xl font-black mb-2">Trang Quản Trị</h1>
+      <p class="text-slate-400 text-sm mb-6">Chỉ tài khoản <strong class="text-emerald-400">admin</strong> mới vào được.</p>
+      <div id="gate-login" class="space-y-3 text-left">
+        <input id="admin-email" type="email" placeholder="Email" class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-sm focus:border-emerald-500 outline-none">
+        <input id="admin-pass" type="password" placeholder="Mật khẩu" class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-sm focus:border-emerald-500 outline-none">
+        <button onclick="adminLogin()" class="w-full py-2.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-xl">Đăng nhập Admin</button>
+        <p id="gate-error" class="text-red-400 text-xs hidden"></p>
+      </div>
+      <p id="gate-denied" class="text-red-400 text-sm hidden">Bạn không phải admin. <a href="index.html" class="underline text-emerald-400">Về trang chủ</a></p>
+    </div>
+  </div>
+
+  <div id="admin-app" class="hidden min-h-screen flex">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-slate-900 border-r border-slate-800 flex flex-col shrink-0">
+      <div class="p-5 border-b border-slate-800">
+        <div class="font-black text-lg text-emerald-400"><i class="fa-solid fa-screwdriver-wrench mr-2"></i>Admin Panel</div>
+        <div class="text-xs text-slate-500 mt-1" id="admin-email-label">—</div>
+      </div>
+      <nav class="p-3 space-y-1 flex-1">
+        <button data-panel="dashboard" class="nav-item active w-full text-left px-3 py-2.5 rounded-lg border border-transparent text-sm font-medium text-slate-300 hover:bg-slate-800">
+          <i class="fa-solid fa-chart-line w-5"></i> Tổng quan
+        </button>
+        <button data-panel="users" class="nav-item w-full text-left px-3 py-2.5 rounded-lg border border-transparent text-sm font-medium text-slate-300 hover:bg-slate-800">
+          <i class="fa-solid fa-users w-5"></i> Người dùng
+        </button>
+        <button data-panel="leagues" class="nav-item w-full text-left px-3 py-2.5 rounded-lg border border-transparent text-sm font-medium text-slate-300 hover:bg-slate-800">
+          <i class="fa-solid fa-trophy w-5"></i> Giải đấu & CLB
+        </button>
+        <button data-panel="custom-clubs" class="nav-item w-full text-left px-3 py-2.5 rounded-lg border border-transparent text-sm font-medium text-slate-300 hover:bg-slate-800">
+          <i class="fa-solid fa-futbol w-5"></i> CLB tự tạo
+        </button>
+        <button data-panel="settings" class="nav-item w-full text-left px-3 py-2.5 rounded-lg border border-transparent text-sm font-medium text-slate-300 hover:bg-slate-800">
+          <i class="fa-solid fa-gear w-5"></i> Cài đặt game
+        </button>
+        <button data-panel="announcement" class="nav-item w-full text-left px-3 py-2.5 rounded-lg border border-transparent text-sm font-medium text-slate-300 hover:bg-slate-800">
+          <i class="fa-solid fa-bullhorn w-5"></i> Thông báo
+        </button>
+      </nav>
+      <div class="p-3 border-t border-slate-800 space-y-2">
+        <a href="index.html" class="block text-center text-sm text-slate-400 hover:text-emerald-400 py-2"><i class="fa-solid fa-gamepad mr-1"></i> Vào game</a>
+        <button onclick="adminLogout()" class="w-full py-2 text-sm text-red-400 hover:bg-red-950/30 rounded-lg"><i class="fa-solid fa-right-from-bracket mr-1"></i> Đăng xuất</button>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <main class="flex-1 overflow-y-auto p-6">
+      <!-- Dashboard -->
+      <section id="panel-dashboard" class="panel active">
+        <h2 class="text-2xl font-black mb-6">Tổng quan hệ thống</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          <div class="bg-slate-900 border border-slate-800 rounded-xl p-5">
+            <div class="text-xs text-slate-500 uppercase font-bold">Người dùng</div>
+            <div class="text-3xl font-black text-emerald-400 mt-1" id="stat-users">0</div>
+          </div>
+          <div class="bg-slate-900 border border-slate-800 rounded-xl p-5">
+            <div class="text-xs text-slate-500 uppercase font-bold">Admin</div>
+            <div class="text-3xl font-black text-amber-400 mt-1" id="stat-admins">0</div>
+          </div>
+          <div class="bg-slate-900 border border-slate-800 rounded-xl p-5">
+            <div class="text-xs text-slate-500 uppercase font-bold">CLB data</div>
+            <div class="text-3xl font-black text-sky-400 mt-1" id="stat-clubs">0</div>
+          </div>
+          <div class="bg-slate-900 border border-slate-800 rounded-xl p-5">
+            <div class="text-xs text-slate-500 uppercase font-bold">Giải đấu</div>
+            <div class="text-3xl font-black text-violet-400 mt-1" id="stat-leagues">0</div>
+          </div>
+        </div>
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-5">
+          <h3 class="font-bold mb-3">Trạng thái Firebase</h3>
+          <p id="firebase-status" class="text-sm text-slate-400">Đang kiểm tra...</p>
+        </div>
+      </section>
+
+      <!-- Users -->
+      <section id="panel-users" class="panel">
+        <div class="flex items-center justify-between mb-6">
+          <h2 class="text-2xl font-black">Quản lý người dùng</h2>
+          <button onclick="loadUsers()" class="px-3 py-1.5 text-sm bg-slate-800 rounded-lg hover:bg-slate-700"><i class="fa-solid fa-refresh"></i> Làm mới</button>
+        </div>
+        <div class="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden">
+          <table class="w-full text-sm">
+            <thead class="bg-slate-950 text-slate-500 text-xs uppercase">
+              <tr>
+                <th class="text-left p-3">Email</th>
+                <th class="text-left p-3">Vai trò</th>
+                <th class="text-left p-3">CLB</th>
+                <th class="text-left p-3">Trạng thái</th>
+                <th class="text-right p-3">Thao tác</th>
+              </tr>
+            </thead>
+            <tbody id="users-tbody" class="divide-y divide-slate-800"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Leagues & Clubs -->
+      <section id="panel-leagues" class="panel">
+        <h2 class="text-2xl font-black mb-6">Giải đấu & Câu lạc bộ</h2>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+          <div class="bg-slate-900 border border-slate-800 rounded-xl p-4">
+            <h3 class="font-bold text-sm text-slate-400 mb-3">Chọn giải</h3>
+            <div id="league-list" class="space-y-1 max-h-[60vh] overflow-y-auto"></div>
+          </div>
+          <div class="lg:col-span-2 bg-slate-900 border border-slate-800 rounded-xl p-4">
+            <h3 class="font-bold text-sm text-slate-400 mb-3" id="club-list-title">CLB trong giải</h3>
+            <div id="club-list" class="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-[60vh] overflow-y-auto"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Custom clubs -->
+      <section id="panel-custom-clubs" class="panel">
+        <h2 class="text-2xl font-black mb-6">CLB do người chơi tạo</h2>
+        <p class="text-slate-400 text-sm mb-4">Danh sách CLB custom lưu trên Firebase / localStorage.</p>
+        <div id="custom-clubs-list" class="space-y-2"></div>
+      </section>
+
+      <!-- Settings -->
+      <section id="panel-settings" class="panel">
+        <h2 class="text-2xl font-black mb-6">Cài đặt game</h2>
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 max-w-lg space-y-4">
+          <label class="flex items-center justify-between gap-4">
+            <span class="text-sm">Cho phép tạo CLB riêng</span>
+            <input type="checkbox" id="set-allow-custom" class="w-5 h-5 accent-emerald-500">
+          </label>
+          <label class="flex items-center justify-between gap-4">
+            <span class="text-sm">Chế độ bảo trì (khóa người chơi thường)</span>
+            <input type="checkbox" id="set-maintenance" class="w-5 h-5 accent-amber-500">
+          </label>
+          <label class="block">
+            <span class="text-sm text-slate-400">Số cầu thủ tối đa CLB custom</span>
+            <input type="number" id="set-max-players" class="mt-1 w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-sm" min="11" max="40">
+          </label>
+          <label class="block">
+            <span class="text-sm text-slate-400">Ngân sách mặc định CLB mới ($)</span>
+            <input type="number" id="set-budget" class="mt-1 w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-sm" step="1000000">
+          </label>
+          <button onclick="saveSettings()" class="w-full py-2.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-xl">Lưu cài đặt</button>
+          <p id="settings-msg" class="text-xs text-emerald-400 hidden">Đã lưu!</p>
+        </div>
+      </section>
+
+      <!-- Announcement -->
+      <section id="panel-announcement" class="panel">
+        <h2 class="text-2xl font-black mb-6">Thông báo toàn server</h2>
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 max-w-xl">
+          <textarea id="set-announcement" rows="4" class="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-sm" placeholder="Nội dung thông báo hiện trên trang chủ..."></textarea>
+          <button onclick="saveSettings()" class="mt-3 px-6 py-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-xl text-sm">Đăng thông báo</button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script type="module">
+    import {
+      initAuth, login, logout, getCurrentUser, isAdmin,
+      adminListUsers, adminUpdateUser, adminGetSettings, adminSaveSettings,
+      FIREBASE_ENABLED
+    } from './js/auth.js';
+    import { LEAGUES } from './data/leagues.js';
+    import { VLEAGUE_CLUBS } from './data/vleague.js';
+    import { WORLD_CLUBS } from './data/world.js';
+    import { NATIONAL_TEAMS } from './data/national.js';
+
+    window.LEAGUES = LEAGUES;
+    window.WORLD_CLUBS = WORLD_CLUBS;
+
+    function getClubs(leagueId) {
+      if (leagueId === 'vleague1') return VLEAGUE_CLUBS;
+      if (leagueId === 'national') return NATIONAL_TEAMS;
+      return WORLD_CLUBS[leagueId] || [];
+    }
+
+    let settings = {};
+
+    async function boot() {
+      await initAuth();
+      const user = getCurrentUser();
+      if (user && isAdmin()) {
+        openAdmin(user);
+      }
+    }
+
+    window.adminLogin = async function () {
+      const email = document.getElementById('admin-email').value;
+      const pass = document.getElementById('admin-pass').value;
+      const err = document.getElementById('gate-error');
+      err.classList.add('hidden');
+      try {
+        const user = await login(email, pass);
+        if (!isAdmin()) {
+          document.getElementById('gate-login').classList.add('hidden');
+          document.getElementById('gate-denied').classList.remove('hidden');
+          await logout();
+          return;
+        }
+        openAdmin(user);
+      } catch (e) {
+        err.textContent = e.message || 'Đăng nhập thất bại';
+        err.classList.remove('hidden');
+      }
+    };
+
+    window.adminLogout = async function () {
+      await logout();
+      location.reload();
+    };
+
+    function openAdmin(user) {
+      document.getElementById('gate').classList.add('hidden');
+      document.getElementById('admin-app').classList.remove('hidden');
+      document.getElementById('admin-email-label').textContent = user.email + ' · admin';
+      document.getElementById('firebase-status').innerHTML = FIREBASE_ENABLED
+        ? '<span class="text-emerald-400">Firebase đang BẬT</span> — dữ liệu lưu cloud'
+        : '<span class="text-amber-400">Firebase TẮT (local mode)</span> — mai dán config vào <code class="text-slate-300">js/firebase-config.js</code> và set <code>FIREBASE_ENABLED = true</code>';
+      refreshDashboard();
+      loadUsers();
+      loadLeaguesPanel();
+      loadSettings();
+      loadCustomClubs();
+    }
+
+    async function refreshDashboard() {
+      const users = await adminListUsers();
+      document.getElementById('stat-users').textContent = users.length;
+      document.getElementById('stat-admins').textContent = users.filter(u => u.role === 'admin').length;
+      let clubs = 0;
+      Object.keys(LEAGUES).forEach(id => { clubs += getClubs(id).length; });
+      document.getElementById('stat-clubs').textContent = clubs;
+      document.getElementById('stat-leagues').textContent = Object.keys(LEAGUES).length;
+    }
+
+    window.loadUsers = async function () {
+      const users = await adminListUsers();
+      const tbody = document.getElementById('users-tbody');
+      tbody.innerHTML = users.map(u => `
+        <tr class="hover:bg-slate-800/50">
+          <td class="p-3">
+            <div class="font-medium">${u.email}</div>
+            <div class="text-[10px] text-slate-500">${u.uid}</div>
+          </td>
+          <td class="p-3">
+            <span class="px-2 py-0.5 rounded text-xs font-bold ${u.role === 'admin' ? 'bg-amber-500/20 text-amber-400' : 'bg-slate-800 text-slate-300'}">${u.role}</span>
+          </td>
+          <td class="p-3 text-slate-400 text-xs">${u.clubMode || '—'} ${u.clubId ? '· ' + u.clubId : ''}</td>
+          <td class="p-3">
+            <span class="text-xs ${u.banned ? 'text-red-400' : 'text-emerald-400'}">${u.banned ? 'Đã khóa' : 'Hoạt động'}</span>
+          </td>
+          <td class="p-3 text-right space-x-1">
+            <button onclick="toggleRole('${u.uid}','${u.role}')" class="px-2 py-1 text-xs bg-slate-800 rounded hover:bg-slate-700" title="Đổi role">Role</button>
+            <button onclick="toggleBan('${u.uid}', ${!!u.banned})" class="px-2 py-1 text-xs bg-slate-800 rounded hover:bg-slate-700">${u.banned ? 'Mở khóa' : 'Khóa'}</button>
+          </td>
+        </tr>
+      `).join('') || '<tr><td colspan="5" class="p-6 text-center text-slate-500">Chưa có user</td></tr>';
+    };
+
+    window.toggleRole = async function (uid, role) {
+      const next = role === 'admin' ? 'player' : 'admin';
+      if (!confirm(`Đổi role thành ${next}?`)) return;
+      await adminUpdateUser(uid, { role: next });
+      loadUsers();
+      refreshDashboard();
+    };
+
+    window.toggleBan = async function (uid, banned) {
+      await adminUpdateUser(uid, { banned: !banned });
+      loadUsers();
+    };
+
+    function loadLeaguesPanel() {
+      const list = document.getElementById('league-list');
+      list.innerHTML = Object.values(LEAGUES).map(lg => `
+        <button onclick="showLeagueClubs('${lg.id}')" class="w-full text-left px-3 py-2 rounded-lg text-sm hover:bg-slate-800 text-slate-300">
+          ${lg.icon || ''} ${lg.name} <span class="text-slate-600 text-xs">(${getClubs(lg.id).length})</span>
+        </button>
+      `).join('');
+    }
+
+    window.showLeagueClubs = function (leagueId) {
+      const clubs = getClubs(leagueId);
+      document.getElementById('club-list-title').textContent = (LEAGUES[leagueId]?.name || leagueId) + ` — ${clubs.length} CLB`;
+      document.getElementById('club-list').innerHTML = clubs.map(c => `
+        <div class="flex items-center gap-3 p-2 rounded-lg bg-slate-950 border border-slate-800">
+          ${c.logo ? `<img src="${c.logo}" class="w-8 h-8 object-contain bg-white rounded p-0.5" onerror="this.remove()">` : `<div class="w-8 h-8 rounded bg-emerald-900 text-emerald-300 text-xs font-bold flex items-center justify-center">${c.badge || '?'}</div>`}
+          <div class="min-w-0">
+            <div class="font-medium text-sm truncate">${c.name}</div>
+            <div class="text-[10px] text-slate-500">OVR ${c.ovr} · ${(c.keyPlayers || []).length} key players</div>
+          </div>
+        </div>
+      `).join('');
+    };
+
+    function loadCustomClubs() {
+      const el = document.getElementById('custom-clubs-list');
+      const items = [];
+      for (let i = 0; i < localStorage.length; i++) {
+        const k = localStorage.key(i);
+        if (k && k.startsWith('fm_custom_club_')) {
+          try { items.push(JSON.parse(localStorage.getItem(k))); } catch (_) {}
+        }
+      }
+      el.innerHTML = items.length
+        ? items.map(c => `<div class="p-3 bg-slate-900 border border-slate-800 rounded-xl text-sm"><strong>${c.name}</strong> · owner: ${c.ownerUid} · OVR ${c.ovr || '—'}</div>`).join('')
+        : '<p class="text-slate-500 text-sm">Chưa có CLB custom nào (local). Khi bật Firebase sẽ đọc từ collection customClubs.</p>';
+    }
+
+    async function loadSettings() {
+      settings = await adminGetSettings();
+      document.getElementById('set-allow-custom').checked = !!settings.allowCustomClubs;
+      document.getElementById('set-maintenance').checked = !!settings.maintenanceMode;
+      document.getElementById('set-max-players').value = settings.maxCustomPlayers || 30;
+      document.getElementById('set-budget').value = settings.defaultBudget || 25000000;
+      document.getElementById('set-announcement').value = settings.announcement || '';
+    }
+
+    window.saveSettings = async function () {
+      settings = {
+        allowCustomClubs: document.getElementById('set-allow-custom').checked,
+        maintenanceMode: document.getElementById('set-maintenance').checked,
+        maxCustomPlayers: parseInt(document.getElementById('set-max-players').value, 10) || 30,
+        defaultBudget: parseInt(document.getElementById('set-budget').value, 10) || 25000000,
+        announcement: document.getElementById('set-announcement').value || '',
+      };
+      await adminSaveSettings(settings);
+      const msg = document.getElementById('settings-msg');
+      msg.classList.remove('hidden');
+      setTimeout(() => msg.classList.add('hidden'), 2000);
+    };
+
+    // Nav
+    document.querySelectorAll('.nav-item').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById('panel-' + btn.dataset.panel).classList.add('active');
+      });
+    });
+
+    boot();
+  </script>
+</body>
+</html>

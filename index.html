@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chủ Sở Hữu Đội Bóng - Football Club Manager v1.0.1</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col antialiased selection:bg-emerald-500 selection:text-white">
+<!-- TOP NAVIGATION BAR -->
+    <header class="bg-slate-900 border-b border-slate-800 sticky top-0 z-40 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-4">
+            <!-- Club Info -->
+            <div class="flex items-center gap-3">
+                <div id="club-badge" class="w-12 h-12 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-400 flex items-center justify-center text-white font-black text-2xl shadow-md border border-emerald-400/30">
+                    FC
+                </div>
+                <div>
+                    <h1 id="club-name-display" class="font-extrabold text-lg text-white leading-tight flex items-center gap-2">
+                        Rồng Vàng FC
+                        <span id="league-rank-badge" class="text-xs px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-bold border border-emerald-500/30">Hạng #1</span>
+                    </h1>
+                    <p id="manager-name-display" class="text-xs text-slate-400 flex items-center gap-2">
+                        <span><i class="fa-solid fa-user-tie text-emerald-400"></i> HLV: Nguyễn Văn A</span>
+                        <span>•</span>
+                        <span id="season-display" class="text-slate-300 font-semibold">Mùa 2026/27</span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Stats Header -->
+            <div class="flex items-center gap-3 text-sm overflow-x-auto py-1">
+                <div class="bg-slate-800/80 px-3 py-1.5 rounded-lg border border-slate-700/60 flex items-center gap-2 min-w-max">
+                    <i class="fa-solid fa-sack-dollar text-amber-400 text-base"></i>
+                    <div>
+                        <div class="text-[10px] uppercase tracking-wider text-slate-400 font-semibold">Ngân sách</div>
+                        <div id="budget-display" class="font-bold text-amber-400">$25.0M</div>
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/80 px-3 py-1.5 rounded-lg border border-slate-700/60 flex items-center gap-2 min-w-max">
+                    <i class="fa-solid fa-heart-pulse text-red-400 text-base"></i>
+                    <div>
+                        <div class="text-[10px] uppercase tracking-wider text-slate-400 font-semibold">Tinh thần</div>
+                        <div id="morale-display" class="font-bold text-emerald-400">92%</div>
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/80 px-3 py-1.5 rounded-lg border border-slate-700/60 flex items-center gap-2 min-w-max">
+                    <i class="fa-solid fa-calendar-days text-indigo-400 text-base"></i>
+                    <div>
+                        <div class="text-[10px] uppercase tracking-wider text-slate-400 font-semibold">Vòng đấu</div>
+                        <div id="matchday-display" class="font-bold text-indigo-300">Vòng 1 / 14</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Button -->
+            <div class="flex items-center gap-2">
+                <span id="user-email-badge" class="hidden text-xs text-slate-500 px-2"></span>
+                <a id="admin-nav-link" href="admin.html" class="hidden px-3 py-2 text-xs text-amber-400 hover:bg-amber-950/30 rounded-lg border border-amber-500/20"><i class="fa-solid fa-shield-halved"></i> Admin</a>
+                <button onclick="window.fmLogout && fmLogout()" class="px-3 py-2 text-xs text-slate-400 hover:text-red-400 rounded-lg border border-slate-700" title="Đăng xuất"><i class="fa-solid fa-right-from-bracket"></i></button>
+                <button id="btn-play-match" onclick="openMatchModal()" class="px-5 py-2.5 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-bold rounded-xl shadow-lg shadow-emerald-900/30 transition-all flex items-center gap-2 transform active:scale-95">
+                    <i class="fa-solid fa-play text-xs"></i>
+                    <span>Đá Trận Tiếp</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTAINER WITH TABS -->
+    <div class="max-w-7xl mx-auto px-4 py-6 flex-1 w-full flex flex-col md:flex-row gap-6">
+        
+        <!-- SIDE NAVIGATION BAR -->
+        <nav class="w-full md:w-64 flex flex-row md:flex-col gap-2 shrink-0 overflow-x-auto pb-2 md:pb-0 border-b md:border-b-0 border-slate-800">
+            <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-tab active flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-sm transition-all bg-emerald-600 text-white shadow-md">
+                <i class="fa-solid fa-chart-pie w-5 text-center"></i>
+                <span>Tổng Quan</span>
+            </button>
+            <button onclick="switchTab('tactics')" id="nav-tactics" class="nav-tab flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-sm transition-all text-slate-400 hover:text-slate-100 hover:bg-slate-800/60">
+                <i class="fa-solid fa-futbol w-5 text-center"></i>
+                <span>Đội Hình & Chiến Thuật</span>
+            </button>
+            <button onclick="switchTab('transfers')" id="nav-transfers" class="nav-tab flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-sm transition-all text-slate-400 hover:text-slate-100 hover:bg-slate-800/60">
+                <i class="fa-solid fa-right-left w-5 text-center"></i>
+                <span>Chuyển Nhượng & Trẻ</span>
+            </button>
+            <button onclick="switchTab('league')" id="nav-league" class="nav-tab flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-sm transition-all text-slate-400 hover:text-slate-100 hover:bg-slate-800/60">
+                <i class="fa-solid fa-trophy w-5 text-center"></i>
+                <span>BXH & Lịch Đấu</span>
+            </button>
+            <button onclick="switchTab('facilities')" id="nav-facilities" class="nav-tab flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-sm transition-all text-slate-400 hover:text-slate-100 hover:bg-slate-800/60">
+                <i class="fa-solid fa-building w-5 text-center"></i>
+                <span>Cơ Sở Vật Chất</span>
+            </button>
+            <button onclick="switchTab('finance')" id="nav-finance" class="nav-tab flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-sm transition-all text-slate-400 hover:text-slate-100 hover:bg-slate-800/60">
+                <i class="fa-solid fa-file-invoice-dollar w-5 text-center"></i>
+                <span>Tài Chính & Tài Trợ</span>
+            </button>
+
+            <!-- Quick Utilities -->
+            <div class="mt-auto pt-4 hidden md:block border-t border-slate-800/80">
+                <div class="bg-slate-900/60 p-3 rounded-xl border border-slate-800 text-xs text-slate-400">
+                    <p class="font-semibold text-slate-300 mb-1"><i class="fa-solid fa-floppy-disk text-emerald-400"></i> Tiến Trình Game</p>
+                    <p class="mb-2">Tự động lưu sau mỗi trận đấu.</p>
+                    <div class="flex gap-2">
+                        <button onclick="saveGame()" class="px-2 py-1 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded text-[11px] w-full">Lưu Game</button>
+                        <button onclick="resetGamePrompt()" class="px-2 py-1 bg-red-900/40 hover:bg-red-800/60 text-red-300 rounded text-[11px] w-full">Chơi Lại</button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- MAIN CONTENT PANELS -->
+        <main class="flex-1 min-w-0">
+            
+            <!-- TAB 1: DASHBOARD -->
+            <div id="tab-dashboard" class="tab-content space-y-6">
+                <!-- Next Match Banner -->
+                <div class="bg-gradient-to-r from-slate-900 via-emerald-950 to-slate-900 border border-emerald-500/30 rounded-2xl p-6 shadow-xl relative overflow-hidden">
+                    <div class="absolute -right-10 -bottom-10 opacity-10 text-emerald-400 text-9xl pointer-events-none">
+                        <i class="fa-solid fa-futbol"></i>
+                    </div>
+                    <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
+                        <div class="text-center md:text-left">
+                            <span class="text-xs uppercase tracking-widest text-emerald-400 font-bold bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">Trận Đấu Tiếp Theo</span>
+                            <h2 class="text-2xl font-black text-white mt-2" id="next-match-title">Rồng Vàng FC vs Hồ Tây United</h2>
+                            <p class="text-slate-400 text-sm mt-1" id="next-match-venue">Sân Vận Động Rồng Vàng (Sân Nhà)</p>
+                        </div>
+                        <div class="flex items-center gap-6">
+                            <div class="text-center">
+                                <div class="w-16 h-16 rounded-2xl bg-emerald-600/30 border border-emerald-400/40 flex items-center justify-center text-white font-extrabold text-2xl" id="home-badge-preview">RV</div>
+                                <span class="text-xs text-slate-300 mt-1 block font-semibold" id="home-name-preview">Rồng Vàng</span>
+                            </div>
+                            <span class="text-2xl font-black text-slate-500">VS</span>
+                            <div class="text-center">
+                                <div class="w-16 h-16 rounded-2xl bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-300 font-extrabold text-2xl" id="away-badge-preview">HT</div>
+                                <span class="text-xs text-slate-300 mt-1 block font-semibold" id="away-name-preview">Hồ Tây Utd</span>
+                            </div>
+                        </div>
+                        <button onclick="openMatchModal()" class="w-full md:w-auto px-6 py-3 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black rounded-xl shadow-lg transition-all transform active:scale-95 flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-play"></i> VÀO TRẬN
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Dashboard Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Squad Summary Card -->
+                    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-sm">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="font-bold text-slate-200 flex items-center gap-2">
+                                <i class="fa-solid fa-users text-emerald-400"></i> Chỉ Số Đội
+                            </h3>
+                            <button onclick="switchTab('tactics')" class="text-xs text-emerald-400 hover:underline">Chi tiết &rarr;</button>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center bg-slate-950/60 p-3 rounded-xl">
+                                <span class="text-slate-400 text-sm">Chỉ số Tấn công (ATT)</span>
+                                <span id="dash-att" class="font-extrabold text-emerald-400">78</span>
+                            </div>
+                            <div class="flex justify-between items-center bg-slate-950/60 p-3 rounded-xl">
+                                <span class="text-slate-400 text-sm">Chỉ số Tiền vệ (MID)</span>
+                                <span id="dash-mid" class="font-extrabold text-indigo-400">76</span>
+                            </div>
+                            <div class="flex justify-between items-center bg-slate-950/60 p-3 rounded-xl">
+                                <span class="text-slate-400 text-sm">Chỉ số Phòng ngự (DEF)</span>
+                                <span id="dash-def" class="font-extrabold text-amber-400">75</span>
+                            </div>
+                            <div class="flex justify-between items-center bg-slate-950/60 p-3 rounded-xl">
+                                <span class="text-slate-400 text-sm">Tổng Cầu Thủ</span>
+                                <span id="dash-squad-count" class="font-bold text-slate-200">22</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Club Finances Summary Card -->
+                    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-sm">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="font-bold text-slate-200 flex items-center gap-2">
+                                <i class="fa-solid fa-chart-line text-amber-400"></i> Tình Hình Tài Chính
+                            </h3>
+                            <button onclick="switchTab('finance')" class="text-xs text-amber-400 hover:underline">Chi tiết &rarr;</button>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center bg-slate-950/60 p-3 rounded-xl">
+                                <span class="text-slate-400 text-sm">Doanh thu / Trận sân nhà</span>
+                                <span id="dash-ticket-rev" class="font-semibold text-emerald-400">+$450K</span>
+                            </div>
+                            <div class="flex justify-between items-center bg-slate-950/60 p-3 rounded-xl">
+                                <span class="text-slate-400 text-sm">Quỹ Lương Hàng Tuần</span>
+                                <span id="dash-wage-cost" class="font-semibold text-red-400">-$210K</span>
+                            </div>
+                            <div class="flex justify-between items-center bg-slate-950/60 p-3 rounded-xl">
+                                <span class="text-slate-400 text-sm">Hợp đồng tài trợ</span>
+                                <span id="dash-sponsor-name" class="font-semibold text-amber-300">VietCorp ($500K/vòng)</span>
+                            </div>
+                            <div class="flex justify-between items-center bg-slate-950/60 p-3 rounded-xl">
+                                <span class="text-slate-400 text-sm">Sức chứa Sân</span>
+                                <span id="dash-stadium-cap" class="font-semibold text-slate-200">25,000 chỗ</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Manager Info Card -->
+                    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-sm">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="font-bold text-slate-200 flex items-center gap-2">
+                                <i class="fa-solid fa-user-shield text-indigo-400"></i> Ban Lãnh Đạo
+                            </h3>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="bg-slate-950/60 p-3 rounded-xl space-y-1">
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-slate-400">Độ tin tưởng BLĐ</span>
+                                    <span id="board-confidence" class="font-bold text-emerald-400">85%</span>
+                                </div>
+                                <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                                    <div id="board-confidence-bar" class="bg-emerald-500 h-full rounded-full" style="width: 85%"></div>
+                                </div>
+                            </div>
+                            <div class="bg-slate-950/60 p-3 rounded-xl space-y-1">
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-slate-400">Uy tín Huấn Luyện Viên</span>
+                                    <span id="manager-rep" class="font-bold text-amber-400">68/100</span>
+                                </div>
+                                <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                                    <div id="manager-rep-bar" class="bg-amber-500 h-full rounded-full" style="width: 68%"></div>
+                                </div>
+                            </div>
+                            <div class="p-3 bg-emerald-950/30 border border-emerald-500/20 rounded-xl text-xs text-emerald-300">
+                                <i class="fa-solid fa-circle-info mr-1"></i> <span id="board-objective-text">Mục tiêu BLĐ đang tải...</span>
+                            </div>
+                            <div class="p-2 mt-2 text-[10px] text-slate-500" id="achievements-mini">Thành tựu: 0</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Form & Activity Log -->
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-sm">
+                    <h3 class="font-bold text-slate-200 mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-history text-slate-400"></i> Phong Độ Gần Đây
+                    </h3>
+                    <div id="recent-results-list" class="flex items-center gap-3 overflow-x-auto pb-2">
+                        <!-- Filled dynamically -->
+                        <span class="text-slate-500 text-sm italic">Chưa có trận đấu nào trong mùa giải.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: TACTICS & SQUAD -->
+            <div id="tab-tactics" class="tab-content hidden space-y-6">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <!-- Left: Interactive Pitch Diagram -->
+                    <div class="lg:col-span-7 bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-md flex flex-col">
+                        <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+                            <div>
+                                <h3 class="font-bold text-slate-100 flex items-center gap-2">
+                                    <i class="fa-solid fa-futbol text-emerald-400"></i> Sa Bàn Chiến Thuật
+                                </h3>
+                                <p class="text-xs text-slate-400">Kéo/Click cầu thủ để tùy chỉnh vị trí chính thức</p>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <label class="text-xs text-slate-400 font-semibold">Sơ đồ:</label>
+                                <select id="formation-select" onchange="changeFormation(this.value)" class="bg-slate-800 border border-slate-700 text-slate-200 text-sm rounded-lg px-3 py-1.5 font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                                    <option value="4-3-3">4-3-3 (Tấn Công)</option>
+                                    <option value="4-4-2">4-4-2 (Cân Bằng)</option>
+                                    <option value="4-2-3-1">4-2-3-1 (Kiểm Soát)</option>
+                                    <option value="3-5-2">3-5-2 (Trung Tâm)</option>
+                                    <option value="5-3-2">5-3-2 (Phòng Ngự)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- 2D Pitch Layout -->
+                        <div class="relative w-full aspect-[3/4] pitch-bg rounded-xl border-2 border-emerald-400/40 shadow-inner overflow-hidden flex flex-col justify-between p-4 my-auto">
+                            <!-- Center line -->
+                            <div class="absolute top-1/2 left-0 w-full h-0.5 bg-white/30 transform -translate-y-1/2 pointer-events-none"></div>
+                            <div class="absolute top-1/2 left-1/2 w-24 h-24 border-2 border-white/30 rounded-full transform -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
+                            <!-- Goal Penalty Boxes -->
+                            <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-1/2 h-1/6 border-b-2 border-x-2 border-white/30 pointer-events-none"></div>
+                            <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1/2 h-1/6 border-t-2 border-x-2 border-white/30 pointer-events-none"></div>
+
+                            <!-- Interactive Players Overlay on Pitch -->
+                            <div id="pitch-players-container" class="relative z-10 w-full h-full flex flex-col justify-between py-2">
+                                <!-- Populated dynamically by JS -->
+                            </div>
+                        </div>
+
+                        <!-- Tactical Style Options -->
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mt-4">
+                            <div>
+                                <label class="text-[11px] uppercase tracking-wider text-slate-400 font-bold block mb-1">Lối Chơi</label>
+                                <select id="style-select" onchange="updateTacticsStyle()" class="w-full bg-slate-800 border border-slate-700 text-xs rounded-lg px-2.5 py-2 text-slate-200">
+                                    <option value="Tấn Công Đột Phá">Tấn Công Đột Phá</option>
+                                    <option value="Kiểm Soát Bóng (Tiki-Taka)">Kiểm Soát (Tiki-Taka)</option>
+                                    <option value="Phòng Ngự Phản Công">Phòng Ngự Phản Công</option>
+                                    <option value="Xe Buýt 2 Tầng">Xe Buýt 2 Tầng</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="text-[11px] uppercase tracking-wider text-slate-400 font-bold block mb-1">Cường Độ Chặn Bóng</label>
+                                <select id="press-select" class="w-full bg-slate-800 border border-slate-700 text-xs rounded-lg px-2.5 py-2 text-slate-200">
+                                    <option value="Gây Áp Lực Tầm Cao">Gây Áp Lực Tầm Cao</option>
+                                    <option value="Trung Bình">Trung Bình</option>
+                                    <option value="Lùi Sâu Phòng Ngự">Lùi Sâu Phòng Ngự</option>
+                                </select>
+                            </div>
+                            <div class="col-span-2 md:col-span-1">
+                                <label class="text-[11px] uppercase tracking-wider text-slate-400 font-bold block mb-1">Đá Phạt Đền</label>
+                                <select id="penalty-taker-select" class="w-full bg-slate-800 border border-slate-700 text-xs rounded-lg px-2.5 py-2 text-slate-200">
+                                    <!-- Options filled dynamically -->
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Squad Players Roster List -->
+                    <div class="lg:col-span-5 bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-md flex flex-col max-h-[700px]">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="font-bold text-slate-100 flex items-center gap-2">
+                                <i class="fa-solid fa-list text-slate-400"></i> Danh Sách Cầu Thủ
+                            </h3>
+                            <span class="text-xs text-slate-400" id="squad-starting-count">11 / 11 Ra Sân</span>
+                        </div>
+
+                        <!-- Player List Table -->
+                        <div class="flex-1 overflow-y-auto space-y-2 pr-1" id="squad-roster-list">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: TRANSFERS & YOUTH -->
+            <div id="tab-transfers" class="tab-content hidden space-y-6">
+                <!-- Market Tabs Filter -->
+                <div class="flex border-b border-slate-800 gap-4">
+                    <button id="subtab-btn-market" onclick="switchTransferSubtab('market')" class="pb-3 px-2 font-bold text-sm text-emerald-400 border-b-2 border-emerald-400">
+                        <i class="fa-solid fa-store mr-1"></i> Thị Trường Chuyển Nhượng
+                    </button>
+                    <button id="subtab-btn-youth" onclick="switchTransferSubtab('youth')" class="pb-3 px-2 font-semibold text-sm text-slate-400 hover:text-slate-200">
+                        <i class="fa-solid fa-graduation-cap mr-1"></i> Học Viện Trẻ
+                    </button>
+                </div>
+
+                <!-- SUBTAB: MARKET LIST -->
+                <div id="subtab-market" class="space-y-4">
+                    <div class="flex flex-wrap items-center justify-between gap-3 bg-slate-900 p-4 rounded-xl border border-slate-800">
+                        <div class="flex items-center gap-2 flex-1 min-w-[200px]">
+                            <i class="fa-solid fa-magnifying-glass text-slate-400 text-sm"></i>
+                            <input type="text" id="transfer-search" onkeyup="filterTransferMarket()" placeholder="Tìm kiếm tên cầu thủ..." class="bg-slate-800 border border-slate-700 text-slate-200 text-xs rounded-lg px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <select id="transfer-pos-filter" onchange="filterTransferMarket()" class="bg-slate-800 border border-slate-700 text-slate-200 text-xs rounded-lg px-3 py-2">
+                                <option value="ALL">Tất cả vị trí</option>
+                                <option value="FW">Tiền đạo (ST, RW, LW)</option>
+                                <option value="MF">Tiền vệ (CM, CAM, CDM)</option>
+                                <option value="DF">Hậu vệ (CB, LB, RB)</option>
+                                <option value="GK">Thủ môn (GK)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="transfer-market-cards">
+                        <!-- Populated dynamically -->
+                    </div>
+                </div>
+
+                <!-- SUBTAB: YOUTH ACADEMY -->
+                <div id="subtab-youth" class="hidden space-y-4">
+                    <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl flex items-center justify-between">
+                        <div>
+                            <h3 class="font-bold text-slate-100 flex items-center gap-2">
+                                <i class="fa-solid fa-wand-magic-sparkles text-amber-400"></i> Tuyển Trạch Tài Năng Trẻ
+                            </h3>
+                            <p class="text-xs text-slate-400 mt-1">Cử tuyển trạch viên tìm kiếm thần đồng tiềm năng mới ($200K / lần)</p>
+                        </div>
+                        <button onclick="scoutNewYouthPlayer()" class="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs rounded-xl transition shadow">
+                            <i class="fa-solid fa-binoculars mr-1"></i> Tìm Cầu Thủ Trẻ ($200K)
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="youth-academy-cards">
+                        <!-- Populated dynamically -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 4: LEAGUE & FIXTURES -->
+            <div id="tab-league" class="tab-content hidden space-y-6">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <!-- Standings Table -->
+                    <div class="lg:col-span-8 bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-md">
+                        <h3 class="font-bold text-slate-100 mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-list-ol text-emerald-400"></i> Bảng Xếp Hạng Giải VĐQG
+                        </h3>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-sm text-left text-slate-300">
+                                <thead class="text-xs uppercase bg-slate-950 text-slate-400 border-b border-slate-800">
+                                    <tr>
+                                        <th class="px-3 py-3 text-center">#</th>
+                                        <th class="px-4 py-3">Đội Bóng</th>
+                                        <th class="px-2 py-3 text-center">ST</th>
+                                        <th class="px-2 py-3 text-center">T</th>
+                                        <th class="px-2 py-3 text-center">H</th>
+                                        <th class="px-2 py-3 text-center">B</th>
+                                        <th class="px-2 py-3 text-center">BT</th>
+                                        <th class="px-2 py-3 text-center">BB</th>
+                                        <th class="px-2 py-3 text-center">HS</th>
+                                        <th class="px-3 py-3 text-center font-bold text-emerald-400">ĐIỂM</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="league-standings-body" class="divide-y divide-slate-800/60">
+                                    <!-- Populated dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Top Scorers & Fixtures list -->
+                    <div class="lg:col-span-4 space-y-6">
+                        <!-- Top Scorers -->
+                        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-md">
+                            <h3 class="font-bold text-slate-100 mb-3 flex items-center gap-2">
+                                <i class="fa-solid fa-fire text-amber-400"></i> Vua Phá Lưới
+                            </h3>
+                            <div class="space-y-2" id="top-scorers-list">
+                                <!-- Populated dynamically -->
+                            </div>
+                        </div>
+
+                        <!-- Next Fixtures -->
+                        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-md">
+                            <h3 class="font-bold text-slate-100 mb-3 flex items-center gap-2">
+                                <i class="fa-solid fa-calendar text-indigo-400"></i> Lịch Thi Đấu Vòng Này
+                            </h3>
+                            <div class="space-y-2" id="current-fixtures-list">
+                                <!-- Populated dynamically -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 5: FACILITIES -->
+            <div id="tab-facilities" class="tab-content hidden space-y-6">
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5">
+                    <h2 class="text-xl font-extrabold text-slate-100 mb-1">Cơ Sở Vật Chất Câu Lạc Bộ</h2>
+                    <p class="text-slate-400 text-xs">Nâng cấp cơ sở vật chất giúp tăng doanh thu, tốc độ phát triển cầu thủ và rút ngắn thời gian hồi phục chấn thương.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="facilities-list-container">
+                    <!-- Filled dynamically -->
+                </div>
+            </div>
+
+            <!-- TAB 6: FINANCES -->
+            <div id="tab-finance" class="tab-content hidden space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Sponsorship Deals -->
+                    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-md">
+                        <h3 class="font-bold text-slate-100 mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-handshake text-amber-400"></i> Hợp Đồng Tài Trợ
+                        </h3>
+                        <div class="space-y-3" id="sponsors-container">
+                            <!-- Filled dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Financial Ledger Summary -->
+                    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-md">
+                        <h3 class="font-bold text-slate-100 mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-scale-balanced text-emerald-400"></i> Báo Cáo Tài Chính Hàng Vòng
+                        </h3>
+                        <div class="space-y-3 text-sm">
+                            <div class="flex justify-between p-3 bg-slate-950/60 rounded-xl">
+                                <span class="text-slate-400">Vé Bán Sân Nhà (Dự kiến):</span>
+                                <span id="fin-ticket-est" class="text-emerald-400 font-bold">+$450,000</span>
+                            </div>
+                            <div class="flex justify-between p-3 bg-slate-950/60 rounded-xl">
+                                <span class="text-slate-400">Tài Trợ Hàng Vòng:</span>
+                                <span id="fin-sponsor-est" class="text-emerald-400 font-bold">+$500,000</span>
+                            </div>
+                            <div class="flex justify-between p-3 bg-slate-950/60 rounded-xl">
+                                <span class="text-slate-400">Tổng Quỹ Lương Trả Cầu Thủ:</span>
+                                <span id="fin-wages-est" class="text-red-400 font-bold">-$210,000</span>
+                            </div>
+                            <div class="flex justify-between p-3 bg-slate-950/60 rounded-xl border-t border-slate-800">
+                                <span class="text-slate-200 font-bold">Lợi Nhuận Thuần / Trận Sân Nhà:</span>
+                                <span id="fin-net-est" class="text-amber-400 font-black">+$740,000</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+
+    
+    <!-- SUBSTITUTION PANEL -->
+    <div id="sub-panel" class="fixed inset-0 bg-black/70 z-[70] hidden flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-700 rounded-2xl p-5 max-w-lg w-full max-h-[80vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="font-bold text-slate-100"><i class="fa-solid fa-right-left text-indigo-400"></i> Thay người</h3>
+                <button onclick="closeSubPanel()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <p class="text-xs text-slate-400 mb-3">Chọn cầu thủ ra → chọn cầu thủ vào. Còn <span id="subs-left-panel" class="text-indigo-300 font-bold">3</span> lượt.</p>
+            <div class="grid grid-cols-2 gap-3">
+                <div>
+                    <div class="text-[10px] uppercase text-slate-500 font-bold mb-2">Đang đá</div>
+                    <div id="sub-out-list" class="space-y-1 max-h-60 overflow-y-auto"></div>
+                </div>
+                <div>
+                    <div class="text-[10px] uppercase text-slate-500 font-bold mb-2">Dự bị</div>
+                    <div id="sub-in-list" class="space-y-1 max-h-60 overflow-y-auto"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SEASON END MODAL -->
+    <div id="season-end-modal" class="fixed inset-0 bg-slate-950/95 z-[80] hidden flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-slate-900 border border-emerald-500/30 rounded-2xl p-6 max-w-xl w-full shadow-2xl">
+            <h2 class="text-2xl font-black text-white mb-1 text-center">🏆 Kết Thúc Mùa Giải</h2>
+            <p id="season-end-year" class="text-center text-slate-400 text-sm mb-4"></p>
+            <div id="season-end-content" class="space-y-3 text-sm"></div>
+            <button onclick="startNewSeason()" class="w-full mt-6 py-3 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black rounded-xl">
+                Bắt Đầu Mùa Mới
+            </button>
+        </div>
+    </div>
+
+    <!-- ACHIEVEMENT TOAST -->
+    <div id="ach-toast" class="fixed top-20 right-4 z-[90] hidden">
+        <div class="bg-amber-500 text-slate-950 px-4 py-3 rounded-xl shadow-lg font-bold text-sm flex items-center gap-2">
+            <i class="fa-solid fa-trophy"></i>
+            <span id="ach-toast-text">Thành tựu mở khóa!</span>
+        </div>
+    </div>
+
+
+    <!-- ========== LOGIN (no register) ========== -->
+    <div id="login-modal" class="fixed inset-0 bg-slate-950 z-[100] flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-700 rounded-2xl p-8 max-w-md w-full shadow-2xl">
+            <div class="text-center mb-6">
+                <div class="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-2xl font-black text-white mb-3">FC</div>
+                <h1 class="text-2xl font-black text-white">Football Club Manager</h1>
+                <p class="text-slate-400 text-sm mt-1">Đăng nhập tài khoản (tạo trong Firebase Auth)</p>
+            </div>
+            <div id="server-announcement" class="hidden mb-4 p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-200 text-xs"></div>
+            <form id="login-form" class="space-y-3" onsubmit="return false;">
+                <div>
+                    <label class="text-xs text-slate-500 font-bold uppercase">Email</label>
+                    <input id="login-email" type="email" required autocomplete="username"
+                        class="mt-1 w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-sm focus:border-emerald-500 outline-none" placeholder="email@example.com">
+                </div>
+                <div>
+                    <label class="text-xs text-slate-500 font-bold uppercase">Mật khẩu</label>
+                    <input id="login-password" type="password" required autocomplete="current-password"
+                        class="mt-1 w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-sm focus:border-emerald-500 outline-none" placeholder="••••••••">
+                </div>
+                <p id="login-error" class="text-red-400 text-xs hidden"></p>
+                <button type="submit" id="btn-login" class="w-full py-3 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black rounded-xl transition">
+                    Đăng nhập
+                </button>
+            </form>
+            <p class="text-[11px] text-slate-500 text-center mt-4">Không có đăng ký trên web. Admin tạo tài khoản trong Firebase Console.</p>
+            <p class="text-[11px] text-center mt-2"><a href="admin.html" class="text-emerald-500/80 hover:underline">Trang quản trị</a></p>
+        </div>
+    </div>
+
+    <!-- ========== CHỌN: CLB CÓ SẴN / TỰ TẠO ========== -->
+    <div id="club-mode-modal" class="fixed inset-0 bg-slate-950/98 z-[90] hidden flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-700 rounded-2xl p-8 max-w-lg w-full">
+            <div class="flex justify-between items-start mb-6">
+                <div>
+                    <h2 class="text-xl font-black text-white">Xin chào, <span id="welcome-name" class="text-emerald-400">HLV</span></h2>
+                    <p class="text-slate-400 text-sm mt-1">Bạn muốn dẫn dắt đội nào?</p>
+                </div>
+                <button onclick="window.fmLogout && fmLogout()" class="text-slate-500 hover:text-red-400 text-sm"><i class="fa-solid fa-right-from-bracket"></i></button>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <button onclick="chooseClubMode('existing')" class="p-5 rounded-xl border border-slate-700 bg-slate-950 hover:border-emerald-500/50 hover:bg-emerald-950/20 text-left transition group">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl mb-3 group-hover:scale-110 transition"><i class="fa-solid fa-building"></i></div>
+                    <h3 class="font-bold text-white">CLB có sẵn</h3>
+                    <p class="text-xs text-slate-400 mt-1">Chọn đội trong các giải đấu (Premier, La Liga, V.League...)</p>
+                </button>
+                <button onclick="chooseClubMode('custom')" id="btn-custom-club" class="p-5 rounded-xl border border-slate-700 bg-slate-950 hover:border-indigo-500/50 hover:bg-indigo-950/20 text-left transition group">
+                    <div class="w-12 h-12 rounded-xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-xl mb-3 group-hover:scale-110 transition"><i class="fa-solid fa-plus"></i></div>
+                    <h3 class="font-bold text-white">Tự tạo CLB</h3>
+                    <p class="text-xs text-slate-400 mt-1">Tạo câu lạc bộ riêng với tên, logo, ngân sách của bạn</p>
+                </button>
+            </div>
+            <div id="admin-quick-link" class="hidden mt-4 text-center">
+                <a href="admin.html" class="text-xs text-amber-400 hover:underline"><i class="fa-solid fa-shield-halved"></i> Mở trang Admin</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== TẠO CLB CUSTOM ========== -->
+    <div id="custom-club-modal" class="fixed inset-0 bg-slate-950/98 z-[95] hidden flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-slate-900 border border-slate-700 rounded-2xl p-6 max-w-md w-full my-8">
+            <h2 class="text-xl font-black mb-4">Tạo câu lạc bộ riêng</h2>
+            <div class="space-y-3">
+                <div>
+                    <label class="text-xs text-slate-500 font-bold">Tên CLB *</label>
+                    <input id="custom-club-name" class="mt-1 w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-sm" placeholder="VD: Sài Gòn United">
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="text-xs text-slate-500 font-bold">Viết tắt</label>
+                        <input id="custom-club-badge" maxlength="4" class="mt-1 w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-sm" placeholder="SGU">
+                    </div>
+                    <div>
+                        <label class="text-xs text-slate-500 font-bold">OVR khởi điểm</label>
+                        <input id="custom-club-ovr" type="number" min="60" max="85" value="70" class="mt-1 w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-sm">
+                    </div>
+                </div>
+                <div>
+                    <label class="text-xs text-slate-500 font-bold">Sân nhà</label>
+                    <input id="custom-club-stadium" class="mt-1 w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-sm" placeholder="Sân Thống Nhất">
+                </div>
+                <div>
+                    <label class="text-xs text-slate-500 font-bold">Ngân sách ($)</label>
+                    <input id="custom-club-budget" type="number" value="25000000" step="1000000" class="mt-1 w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-sm">
+                </div>
+                <div>
+                    <label class="text-xs text-slate-500 font-bold">URL Logo (tùy chọn)</label>
+                    <input id="custom-club-logo" class="mt-1 w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-sm" placeholder="https://...">
+                </div>
+                <p id="custom-club-error" class="text-red-400 text-xs hidden"></p>
+                <div class="flex gap-2 pt-2">
+                    <button onclick="document.getElementById('custom-club-modal').classList.add('hidden');document.getElementById('club-mode-modal').classList.remove('hidden')" class="flex-1 py-2.5 bg-slate-800 rounded-xl text-sm">Quay lại</button>
+                    <button onclick="submitCustomClub()" class="flex-1 py-2.5 bg-indigo-500 hover:bg-indigo-400 text-white font-bold rounded-xl text-sm">Tạo & chơi</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CLUB / LEAGUE SELECTION MODAL (NEW GAME) -->
+    <div id="club-select-modal" class="fixed inset-0 bg-slate-950/98 z-[60] hidden flex flex-col items-center justify-center p-4 overflow-y-auto">
+        <div class="max-w-4xl w-full">
+            <div class="text-center mb-8">
+                <div class="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-tr from-emerald-500 to-teal-400 text-white text-4xl font-black mb-4 shadow-lg shadow-emerald-900/40">
+                    <i class="fa-solid fa-futbol"></i>
+                </div>
+                <h1 class="text-3xl md:text-4xl font-black text-white mb-2">Chủ Sở Hữu Đội Bóng</h1>
+                <p class="text-slate-400 text-sm">Chọn giải đấu và câu lạc bộ bạn muốn quản lý</p>
+            </div>
+
+            <!-- Step 1: League -->
+            <div id="step-league" class="space-y-4">
+                <h2 class="text-lg font-bold text-emerald-400 flex items-center gap-2"><i class="fa-solid fa-trophy"></i> Bước 1: Chọn Giải Đấu</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="league-cards">
+                    <!-- Filled by JS -->
+                </div>
+            </div>
+
+            <!-- Step 2: Club -->
+            <div id="step-club" class="hidden space-y-4">
+                <div class="flex items-center justify-between">
+                    <h2 class="text-lg font-bold text-emerald-400 flex items-center gap-2"><i class="fa-solid fa-shield-halved"></i> Bước 2: Chọn Câu Lạc Bộ</h2>
+                    <button onclick="backToLeagueStep()" class="text-xs text-slate-400 hover:text-white flex items-center gap-1">
+                        <i class="fa-solid fa-arrow-left"></i> Quay lại
+                    </button>
+                </div>
+                <p id="selected-league-label" class="text-sm text-slate-400"></p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 max-h-[55vh] overflow-y-auto pr-1" id="club-cards">
+                    <!-- Filled by JS -->
+                </div>
+            </div>
+
+            <!-- Manager name -->
+            <div id="step-manager" class="hidden space-y-4 mt-6">
+                <h2 class="text-lg font-bold text-emerald-400 flex items-center gap-2"><i class="fa-solid fa-user-tie"></i> Bước 3: Tên Huấn Luyện Viên</h2>
+                <input type="text" id="input-manager-name" placeholder="Nhập tên HLV của bạn..." value="Nguyễn Văn A" maxlength="30"
+                    class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-slate-100 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                <button onclick="confirmStartGame()" class="w-full py-3.5 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-black rounded-xl shadow-lg text-lg flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-play"></i> Bắt Đầu Quản Lý
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- LIVE MATCH MODAL (FULLSCREEN ENGINE) -->
+    <div id="match-modal" class="fixed inset-0 bg-slate-950/95 z-50 hidden flex flex-col justify-between overflow-y-auto backdrop-blur-md">
+        <!-- Top Scoreboard Bar -->
+        <div class="bg-slate-900/90 border-b border-slate-800 p-4 sticky top-0 z-20">
+            <div class="max-w-5xl mx-auto flex items-center justify-between">
+                <!-- Home Team -->
+                <div class="flex items-center gap-3 w-1/3">
+                    <div id="sim-home-badge" class="w-12 h-12 rounded-xl bg-emerald-600 flex items-center justify-center font-black text-xl text-white shadow">RV</div>
+                    <div class="hidden sm:block">
+                        <h3 id="sim-home-name" class="font-extrabold text-slate-100 text-sm">Rồng Vàng FC</h3>
+                        <span class="text-[11px] text-emerald-400 font-semibold" id="sim-home-tactic">4-3-3</span>
+                    </div>
+                </div>
+
+                <!-- Score & Clock -->
+                <div class="text-center w-1/3">
+                    <div class="inline-block px-3 py-1 bg-slate-800 rounded-full border border-slate-700 text-xs font-bold text-amber-400 mb-1" id="sim-clock">
+                        00' - Hiệp 1
+                    </div>
+                    <div class="text-3xl sm:text-4xl font-black text-white tracking-widest flex items-center justify-center gap-3">
+                        <span id="sim-home-score">0</span>
+                        <span class="text-slate-600 text-2xl">-</span>
+                        <span id="sim-away-score">0</span>
+                    </div>
+                </div>
+
+                <!-- Away Team -->
+                <div class="flex items-center justify-end gap-3 w-1/3 text-right">
+                    <div class="hidden sm:block">
+                        <h3 id="sim-away-name" class="font-extrabold text-slate-100 text-sm">Hồ Tây Utd</h3>
+                        <span class="text-[11px] text-slate-400 font-semibold" id="sim-away-tactic">4-4-2</span>
+                    </div>
+                    <div id="sim-away-badge" class="w-12 h-12 rounded-xl bg-slate-800 flex items-center justify-center font-black text-xl text-slate-200 shadow border border-slate-700">HT</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Middle: 2D Radar Pitch & Live Commentary -->
+        <div class="max-w-5xl mx-auto w-full p-4 flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+            
+            <!-- Live 2D Match Pitch Radar -->
+            <div class="lg:col-span-7 bg-slate-900 border border-slate-800 rounded-2xl p-4 flex flex-col items-center">
+                <div class="relative w-full aspect-[4/3] pitch-bg rounded-xl border-2 border-emerald-400/50 shadow-2xl overflow-hidden">
+                    <!-- Lines -->
+                    <div class="absolute top-0 bottom-0 left-1/2 w-0.5 bg-white/30 transform -translate-x-1/2"></div>
+                    <div class="absolute top-1/2 left-1/2 w-28 h-28 border-2 border-white/30 rounded-full transform -translate-x-1/2 -translate-y-1/2"></div>
+                    
+                    <!-- Goals -->
+                    <div class="absolute top-1/2 left-0 h-24 w-2 border-2 border-white transform -translate-y-1/2 bg-white/20"></div>
+                    <div class="absolute top-1/2 right-0 h-24 w-2 border-2 border-white transform -translate-y-1/2 bg-white/20"></div>
+
+                    <!-- Animated Ball -->
+                    <div id="sim-ball" class="absolute w-4 h-4 bg-amber-400 rounded-full border-2 border-slate-950 shadow-lg transform -translate-x-1/2 -translate-y-1/2 transition-all duration-500 ease-out z-20" style="left: 50%; top: 50%;"></div>
+
+                    <!-- Home Players (Green Dots) -->
+                    <div id="sim-home-dots"></div>
+                    <!-- Away Players (Red/White Dots) -->
+                    <div id="sim-away-dots"></div>
+                </div>
+
+                <!-- Live Match Stats Bar -->
+                <div class="w-full grid grid-cols-3 gap-2 mt-4 text-center text-xs">
+                    <div class="bg-slate-950 p-2 rounded-xl">
+                        <div class="text-slate-400 text-[10px] uppercase">Kiểm Soát Bóng</div>
+                        <div class="font-bold text-slate-200 flex justify-between px-2 mt-1">
+                            <span id="stat-pos-home" class="text-emerald-400">50%</span>
+                            <span id="stat-pos-away" class="text-red-400">50%</span>
+                        </div>
+                    </div>
+                    <div class="bg-slate-950 p-2 rounded-xl">
+                        <div class="text-slate-400 text-[10px] uppercase">Sút Trúng Đích</div>
+                        <div class="font-bold text-slate-200 flex justify-between px-2 mt-1">
+                            <span id="stat-shots-home" class="text-emerald-400">0</span>
+                            <span id="stat-shots-away" class="text-red-400">0</span>
+                        </div>
+                    </div>
+                    <div class="bg-slate-950 p-2 rounded-xl">
+                        <div class="text-slate-400 text-[10px] uppercase">Phạm Lỗi / Thẻ</div>
+                        <div class="font-bold text-slate-200 flex justify-between px-2 mt-1">
+                            <span id="stat-fouls-home" class="text-emerald-400">0/0</span>
+                            <span id="stat-fouls-away" class="text-red-400">0/0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Live Text Ticker / Commentary Container -->
+            <div class="lg:col-span-5 bg-slate-900 border border-slate-800 rounded-2xl p-4 h-[380px] flex flex-col">
+                <h4 class="font-bold text-slate-200 text-sm mb-3 flex items-center gap-2 border-b border-slate-800 pb-2">
+                    <i class="fa-solid fa-microphone-lines text-emerald-400"></i> Bình Luận Diễn Biến Trận Đấu
+                </h4>
+                <div id="sim-commentary-box" class="flex-1 overflow-y-auto space-y-2 pr-1 text-xs">
+                    <div class="text-slate-500 italic">Trận đấu chuẩn bị bắt đầu...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Controls Bar -->
+        <div class="bg-slate-900/90 border-t border-slate-800 p-4 sticky bottom-0 z-20">
+            <div class="max-w-5xl mx-auto flex items-center justify-between gap-4">
+                <div class="flex items-center gap-2">
+                    <button id="btn-match-speed" onclick="toggleMatchSpeed()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold rounded-lg border border-slate-700">
+                        Tốc độ: <span id="speed-label" class="text-emerald-400 font-bold">1x</span>
+                    </button>
+                    <button id="btn-match-pause" onclick="toggleMatchPause()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold rounded-lg border border-slate-700">
+                        <i class="fa-solid fa-pause"></i> Tạm Dừng
+                    </button>
+                </div>
+
+                <div id="sim-mid-tactics" class="hidden sm:flex items-center gap-2 flex-wrap">
+                    <span class="text-xs text-slate-400">Thế trận:</span>
+                    <button onclick="setMidMatchMentality('ATTACK')" class="px-2.5 py-1 bg-emerald-950 border border-emerald-500/40 text-emerald-400 text-xs rounded font-medium hover:bg-emerald-900">Tấn Công</button>
+                    <button onclick="setMidMatchMentality('BALANCED')" class="px-2.5 py-1 bg-slate-800 border border-slate-700 text-slate-300 text-xs rounded font-medium hover:bg-slate-700">Cân Bằng</button>
+                    <button onclick="setMidMatchMentality('DEFEND')" class="px-2.5 py-1 bg-amber-950 border border-amber-500/40 text-amber-400 text-xs rounded font-medium hover:bg-amber-900">Phòng Ngự</button>
+                    <button onclick="openSubPanel()" id="btn-sub" class="px-2.5 py-1 bg-indigo-950 border border-indigo-500/40 text-indigo-300 text-xs rounded font-medium hover:bg-indigo-900">
+                        <i class="fa-solid fa-right-left"></i> Thay người (<span id="subs-left">3</span>)
+                    </button>
+                    <span id="match-weather" class="text-xs text-slate-400 ml-1"><i class="fa-solid fa-sun"></i> Nắng</span>
+                </div>
+
+                <div>
+                    <button id="btn-finish-match" onclick="closeMatchModal()" class="hidden px-5 py-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-sm rounded-xl shadow">
+                        Hoàn Thành & Trở Về
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="js/game.js"></script>
+</body>
+</html>
