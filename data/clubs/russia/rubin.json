@@ -1,0 +1,34 @@
+{
+  "id": "rubin",
+  "name": "Rubin Kazan",
+  "short": "Rubin",
+  "badge": "RUB",
+  "ovr": 73,
+  "budget": 20000000.0,
+  "stadium": "Ak Bars Arena",
+  "capacity": 45000,
+  "league": "russia",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/1231.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Mirlind Daku",
+      "pos": "ST",
+      "rating": 74,
+      "age": 28,
+      "birthYear": 1998,
+      "nation": "Kosovo",
+      "nationality": "Kosovo",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 77,
+      "wage": 103600,
+      "value": 13320000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

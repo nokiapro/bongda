@@ -1,0 +1,53 @@
+{
+  "id": "juventus",
+  "name": "Juventus",
+  "short": "Juve",
+  "badge": "JUV",
+  "ovr": 83,
+  "budget": 95000000.0,
+  "stadium": "Allianz Stadium",
+  "capacity": 41000,
+  "league": "seriea",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/506.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Dušan Vlahović",
+      "pos": "ST",
+      "rating": 85,
+      "age": 26,
+      "birthYear": 2000,
+      "nation": "Serbia",
+      "nationality": "Serbia",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 88,
+      "wage": 119000,
+      "value": 15300000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    },
+    {
+      "id": 101,
+      "name": "Bremer",
+      "pos": "CB",
+      "rating": 92,
+      "age": 28,
+      "birthYear": 1998,
+      "nation": "Brazil",
+      "nationality": "Brazil",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 95,
+      "wage": 128800,
+      "value": 16560000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

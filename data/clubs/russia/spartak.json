@@ -1,0 +1,34 @@
+{
+  "id": "spartak",
+  "name": "Spartak Moscow",
+  "short": "Spartak",
+  "badge": "SPA",
+  "ovr": 77,
+  "budget": 35000000.0,
+  "stadium": "Lukoil Arena",
+  "capacity": 45000,
+  "league": "russia",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/232.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Theo Bongonda",
+      "pos": "RW",
+      "rating": 78,
+      "age": 30,
+      "birthYear": 1996,
+      "nation": "DR Congo",
+      "nationality": "DR Congo",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 81,
+      "wage": 109200,
+      "value": 14040000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

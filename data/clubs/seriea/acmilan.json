@@ -1,0 +1,53 @@
+{
+  "id": "acmilan",
+  "name": "AC Milan",
+  "short": "Milan",
+  "badge": "ACM",
+  "ovr": 84,
+  "budget": 100000000.0,
+  "stadium": "San Siro",
+  "capacity": 80000,
+  "league": "seriea",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/5.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Rafael Leão",
+      "pos": "LW",
+      "rating": 87,
+      "age": 27,
+      "birthYear": 1999,
+      "nation": "Portugal",
+      "nationality": "Portugal",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 90,
+      "wage": 121800,
+      "value": 15660000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    },
+    {
+      "id": 101,
+      "name": "Mike Maignan",
+      "pos": "GK",
+      "rating": 92,
+      "age": 31,
+      "birthYear": 1995,
+      "nation": "France",
+      "nationality": "France",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 95,
+      "wage": 128800,
+      "value": 16560000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

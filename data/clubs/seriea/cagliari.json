@@ -1,0 +1,34 @@
+{
+  "id": "cagliari",
+  "name": "Cagliari",
+  "short": "Cagliari",
+  "badge": "CAG",
+  "ovr": 73,
+  "budget": 25000000.0,
+  "stadium": "Unipol Domus",
+  "capacity": 16000,
+  "league": "seriea",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/1390.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Roberto Piccoli",
+      "pos": "ST",
+      "rating": 75,
+      "age": 25,
+      "birthYear": 2001,
+      "nation": "Italy",
+      "nationality": "Italy",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 78,
+      "wage": 105000,
+      "value": 13500000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

@@ -1,0 +1,34 @@
+{
+  "id": "konyaspor",
+  "name": "Konyaspor",
+  "short": "Konyaspor",
+  "badge": "KON",
+  "ovr": 71,
+  "budget": 12000000.0,
+  "stadium": "Konya",
+  "capacity": 42000,
+  "league": "turkey",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/10281.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Umut Nayir",
+      "pos": "ST",
+      "rating": 72,
+      "age": 32,
+      "birthYear": 1994,
+      "nation": "Turkey",
+      "nationality": "Turkey",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 75,
+      "wage": 100800,
+      "value": 12960000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

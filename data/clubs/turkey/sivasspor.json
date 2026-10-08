@@ -1,0 +1,34 @@
+{
+  "id": "sivasspor",
+  "name": "Sivasspor",
+  "short": "Sivas",
+  "badge": "SIV",
+  "ovr": 71,
+  "budget": 12000000.0,
+  "stadium": "4 Eylül",
+  "capacity": 27000,
+  "league": "turkey",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/2381.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Rey Manaj",
+      "pos": "ST",
+      "rating": 74,
+      "age": 29,
+      "birthYear": 1997,
+      "nation": "Albania",
+      "nationality": "Albania",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 77,
+      "wage": 103600,
+      "value": 13320000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

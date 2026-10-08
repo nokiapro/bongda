@@ -1,0 +1,34 @@
+{
+  "id": "hatayspor",
+  "name": "Hatayspor",
+  "short": "Hatay",
+  "badge": "HAT",
+  "ovr": 70,
+  "budget": 10000000.0,
+  "stadium": "Mersin Arena",
+  "capacity": 25000,
+  "league": "turkey",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/453.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Carlos Strandberg",
+      "pos": "ST",
+      "rating": 72,
+      "age": 30,
+      "birthYear": 1996,
+      "nation": "Sweden",
+      "nationality": "Sweden",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 75,
+      "wage": 100800,
+      "value": 12960000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

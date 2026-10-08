@@ -1,0 +1,34 @@
+{
+  "id": "torino",
+  "name": "Torino",
+  "short": "Torino",
+  "badge": "TOR",
+  "ovr": 76,
+  "budget": 40000000.0,
+  "stadium": "Olimpico Grande Torino",
+  "capacity": 28000,
+  "league": "seriea",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/416.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Duván Zapata",
+      "pos": "ST",
+      "rating": 80,
+      "age": 35,
+      "birthYear": 1991,
+      "nation": "Colombia",
+      "nationality": "Colombia",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 83,
+      "wage": 112000,
+      "value": 14400000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

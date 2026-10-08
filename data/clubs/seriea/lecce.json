@@ -1,0 +1,34 @@
+{
+  "id": "lecce",
+  "name": "Lecce",
+  "short": "Lecce",
+  "badge": "LEC",
+  "ovr": 72,
+  "budget": 20000000.0,
+  "stadium": "Via del Mare",
+  "capacity": 31000,
+  "league": "seriea",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/1005.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Nikola Krstović",
+      "pos": "ST",
+      "rating": 75,
+      "age": 25,
+      "birthYear": 2001,
+      "nation": "Montenegro",
+      "nationality": "Montenegro",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 78,
+      "wage": 105000,
+      "value": 13500000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

@@ -1,0 +1,34 @@
+{
+  "id": "venezia",
+  "name": "Venezia",
+  "short": "Venezia",
+  "badge": "VEN",
+  "ovr": 70,
+  "budget": 18000000.0,
+  "stadium": "Pier Luigi Penzo",
+  "capacity": 12000,
+  "league": "seriea",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/6072.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Joel Pohjanpalo",
+      "pos": "ST",
+      "rating": 75,
+      "age": 32,
+      "birthYear": 1994,
+      "nation": "Finland",
+      "nationality": "Finland",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 78,
+      "wage": 105000,
+      "value": 13500000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

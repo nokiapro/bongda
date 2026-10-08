@@ -1,0 +1,34 @@
+{
+  "id": "samsunspor",
+  "name": "Samsunspor",
+  "short": "Samsun",
+  "badge": "SAM",
+  "ovr": 73,
+  "budget": 20000000.0,
+  "stadium": "19 Mayıs",
+  "capacity": 33000,
+  "league": "turkey",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/124.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Mariana",
+      "pos": "ST",
+      "rating": 74,
+      "age": 27,
+      "birthYear": 1999,
+      "nation": "Brazil",
+      "nationality": "Brazil",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 77,
+      "wage": 103600,
+      "value": 13320000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

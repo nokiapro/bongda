@@ -1,0 +1,53 @@
+{
+  "id": "galatasaray",
+  "name": "Galatasaray",
+  "short": "Gala",
+  "badge": "GS",
+  "ovr": 81,
+  "budget": 70000000.0,
+  "stadium": "Rams Park",
+  "capacity": 52000,
+  "league": "turkey",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/141.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Mauro Icardi",
+      "pos": "ST",
+      "rating": 84,
+      "age": 33,
+      "birthYear": 1993,
+      "nation": "Argentina",
+      "nationality": "Argentina",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 87,
+      "wage": 117600,
+      "value": 15120000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    },
+    {
+      "id": 101,
+      "name": "Victor Osimhen",
+      "pos": "ST",
+      "rating": 88,
+      "age": 27,
+      "birthYear": 1999,
+      "nation": "Nigeria",
+      "nationality": "Nigeria",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 91,
+      "wage": 123200,
+      "value": 15840000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

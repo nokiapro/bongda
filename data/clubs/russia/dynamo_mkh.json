@@ -1,0 +1,34 @@
+{
+  "id": "dynamo_mkh",
+  "name": "Dynamo Makhachkala",
+  "short": "Dynamo Makh",
+  "badge": "DM",
+  "ovr": 68,
+  "budget": 7000000.0,
+  "stadium": "Trud",
+  "capacity": 15000,
+  "league": "russia",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/129.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Jemal Tabidze",
+      "pos": "CB",
+      "rating": 70,
+      "age": 30,
+      "birthYear": 1996,
+      "nation": "Georgia",
+      "nationality": "Georgia",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 73,
+      "wage": 98000,
+      "value": 12600000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

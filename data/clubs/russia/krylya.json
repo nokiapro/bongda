@@ -1,0 +1,34 @@
+{
+  "id": "krylya",
+  "name": "Krylya Sovetov",
+  "short": "Krylya",
+  "badge": "KRY",
+  "ovr": 71,
+  "budget": 12000000.0,
+  "stadium": "Solidarnost Arena",
+  "capacity": 44000,
+  "league": "russia",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/1233.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Vladislav Shitov",
+      "pos": "ST",
+      "rating": 72,
+      "age": 23,
+      "birthYear": 2003,
+      "nation": "Russia",
+      "nationality": "Russia",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 75,
+      "wage": 100800,
+      "value": 12960000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

@@ -1,0 +1,53 @@
+{
+  "id": "napoli",
+  "name": "Napoli",
+  "short": "Napoli",
+  "badge": "NAP",
+  "ovr": 83,
+  "budget": 90000000.0,
+  "stadium": "Diego Maradona",
+  "capacity": 54000,
+  "league": "seriea",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/6195.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Romelu Lukaku",
+      "pos": "ST",
+      "rating": 84,
+      "age": 33,
+      "birthYear": 1993,
+      "nation": "Belgium",
+      "nationality": "Belgium",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 87,
+      "wage": 117600,
+      "value": 15120000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    },
+    {
+      "id": 101,
+      "name": "Khvicha Kvaratskhelia",
+      "pos": "LW",
+      "rating": 87,
+      "age": 25,
+      "birthYear": 2001,
+      "nation": "Georgia",
+      "nationality": "Georgia",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 90,
+      "wage": 121800,
+      "value": 15660000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

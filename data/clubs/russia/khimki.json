@@ -1,0 +1,34 @@
+{
+  "id": "khimki",
+  "name": "Khimki",
+  "short": "Khimki",
+  "badge": "KHI",
+  "ovr": 69,
+  "budget": 8000000.0,
+  "stadium": "Arena Khimki",
+  "capacity": 18000,
+  "league": "russia",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/128.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Anton Zabolotny",
+      "pos": "ST",
+      "rating": 70,
+      "age": 35,
+      "birthYear": 1991,
+      "nation": "Russia",
+      "nationality": "Russia",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 73,
+      "wage": 98000,
+      "value": 12600000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

@@ -1,0 +1,53 @@
+{
+  "id": "inter",
+  "name": "Inter Milan",
+  "short": "Inter",
+  "badge": "INT",
+  "ovr": 87,
+  "budget": 110000000.0,
+  "stadium": "San Siro",
+  "capacity": 80000,
+  "league": "seriea",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/46.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Lautaro Martínez",
+      "pos": "ST",
+      "rating": 89,
+      "age": 29,
+      "birthYear": 1997,
+      "nation": "Argentina",
+      "nationality": "Argentina",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 92,
+      "wage": 124600,
+      "value": 16020000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    },
+    {
+      "id": 101,
+      "name": "Nicolò Barella",
+      "pos": "CM",
+      "rating": 87,
+      "age": 29,
+      "birthYear": 1997,
+      "nation": "Italy",
+      "nationality": "Italy",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 90,
+      "wage": 121800,
+      "value": 15660000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

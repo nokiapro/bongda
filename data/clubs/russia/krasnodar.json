@@ -1,0 +1,53 @@
+{
+  "id": "krasnodar",
+  "name": "Krasnodar",
+  "short": "Krasnodar",
+  "badge": "KRA",
+  "ovr": 78,
+  "budget": 40000000.0,
+  "stadium": "Krasnodar Stadium",
+  "capacity": 35000,
+  "league": "russia",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/16704.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Jhon Córdoba",
+      "pos": "ST",
+      "rating": 80,
+      "age": 33,
+      "birthYear": 1993,
+      "nation": "Colombia",
+      "nationality": "Colombia",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 83,
+      "wage": 112000,
+      "value": 14400000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    },
+    {
+      "id": 101,
+      "name": "Eduard Spertsyan",
+      "pos": "CAM",
+      "rating": 80,
+      "age": 26,
+      "birthYear": 2000,
+      "nation": "Armenia",
+      "nationality": "Armenia",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 83,
+      "wage": 112000,
+      "value": 14400000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

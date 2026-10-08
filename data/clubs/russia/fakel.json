@@ -1,0 +1,34 @@
+{
+  "id": "fakel",
+  "name": "Fakel Voronezh",
+  "short": "Fakel",
+  "badge": "FAK",
+  "ovr": 69,
+  "budget": 8000000.0,
+  "stadium": "Tsentralnyi",
+  "capacity": 32000,
+  "league": "russia",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/126.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Evgeni Markov",
+      "pos": "ST",
+      "rating": 70,
+      "age": 32,
+      "birthYear": 1994,
+      "nation": "Russia",
+      "nationality": "Russia",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 73,
+      "wage": 98000,
+      "value": 12600000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

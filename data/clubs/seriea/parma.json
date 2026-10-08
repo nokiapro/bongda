@@ -1,0 +1,34 @@
+{
+  "id": "parma",
+  "name": "Parma",
+  "short": "Parma",
+  "badge": "PAR",
+  "ovr": 72,
+  "budget": 22000000.0,
+  "stadium": "Ennio Tardini",
+  "capacity": 22000,
+  "league": "seriea",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/130.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Dennis Man",
+      "pos": "RW",
+      "rating": 76,
+      "age": 27,
+      "birthYear": 1999,
+      "nation": "Romania",
+      "nationality": "Romania",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 79,
+      "wage": 106400,
+      "value": 13680000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

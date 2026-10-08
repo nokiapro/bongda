@@ -1,0 +1,34 @@
+{
+  "id": "bologna",
+  "name": "Bologna",
+  "short": "Bologna",
+  "badge": "BOL",
+  "ovr": 78,
+  "budget": 45000000.0,
+  "stadium": "Dall'Ara",
+  "capacity": 36000,
+  "league": "seriea",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/1025.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Riccardo Orsolini",
+      "pos": "RW",
+      "rating": 82,
+      "age": 29,
+      "birthYear": 1997,
+      "nation": "Italy",
+      "nationality": "Italy",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 85,
+      "wage": 114800,
+      "value": 14760000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

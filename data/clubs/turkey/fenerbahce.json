@@ -1,0 +1,53 @@
+{
+  "id": "fenerbahce",
+  "name": "Fenerbahçe",
+  "short": "Fener",
+  "badge": "FB",
+  "ovr": 80,
+  "budget": 65000000.0,
+  "stadium": "Ülker Stadium",
+  "capacity": 50000,
+  "league": "turkey",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/36.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Edin Džeko",
+      "pos": "ST",
+      "rating": 82,
+      "age": 40,
+      "birthYear": 1986,
+      "nation": "Bosnia",
+      "nationality": "Bosnia",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 85,
+      "wage": 114800,
+      "value": 14760000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    },
+    {
+      "id": 101,
+      "name": "Fred",
+      "pos": "CM",
+      "rating": 89,
+      "age": 33,
+      "birthYear": 1993,
+      "nation": "Brazil",
+      "nationality": "Brazil",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 92,
+      "wage": 124600,
+      "value": 16020000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

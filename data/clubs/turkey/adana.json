@@ -1,0 +1,34 @@
+{
+  "id": "adana",
+  "name": "Adana Demirspor",
+  "short": "Adana",
+  "badge": "ADS",
+  "ovr": 71,
+  "budget": 15000000.0,
+  "stadium": "Yeni Adana",
+  "capacity": 33000,
+  "league": "turkey",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/127.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Yusuf Sarı",
+      "pos": "RW",
+      "rating": 74,
+      "age": 27,
+      "birthYear": 1999,
+      "nation": "Turkey",
+      "nationality": "Turkey",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 77,
+      "wage": 103600,
+      "value": 13320000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

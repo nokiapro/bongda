@@ -1,0 +1,34 @@
+{
+  "id": "kayserispor",
+  "name": "Kayserispor",
+  "short": "Kayseri",
+  "badge": "KAY",
+  "ovr": 70,
+  "budget": 10000000.0,
+  "stadium": "RHG Enertürk",
+  "capacity": 32000,
+  "league": "turkey",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/114.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Aylton Boa Morte",
+      "pos": "RW",
+      "rating": 72,
+      "age": 32,
+      "birthYear": 1994,
+      "nation": "Portugal",
+      "nationality": "Portugal",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 75,
+      "wage": 100800,
+      "value": 12960000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

@@ -1,0 +1,34 @@
+{
+  "id": "bodrum",
+  "name": "Bodrum FK",
+  "short": "Bodrum",
+  "badge": "BOD",
+  "ovr": 68,
+  "budget": 8000000.0,
+  "stadium": "Bodrum",
+  "capacity": 5000,
+  "league": "turkey",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/128.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "George Pușcaș",
+      "pos": "ST",
+      "rating": 72,
+      "age": 30,
+      "birthYear": 1996,
+      "nation": "Romania",
+      "nationality": "Romania",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 75,
+      "wage": 100800,
+      "value": 12960000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

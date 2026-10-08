@@ -1,0 +1,34 @@
+{
+  "id": "gaziantep",
+  "name": "Gaziantep FK",
+  "short": "Gaziantep",
+  "badge": "GAZ",
+  "ovr": 70,
+  "budget": 10000000.0,
+  "stadium": "Kalyon",
+  "capacity": 33000,
+  "league": "turkey",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/126.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Alexandru Maxim",
+      "pos": "CAM",
+      "rating": 74,
+      "age": 35,
+      "birthYear": 1991,
+      "nation": "Romania",
+      "nationality": "Romania",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 77,
+      "wage": 103600,
+      "value": 13320000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

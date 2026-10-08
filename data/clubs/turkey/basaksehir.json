@@ -1,0 +1,34 @@
+{
+  "id": "basaksehir",
+  "name": "Başakşehir",
+  "short": "Başakşehir",
+  "badge": "IBFK",
+  "ovr": 74,
+  "budget": 25000000.0,
+  "stadium": "Fatih Terim",
+  "capacity": 17000,
+  "league": "turkey",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/6890.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Krzysztof Piątek",
+      "pos": "ST",
+      "rating": 78,
+      "age": 31,
+      "birthYear": 1995,
+      "nation": "Poland",
+      "nationality": "Poland",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 81,
+      "wage": 109200,
+      "value": 14040000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

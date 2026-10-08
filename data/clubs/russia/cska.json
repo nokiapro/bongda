@@ -1,0 +1,53 @@
+{
+  "id": "cska",
+  "name": "CSKA Moscow",
+  "short": "CSKA",
+  "badge": "CSK",
+  "ovr": 77,
+  "budget": 35000000.0,
+  "stadium": "VEB Arena",
+  "capacity": 30000,
+  "league": "russia",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/2410.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Fyodor Chalov",
+      "pos": "ST",
+      "rating": 78,
+      "age": 28,
+      "birthYear": 1998,
+      "nation": "Russia",
+      "nationality": "Russia",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 81,
+      "wage": 109200,
+      "value": 14040000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    },
+    {
+      "id": 101,
+      "name": "Igor Akinfeev",
+      "pos": "GK",
+      "rating": 80,
+      "age": 40,
+      "birthYear": 1986,
+      "nation": "Russia",
+      "nationality": "Russia",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 83,
+      "wage": 112000,
+      "value": 14400000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

@@ -1,0 +1,34 @@
+{
+  "id": "akron",
+  "name": "Akron Tolyatti",
+  "short": "Akron",
+  "badge": "AKR",
+  "ovr": 70,
+  "budget": 10000000.0,
+  "stadium": "Kristall",
+  "capacity": 10000,
+  "league": "russia",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/124.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Arsen Zakharyan",
+      "pos": "CAM",
+      "rating": 78,
+      "age": 23,
+      "birthYear": 2003,
+      "nation": "Russia",
+      "nationality": "Russia",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 81,
+      "wage": 109200,
+      "value": 14040000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}
