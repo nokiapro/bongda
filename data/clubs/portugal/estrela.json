@@ -1,0 +1,34 @@
+{
+  "id": "estrela",
+  "name": "Estrela Amadora",
+  "short": "Estrela",
+  "badge": "EST2",
+  "ovr": 69,
+  "budget": 8000000.0,
+  "stadium": "José Gomes",
+  "capacity": 9000,
+  "league": "portugal",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/7179.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Kikas",
+      "pos": "ST",
+      "rating": 70,
+      "age": 27,
+      "birthYear": 1999,
+      "nation": "Portugal",
+      "nationality": "Portugal",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 73,
+      "wage": 98000,
+      "value": 12600000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

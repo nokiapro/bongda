@@ -1,0 +1,53 @@
+{
+  "id": "porto",
+  "name": "FC Porto",
+  "short": "Porto",
+  "badge": "FCP",
+  "ovr": 81,
+  "budget": 60000000.0,
+  "stadium": "Dragão",
+  "capacity": 50000,
+  "league": "portugal",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/720.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Diogo Costa",
+      "pos": "GK",
+      "rating": 86,
+      "age": 27,
+      "birthYear": 1999,
+      "nation": "Portugal",
+      "nationality": "Portugal",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 89,
+      "wage": 120400,
+      "value": 15480000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    },
+    {
+      "id": 101,
+      "name": "Pepê",
+      "pos": "RW",
+      "rating": 84,
+      "age": 29,
+      "birthYear": 1997,
+      "nation": "Brazil",
+      "nationality": "Brazil",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 87,
+      "wage": 117600,
+      "value": 15120000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

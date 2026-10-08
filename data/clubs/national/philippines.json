@@ -1,0 +1,49 @@
+{
+  "id": "philippines",
+  "name": "Philippines",
+  "short": "PHI",
+  "badge": "PH",
+  "ovr": 62,
+  "budget": 50000000,
+  "stadium": "Rizal Memorial",
+  "capacity": 12000,
+  "league": "national",
+  "type": "national",
+  "source": "soccerwiki+curated",
+  "players": [
+    {
+      "id": 100,
+      "name": "Björn Bjeme",
+      "pos": "CB",
+      "rating": 64,
+      "age": 30,
+      "nation": "Philippines",
+      "birthYear": 1996,
+      "nationality": "Philippines",
+      "potential": 66,
+      "wage": 76800,
+      "value": 9600000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    },
+    {
+      "id": 101,
+      "name": "Jarvey Gayoso",
+      "pos": "ST",
+      "rating": 63,
+      "age": 29,
+      "nation": "Philippines",
+      "birthYear": 1997,
+      "nationality": "Philippines",
+      "potential": 65,
+      "wage": 75600,
+      "value": 9450000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ]
+}

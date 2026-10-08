@@ -1,0 +1,53 @@
+{
+  "id": "benfica",
+  "name": "Benfica",
+  "short": "Benfica",
+  "badge": "SLB",
+  "ovr": 82,
+  "budget": 70000000.0,
+  "stadium": "Estádio da Luz",
+  "capacity": 65000,
+  "league": "portugal",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/294.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Ángel Di María",
+      "pos": "RW",
+      "rating": 84,
+      "age": 38,
+      "birthYear": 1988,
+      "nation": "Argentina",
+      "nationality": "Argentina",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 87,
+      "wage": 117600,
+      "value": 15120000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    },
+    {
+      "id": 101,
+      "name": "Orkun Kökçü",
+      "pos": "CM",
+      "rating": 82,
+      "age": 25,
+      "birthYear": 2001,
+      "nation": "Turkey",
+      "nationality": "Turkey",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 85,
+      "wage": 114800,
+      "value": 14760000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

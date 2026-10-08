@@ -1,0 +1,34 @@
+{
+  "id": "rioave",
+  "name": "Rio Ave",
+  "short": "Rio Ave",
+  "badge": "RIO",
+  "ovr": 70,
+  "budget": 12000000.0,
+  "stadium": "Dos Arcos",
+  "capacity": 5000,
+  "league": "portugal",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/2425.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Abdulai",
+      "pos": "ST",
+      "rating": 72,
+      "age": 25,
+      "birthYear": 2001,
+      "nation": "Ghana",
+      "nationality": "Ghana",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 75,
+      "wage": 100800,
+      "value": 12960000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

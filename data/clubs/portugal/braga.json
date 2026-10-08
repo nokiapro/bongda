@@ -1,0 +1,34 @@
+{
+  "id": "braga",
+  "name": "SC Braga",
+  "short": "Braga",
+  "badge": "SCB",
+  "ovr": 77,
+  "budget": 35000000.0,
+  "stadium": "Municipal de Braga",
+  "capacity": 30000,
+  "league": "portugal",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/1075.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Ricardo Horta",
+      "pos": "CAM",
+      "rating": 82,
+      "age": 31,
+      "birthYear": 1995,
+      "nation": "Portugal",
+      "nationality": "Portugal",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 85,
+      "wage": 114800,
+      "value": 14760000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

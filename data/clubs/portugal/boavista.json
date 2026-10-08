@@ -1,0 +1,34 @@
+{
+  "id": "boavista",
+  "name": "Boavista",
+  "short": "Boavista",
+  "badge": "BOA",
+  "ovr": 70,
+  "budget": 12000000.0,
+  "stadium": "Bessa",
+  "capacity": 28000,
+  "league": "portugal",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/737.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Robert Bozenik",
+      "pos": "ST",
+      "rating": 74,
+      "age": 26,
+      "birthYear": 2000,
+      "nation": "Slovakia",
+      "nationality": "Slovakia",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 77,
+      "wage": 103600,
+      "value": 13320000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

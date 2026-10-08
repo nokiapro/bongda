@@ -1,0 +1,49 @@
+{
+  "id": "singapore",
+  "name": "Singapore",
+  "short": "SIN",
+  "badge": "SG",
+  "ovr": 60,
+  "budget": 50000000,
+  "stadium": "National Stadium",
+  "capacity": 55000,
+  "league": "national",
+  "type": "national",
+  "source": "soccerwiki+curated",
+  "players": [
+    {
+      "id": 100,
+      "name": "Ikhsan Fandi",
+      "pos": "ST",
+      "rating": 64,
+      "age": 27,
+      "nation": "Singapore",
+      "birthYear": 1999,
+      "nationality": "Singapore",
+      "potential": 66,
+      "wage": 76800,
+      "value": 9600000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    },
+    {
+      "id": 101,
+      "name": "Song Ui-young",
+      "pos": "CM",
+      "rating": 63,
+      "age": 32,
+      "nation": "Singapore",
+      "birthYear": 1993,
+      "nationality": "Singapore",
+      "potential": 65,
+      "wage": 75600,
+      "value": 9450000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ]
+}

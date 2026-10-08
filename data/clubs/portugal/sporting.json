@@ -1,0 +1,53 @@
+{
+  "id": "sporting",
+  "name": "Sporting CP",
+  "short": "Sporting",
+  "badge": "SCP",
+  "ovr": 82,
+  "budget": 65000000.0,
+  "stadium": "José Alvalade",
+  "capacity": 50000,
+  "league": "portugal",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/336.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Viktor Gyökeres",
+      "pos": "ST",
+      "rating": 86,
+      "age": 28,
+      "birthYear": 1998,
+      "nation": "Sweden",
+      "nationality": "Sweden",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 89,
+      "wage": 120400,
+      "value": 15480000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    },
+    {
+      "id": 101,
+      "name": "Pedro Gonçalves",
+      "pos": "CAM",
+      "rating": 84,
+      "age": 28,
+      "birthYear": 1998,
+      "nation": "Portugal",
+      "nationality": "Portugal",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 87,
+      "wage": 117600,
+      "value": 15120000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}
