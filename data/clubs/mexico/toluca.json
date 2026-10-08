@@ -1,0 +1,34 @@
+{
+  "id": "toluca",
+  "name": "Toluca",
+  "short": "Toluca",
+  "badge": "TOL",
+  "ovr": 75,
+  "budget": 22000000.0,
+  "stadium": "Nemesio Díez",
+  "capacity": 30000,
+  "league": "mexico",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/1039.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Jean Meneses",
+      "pos": "LW",
+      "rating": 76,
+      "age": 33,
+      "birthYear": 1993,
+      "nation": "Chile",
+      "nationality": "Chile",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 79,
+      "wage": 106400,
+      "value": 13680000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

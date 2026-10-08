@@ -1,0 +1,34 @@
+{
+  "id": "puebla",
+  "name": "Puebla",
+  "short": "Puebla",
+  "badge": "PUE",
+  "ovr": 71,
+  "budget": 12000000.0,
+  "stadium": "Cuauhtémoc",
+  "capacity": 51000,
+  "league": "mexico",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/1032.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Lucas Cavallini",
+      "pos": "ST",
+      "rating": 72,
+      "age": 33,
+      "birthYear": 1993,
+      "nation": "Canada",
+      "nationality": "Canada",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 75,
+      "wage": 100800,
+      "value": 12960000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

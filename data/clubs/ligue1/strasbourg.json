@@ -1,0 +1,34 @@
+{
+  "id": "strasbourg",
+  "name": "Strasbourg",
+  "short": "Strasbourg",
+  "badge": "RCS",
+  "ovr": 74,
+  "budget": 30000000.0,
+  "stadium": "La Meinau",
+  "capacity": 26000,
+  "league": "ligue1",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/667.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Emanuel Emegha",
+      "pos": "ST",
+      "rating": 76,
+      "age": 22,
+      "birthYear": 2004,
+      "nation": "Netherlands",
+      "nationality": "Netherlands",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 79,
+      "wage": 106400,
+      "value": 13680000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

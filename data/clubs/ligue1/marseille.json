@@ -1,0 +1,34 @@
+{
+  "id": "marseille",
+  "name": "Olympique Marseille",
+  "short": "Marseille",
+  "badge": "OM",
+  "ovr": 78,
+  "budget": 60000000.0,
+  "stadium": "Vélodrome",
+  "capacity": 67000,
+  "league": "ligue1",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/1041.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Mason Greenwood",
+      "pos": "ST",
+      "rating": 82,
+      "age": 25,
+      "birthYear": 2001,
+      "nation": "England",
+      "nationality": "England",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 85,
+      "wage": 114800,
+      "value": 14760000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

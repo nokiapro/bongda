@@ -1,0 +1,34 @@
+{
+  "id": "villarreal",
+  "name": "Villarreal",
+  "short": "Villarreal",
+  "badge": "VIL",
+  "ovr": 79,
+  "budget": 50000000.0,
+  "stadium": "Cerámica",
+  "capacity": 23000,
+  "league": "laliga",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/1050.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Álex Baena",
+      "pos": "CAM",
+      "rating": 82,
+      "age": 24,
+      "birthYear": 2002,
+      "nation": "Spain",
+      "nationality": "Spain",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 85,
+      "wage": 114800,
+      "value": 14760000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

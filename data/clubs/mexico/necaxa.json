@@ -1,0 +1,34 @@
+{
+  "id": "necaxa",
+  "name": "Necaxa",
+  "short": "Necaxa",
+  "badge": "NEC",
+  "ovr": 71,
+  "budget": 12000000.0,
+  "stadium": "Victoria",
+  "capacity": 23000,
+  "league": "mexico",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/1036.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Diber Cambindo",
+      "pos": "ST",
+      "rating": 74,
+      "age": 29,
+      "birthYear": 1997,
+      "nation": "Colombia",
+      "nationality": "Colombia",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 77,
+      "wage": 103600,
+      "value": 13320000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

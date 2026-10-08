@@ -1,0 +1,34 @@
+{
+  "id": "valladolid",
+  "name": "Real Valladolid",
+  "short": "Valladolid",
+  "badge": "VLL",
+  "ovr": 70,
+  "budget": 15000000.0,
+  "stadium": "José Zorrilla",
+  "capacity": 28000,
+  "league": "laliga",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/366.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Cenk Özkacar",
+      "pos": "CB",
+      "rating": 73,
+      "age": 25,
+      "birthYear": 2001,
+      "nation": "Turkey",
+      "nationality": "Turkey",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 76,
+      "wage": 102200,
+      "value": 13140000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

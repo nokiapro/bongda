@@ -1,0 +1,34 @@
+{
+  "id": "osasuna",
+  "name": "Osasuna",
+  "short": "Osasuna",
+  "badge": "OSA",
+  "ovr": 74,
+  "budget": 22000000.0,
+  "stadium": "El Sadar",
+  "capacity": 23000,
+  "league": "laliga",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/331.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Ante Budimir",
+      "pos": "ST",
+      "rating": 78,
+      "age": 34,
+      "birthYear": 1992,
+      "nation": "Croatia",
+      "nationality": "Croatia",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 81,
+      "wage": 109200,
+      "value": 14040000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

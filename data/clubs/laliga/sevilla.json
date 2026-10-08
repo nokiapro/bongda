@@ -1,0 +1,34 @@
+{
+  "id": "sevilla",
+  "name": "Sevilla FC",
+  "short": "Sevilla",
+  "badge": "SEV",
+  "ovr": 77,
+  "budget": 45000000.0,
+  "stadium": "Sánchez-Pizjuán",
+  "capacity": 43000,
+  "league": "laliga",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/368.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Youssef En-Nesyri",
+      "pos": "ST",
+      "rating": 82,
+      "age": 29,
+      "birthYear": 1997,
+      "nation": "Morocco",
+      "nationality": "Morocco",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 85,
+      "wage": 114800,
+      "value": 14760000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

@@ -1,0 +1,34 @@
+{
+  "id": "lille",
+  "name": "Lille OSC",
+  "short": "Lille",
+  "badge": "LOSC",
+  "ovr": 79,
+  "budget": 45000000.0,
+  "stadium": "Pierre-Mauroy",
+  "capacity": 50000,
+  "league": "ligue1",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/1082.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Jonathan David",
+      "pos": "ST",
+      "rating": 84,
+      "age": 26,
+      "birthYear": 2000,
+      "nation": "Canada",
+      "nationality": "Canada",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 87,
+      "wage": 117600,
+      "value": 15120000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

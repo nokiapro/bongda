@@ -1,0 +1,34 @@
+{
+  "id": "valencia",
+  "name": "Valencia CF",
+  "short": "Valencia",
+  "badge": "VAL",
+  "ovr": 76,
+  "budget": 35000000.0,
+  "stadium": "Mestalla",
+  "capacity": 49000,
+  "league": "laliga",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/1049.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Giorgi Mamardashvili",
+      "pos": "GK",
+      "rating": 82,
+      "age": 25,
+      "birthYear": 2001,
+      "nation": "Georgia",
+      "nationality": "Georgia",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 85,
+      "wage": 114800,
+      "value": 14760000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

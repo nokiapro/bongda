@@ -1,0 +1,34 @@
+{
+  "id": "lens",
+  "name": "RC Lens",
+  "short": "Lens",
+  "badge": "RCL",
+  "ovr": 77,
+  "budget": 40000000.0,
+  "stadium": "Bollaert-Delelis",
+  "capacity": 38000,
+  "league": "ligue1",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/826.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Florian Sotoca",
+      "pos": "ST",
+      "rating": 78,
+      "age": 35,
+      "birthYear": 1991,
+      "nation": "France",
+      "nationality": "France",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 81,
+      "wage": 109200,
+      "value": 14040000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

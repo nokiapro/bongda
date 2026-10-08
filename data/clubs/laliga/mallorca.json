@@ -1,0 +1,34 @@
+{
+  "id": "mallorca",
+  "name": "Mallorca",
+  "short": "Mallorca",
+  "badge": "MLL",
+  "ovr": 73,
+  "budget": 20000000.0,
+  "stadium": "Son Moix",
+  "capacity": 23000,
+  "league": "laliga",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/237.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Vedat Muriqi",
+      "pos": "ST",
+      "rating": 78,
+      "age": 32,
+      "birthYear": 1994,
+      "nation": "Kosovo",
+      "nationality": "Kosovo",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 81,
+      "wage": 109200,
+      "value": 14040000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

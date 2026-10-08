@@ -1,0 +1,34 @@
+{
+  "id": "monterrey",
+  "name": "Monterrey",
+  "short": "Rayados",
+  "badge": "MTY",
+  "ovr": 77,
+  "budget": 35000000.0,
+  "stadium": "BBVA",
+  "capacity": 53000,
+  "league": "mexico",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/10410.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Sergio Canales",
+      "pos": "CAM",
+      "rating": 80,
+      "age": 35,
+      "birthYear": 1991,
+      "nation": "Spain",
+      "nationality": "Spain",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 83,
+      "wage": 112000,
+      "value": 14400000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

@@ -1,0 +1,34 @@
+{
+  "id": "monaco",
+  "name": "AS Monaco",
+  "short": "Monaco",
+  "badge": "ASM",
+  "ovr": 80,
+  "budget": 80000000.0,
+  "stadium": "Louis II",
+  "capacity": 18500,
+  "league": "ligue1",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/162.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Folarin Balogun",
+      "pos": "ST",
+      "rating": 81,
+      "age": 25,
+      "birthYear": 2001,
+      "nation": "USA",
+      "nationality": "USA",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 84,
+      "wage": 113400,
+      "value": 14580000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

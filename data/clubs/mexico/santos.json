@@ -1,0 +1,34 @@
+{
+  "id": "santos",
+  "name": "Santos Laguna",
+  "short": "Santos",
+  "badge": "SAN",
+  "ovr": 73,
+  "budget": 18000000.0,
+  "stadium": "TSM Corona",
+  "capacity": 30000,
+  "league": "mexico",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/10412.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Harold Preciado",
+      "pos": "ST",
+      "rating": 76,
+      "age": 32,
+      "birthYear": 1994,
+      "nation": "Colombia",
+      "nationality": "Colombia",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 79,
+      "wage": 106400,
+      "value": 13680000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

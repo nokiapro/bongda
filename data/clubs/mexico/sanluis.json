@@ -1,0 +1,34 @@
+{
+  "id": "sanluis",
+  "name": "Atlético San Luis",
+  "short": "San Luis",
+  "badge": "ASL",
+  "ovr": 70,
+  "budget": 10000000.0,
+  "stadium": "Alfonso Lastras",
+  "capacity": 25000,
+  "league": "mexico",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/22472.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Vitinho",
+      "pos": "ST",
+      "rating": 72,
+      "age": 26,
+      "birthYear": 2000,
+      "nation": "Brazil",
+      "nationality": "Brazil",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 75,
+      "wage": 100800,
+      "value": 12960000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

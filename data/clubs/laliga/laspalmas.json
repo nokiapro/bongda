@@ -1,0 +1,34 @@
+{
+  "id": "laspalmas",
+  "name": "Las Palmas",
+  "short": "Las Palmas",
+  "badge": "LPA",
+  "ovr": 72,
+  "budget": 18000000.0,
+  "stadium": "Gran Canaria",
+  "capacity": 32000,
+  "league": "laliga",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/472.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Kirian Rodríguez",
+      "pos": "CM",
+      "rating": 75,
+      "age": 29,
+      "birthYear": 1997,
+      "nation": "Spain",
+      "nationality": "Spain",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 78,
+      "wage": 105000,
+      "value": 13500000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

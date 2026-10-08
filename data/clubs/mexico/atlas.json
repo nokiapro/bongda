@@ -1,0 +1,34 @@
+{
+  "id": "atlas",
+  "name": "Atlas",
+  "short": "Atlas",
+  "badge": "ATL",
+  "ovr": 72,
+  "budget": 15000000.0,
+  "stadium": "Jalisco",
+  "capacity": 55000,
+  "league": "mexico",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/1034.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Eduardo Aguirre",
+      "pos": "ST",
+      "rating": 72,
+      "age": 27,
+      "birthYear": 1999,
+      "nation": "Mexico",
+      "nationality": "Mexico",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 75,
+      "wage": 100800,
+      "value": 12960000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

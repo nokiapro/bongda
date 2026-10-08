@@ -1,0 +1,53 @@
+{
+  "id": "realsociedad",
+  "name": "Real Sociedad",
+  "short": "La Real",
+  "badge": "RSO",
+  "ovr": 80,
+  "budget": 55000000.0,
+  "stadium": "Anoeta",
+  "capacity": 39000,
+  "league": "laliga",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/681.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Mikel Oyarzabal",
+      "pos": "ST",
+      "rating": 84,
+      "age": 29,
+      "birthYear": 1997,
+      "nation": "Spain",
+      "nationality": "Spain",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 87,
+      "wage": 117600,
+      "value": 15120000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    },
+    {
+      "id": 101,
+      "name": "Takefusa Kubo",
+      "pos": "RW",
+      "rating": 83,
+      "age": 25,
+      "birthYear": 2001,
+      "nation": "Japan",
+      "nationality": "Japan",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 86,
+      "wage": 116200,
+      "value": 14940000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

@@ -1,0 +1,34 @@
+{
+  "id": "pumas",
+  "name": "Pumas UNAM",
+  "short": "Pumas",
+  "badge": "PUM",
+  "ovr": 74,
+  "budget": 20000000.0,
+  "stadium": "Olímpico Universitario",
+  "capacity": 52000,
+  "league": "mexico",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/1038.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Guillermo Martínez",
+      "pos": "ST",
+      "rating": 74,
+      "age": 31,
+      "birthYear": 1995,
+      "nation": "Mexico",
+      "nationality": "Mexico",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 77,
+      "wage": 103600,
+      "value": 13320000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

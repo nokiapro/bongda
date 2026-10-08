@@ -1,0 +1,53 @@
+{
+  "id": "psg",
+  "name": "Paris Saint-Germain",
+  "short": "PSG",
+  "badge": "PSG",
+  "ovr": 88,
+  "budget": 220000000.0,
+  "stadium": "Parc des Princes",
+  "capacity": 48000,
+  "league": "ligue1",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/583.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Ousmane Dembélé",
+      "pos": "RW",
+      "rating": 95,
+      "age": 29,
+      "birthYear": 1997,
+      "nation": "France",
+      "nationality": "France",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 98,
+      "wage": 133000,
+      "value": 17100000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    },
+    {
+      "id": 101,
+      "name": "Vitinha",
+      "pos": "CM",
+      "rating": 90,
+      "age": 26,
+      "birthYear": 2000,
+      "nation": "Portugal",
+      "nationality": "Portugal",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 93,
+      "wage": 126000,
+      "value": 16200000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}
