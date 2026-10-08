@@ -6,8 +6,10 @@ import { NATIONAL_TEAMS } from '../data/national.js';
 import {
   initAuth, login, logout, getCurrentUser, isAdmin,
   updateUserProfile, saveGameCloud, loadGameCloud,
-  saveCustomClub, adminGetSettings
+  saveCustomClub, adminGetSettings, clearPendingGifts
 } from './auth.js';
+window.getCurrentUser = getCurrentUser;
+window.fmClearPendingGifts = clearPendingGifts;
 
 export function getClubsForLeague(leagueId) {
     if (leagueId === 'vleague1') return VLEAGUE_CLUBS;
@@ -18,6 +20,9 @@ export function getClubsForLeague(leagueId) {
 // Make available on window for inline onclick handlers
 window.getClubsForLeague = getClubsForLeague;
 
+const MAX_SQUAD_SIZE = 100;
+const MIN_SQUAD_SIZE = 15;
+window.MAX_SQUAD_SIZE = MAX_SQUAD_SIZE;
 
         // ==================== AUDIO ====================
         const AudioFX = {
@@ -55,17 +60,6 @@ window.getClubsForLeague = getClubsForLeague;
                 osc.connect(gain); gain.connect(this.ctx.destination); osc.start(); osc.stop(this.ctx.currentTime + 0.05);
             }
         };
-
-        // ==================== REAL LEAGUE & CLUB DATA ====================
-        // Dữ liệu dựa trên V.League 1 2025/26 - 2026/27 (nguồn công khai)
-// CLB V.League 1 thật + cầu thủ chủ chốt thật
-// ==================== WORLD LEAGUES CLUBS (curated stars) ====================
-        // Dữ liệu cầu thủ tham khảo FIFA / FO4 (fifaaddict) + thực tế 2025-26
-        // OVR đã scale cho game manager (70-94), không dùng OVR FO4 thổi phồng
-function getClubsForLeague(leagueId) {
-            if (leagueId === 'vleague1') return VLEAGUE_CLUBS;
-            return WORLD_CLUBS[leagueId] || [];
-        }
 
 
         // Name pools for filling squad
@@ -135,10 +129,39 @@ function getClubsForLeague(leagueId) {
         let selectedClubId = null;
 
         // ==================== SQUAD GENERATION ====================
+        function makePlayerFromData(src, id) {
+            const rating = src.rating || 70;
+            const age = src.age || 25;
+            return {
+                id: id,
+                name: src.name,
+                pos: src.pos || 'CM',
+                rating: rating,
+                age: age,
+                birthYear: src.birthYear || (2026 - age),
+                nationality: src.nation || src.nationality || 'Unknown',
+                nation: src.nation || src.nationality || 'Unknown',
+                image: src.image || (src.soccerwikiId || src.pid ? ('https://cdn.soccerwiki.org/images/player/' + (src.soccerwikiId || src.pid) + '.png') : null),
+                soccerwikiId: src.soccerwikiId || src.pid || null,
+                wage: src.wage || rating * 1400,
+                value: src.value || rating * 180000,
+                isStarting: false,
+                stamina: 100,
+                goals: 0, assists: 0, yellowCards: 0,
+                isReal: src.isReal !== false,
+                personality: PERSONALITIES[Math.floor(Math.random()*PERSONALITIES.length)],
+                form: [],
+                injuryWeeks: 0,
+                happiness: 75 + Math.floor(Math.random()*20),
+                contractYears: 1 + Math.floor(Math.random()*3),
+                potential: src.potential || Math.min(99, rating + Math.floor(Math.random()*6) + 2)
+            };
+        }
+
         function generateSquadForClub(club) {
             const positions = [
-                { pos: 'GK', count: 2 }, { pos: 'CB', count: 4 }, { pos: 'LB', count: 2 }, { pos: 'RB', count: 2 },
-                { pos: 'CM', count: 4 }, { pos: 'CAM', count: 2 }, { pos: 'CDM', count: 1 },
+                { pos: 'GK', count: 3 }, { pos: 'CB', count: 4 }, { pos: 'LB', count: 2 }, { pos: 'RB', count: 2 },
+                { pos: 'CDM', count: 2 }, { pos: 'CM', count: 4 }, { pos: 'CAM', count: 2 },
                 { pos: 'RW', count: 2 }, { pos: 'LW', count: 2 }, { pos: 'ST', count: 3 }
             ];
             let squad = [];
@@ -146,36 +169,16 @@ function getClubsForLeague(leagueId) {
             const usedNames = new Set();
             const baseOvr = club.ovr || 70;
 
-            // Add key real players first
-            (club.keyPlayers || []).forEach(kp => {
+            const realList = (club.players && club.players.length)
+                ? club.players
+                : (club.keyPlayers || []);
+
+            realList.forEach(kp => {
+                if (!kp || !kp.name || usedNames.has(kp.name)) return;
                 usedNames.add(kp.name);
-                squad.push({
-                    id: idCounter++,
-                    name: kp.name,
-                    pos: kp.pos,
-                    rating: kp.rating,
-                    age: kp.age,
-                    birthYear: kp.birthYear || (2026 - kp.age),
-                    nationality: kp.nation || kp.nationality || 'Unknown',
-                    nation: kp.nation || kp.nationality || 'Unknown',
-                    image: kp.image || null,
-                    soccerwikiId: kp.soccerwikiId || kp.pid || null,
-                    wage: kp.rating * 1400,
-                    value: kp.rating * 180000,
-                    isStarting: false,
-                    stamina: 100,
-                    goals: 0, assists: 0, yellowCards: 0,
-                    isReal: true,
-                    personality: PERSONALITIES[Math.floor(Math.random()*PERSONALITIES.length)],
-                    form: [],
-                    injuryWeeks: 0,
-                    happiness: 75 + Math.floor(Math.random()*20),
-                    contractYears: 1 + Math.floor(Math.random()*3),
-                    potential: Math.min(94, kp.rating + Math.floor(Math.random()*8) + 2)
-                });
+                squad.push(makePlayerFromData(kp, idCounter++));
             });
 
-            // Fill remaining slots with generated players around club OVR
             positions.forEach(item => {
                 const existing = squad.filter(p => p.pos === item.pos).length;
                 for (let i = existing; i < item.count; i++) {
@@ -184,32 +187,18 @@ function getClubsForLeague(leagueId) {
                     usedNames.add(name);
                     const isStarterLevel = i === 0;
                     const rating = isStarterLevel
-                        ? Math.min(84, baseOvr + Math.floor(Math.random() * 5) - 1)
-                        : Math.max(58, baseOvr - 8 + Math.floor(Math.random() * 8));
-                    const age = Math.floor(Math.random() * 12) + 18;
-                    squad.push({
-                        id: idCounter++,
-                        name: name,
-                        pos: item.pos,
-                        rating: rating,
-                        age: age,
-                        wage: rating * 1100,
-                        value: rating * 140000,
-                        isStarting: false,
-                        stamina: 100,
-                        goals: 0, assists: 0, yellowCards: 0,
-                        isReal: false,
-                        personality: PERSONALITIES[Math.floor(Math.random()*PERSONALITIES.length)],
-                        form: [],
-                        injuryWeeks: 0,
-                        happiness: 70 + Math.floor(Math.random()*25),
-                        contractYears: 1 + Math.floor(Math.random()*3),
-                        potential: Math.min(92, rating + (age < 23 ? Math.floor(Math.random()*15)+5 : Math.floor(Math.random()*6)))
-                    });
+                        ? Math.min(88, baseOvr + Math.floor(Math.random() * 4) - 1)
+                        : Math.max(58, baseOvr - 10 + Math.floor(Math.random() * 10));
+                    const age = Math.floor(Math.random() * 14) + 17;
+                    squad.push(makePlayerFromData({
+                        name, pos: item.pos, rating, age, isReal: false,
+                        wage: rating * 1100, value: rating * 140000,
+                        potential: Math.min(92, rating + (age < 23 ? Math.floor(Math.random()*12)+4 : Math.floor(Math.random()*5)))
+                    }, idCounter++));
                 }
             });
 
-            autoPickStartingXI(squad, "4-3-3");
+            autoPickStartingXI(squad, gameState.formation || "4-3-3");
             return squad;
         }
 
@@ -274,50 +263,1162 @@ function getClubsForLeague(leagueId) {
                     { pos: 'CM', top: '50%', left: '30%' }, { pos: 'CM', top: '48%', left: '50%' },
                     { pos: 'CM', top: '50%', left: '70%' },
                     { pos: 'ST', top: '20%', left: '38%' }, { pos: 'ST', top: '20%', left: '62%' }
-                ]
+                ],
+
+                "4-1-4-1": [
+                    { pos: 'GK', top: '88%', left: '50%' },
+                    { pos: 'LB', top: '68%', left: '12%' }, { pos: 'CB', top: '72%', left: '35%' },
+                    { pos: 'CB', top: '72%', left: '65%' }, { pos: 'RB', top: '68%', left: '88%' },
+                    { pos: 'CDM', top: '55%', left: '50%' },
+                    { pos: 'LM', top: '40%', left: '15%' }, { pos: 'CM', top: '42%', left: '38%' },
+                    { pos: 'CM', top: '42%', left: '62%' }, { pos: 'RM', top: '40%', left: '85%' },
+                    { pos: 'ST', top: '16%', left: '50%' }
+                ],
+                "4-3-2-1": [
+                    { pos: 'GK', top: '88%', left: '50%' },
+                    { pos: 'LB', top: '68%', left: '12%' }, { pos: 'CB', top: '72%', left: '35%' },
+                    { pos: 'CB', top: '72%', left: '65%' }, { pos: 'RB', top: '68%', left: '88%' },
+                    { pos: 'CM', top: '52%', left: '25%' }, { pos: 'CM', top: '55%', left: '50%' },
+                    { pos: 'CM', top: '52%', left: '75%' },
+                    { pos: 'CAM', top: '32%', left: '35%' }, { pos: 'CAM', top: '32%', left: '65%' },
+                    { pos: 'ST', top: '14%', left: '50%' }
+                ],
+                "3-4-3": [
+                    { pos: 'GK', top: '88%', left: '50%' },
+                    { pos: 'CB', top: '72%', left: '25%' }, { pos: 'CB', top: '75%', left: '50%' },
+                    { pos: 'CB', top: '72%', left: '75%' },
+                    { pos: 'LM', top: '48%', left: '12%' }, { pos: 'CM', top: '50%', left: '38%' },
+                    { pos: 'CM', top: '50%', left: '62%' }, { pos: 'RM', top: '48%', left: '88%' },
+                    { pos: 'LW', top: '20%', left: '20%' }, { pos: 'ST', top: '15%', left: '50%' },
+                    { pos: 'RW', top: '20%', left: '80%' }
+                ],
+                "4-5-1": [
+                    { pos: 'GK', top: '88%', left: '50%' },
+                    { pos: 'LB', top: '68%', left: '12%' }, { pos: 'CB', top: '72%', left: '35%' },
+                    { pos: 'CB', top: '72%', left: '65%' }, { pos: 'RB', top: '68%', left: '88%' },
+                    { pos: 'LM', top: '42%', left: '12%' }, { pos: 'CM', top: '48%', left: '32%' },
+                    { pos: 'CDM', top: '52%', left: '50%' }, { pos: 'CM', top: '48%', left: '68%' },
+                    { pos: 'RM', top: '42%', left: '88%' },
+                    { pos: 'ST', top: '16%', left: '50%' }
+                ],
+                "3-4-2-1": [
+                    { pos: 'GK', top: '88%', left: '50%' },
+                    { pos: 'CB', top: '72%', left: '25%' }, { pos: 'CB', top: '75%', left: '50%' },
+                    { pos: 'CB', top: '72%', left: '75%' },
+                    { pos: 'LM', top: '50%', left: '12%' }, { pos: 'CM', top: '52%', left: '38%' },
+                    { pos: 'CM', top: '52%', left: '62%' }, { pos: 'RM', top: '50%', left: '88%' },
+                    { pos: 'CAM', top: '30%', left: '35%' }, { pos: 'CAM', top: '30%', left: '65%' },
+                    { pos: 'ST', top: '14%', left: '50%' }
+                ],
+
             };
+            if (formation === "FREE") return maps["4-3-3"];
             return maps[formation] || maps["4-3-3"];
+        }
+
+
+        function ensureGameExtras() {
+            if (!gameState.cardInventory) gameState.cardInventory = [];
+            // Luôn đồng bộ tỉ lệ ghép từ admin (không dùng bản cũ trong save)
+            try { syncMergeRatesFromAdmin(); } catch (_) {
+                if (!gameState.mergeRates) gameState.mergeRates = defaultMergeRates();
+            }
+            // Backfill ảnh cho squad + kho thẻ (save cũ thiếu image)
+            try { backfillAllImages(false); } catch (e) { console.warn(e); }
+            if (!gameState.squadPresets) {
+                gameState.squadPresets = { A: null, B: null, C: null, D: null };
+            }
+            if (!gameState.activePreset) gameState.activePreset = 'A';
+            if (!gameState.freePositions) gameState.freePositions = {};
+            // matchdayRole: start | bench | reserve
+            if (gameState.squad && gameState.squad.length) {
+                let benchCount = 0;
+                gameState.squad.forEach(p => {
+                    if (p.isStarting) {
+                        p.matchdayRole = 'start';
+                    } else if (p.matchdayRole === 'bench') {
+                        benchCount++;
+                    } else if (!p.matchdayRole) {
+                        p.matchdayRole = 'reserve';
+                    }
+                });
+                // Auto-fill bench up to 7 from highest rated reserves if empty
+                if (benchCount === 0) {
+                    gameState.squad
+                        .filter(p => !p.isStarting && p.injuryWeeks === 0)
+                        .sort((a,b) => b.rating - a.rating)
+                        .slice(0, 7)
+                        .forEach(p => { p.matchdayRole = 'bench'; });
+                    gameState.squad.forEach(p => {
+                        if (!p.isStarting && p.matchdayRole !== 'bench') p.matchdayRole = 'reserve';
+                    });
+                }
+            }
+        }
+
+        function snapshotSquadPreset() {
+            return {
+                formation: gameState.formation,
+                tacticStyle: gameState.tacticStyle,
+                players: gameState.squad.map(p => ({
+                    id: p.id,
+                    isStarting: !!p.isStarting,
+                    slotIndex: typeof p.slotIndex === 'number' ? p.slotIndex : null,
+                    matchdayRole: p.matchdayRole || (p.isStarting ? 'start' : 'reserve'),
+                    freePos: gameState.freePositions && gameState.freePositions[p.id] ? gameState.freePositions[p.id] : null
+                }))
+            };
+        }
+
+        function applySquadPreset(data) {
+            if (!data) return;
+            if (data.formation) gameState.formation = data.formation;
+            if (data.tacticStyle) gameState.tacticStyle = data.tacticStyle;
+            const byId = {};
+            (data.players || []).forEach(x => { byId[x.id] = x; });
+            gameState.squad.forEach(p => {
+                const s = byId[p.id];
+                if (!s) {
+                    p.isStarting = false;
+                    p.slotIndex = null;
+                    p.matchdayRole = 'reserve';
+                    return;
+                }
+                p.isStarting = !!s.isStarting;
+                p.slotIndex = s.slotIndex;
+                p.matchdayRole = s.matchdayRole || (s.isStarting ? 'start' : 'reserve');
+                if (s.freePos) {
+                    if (!gameState.freePositions) gameState.freePositions = {};
+                    gameState.freePositions[p.id] = s.freePos;
+                }
+            });
+        }
+
+        function saveCurrentSquadPreset() {
+            ensureGameExtras();
+            const key = gameState.activePreset || 'A';
+            gameState.squadPresets[key] = snapshotSquadPreset();
+            saveGame();
+            alert('Đã lưu đội hình ' + key + (key === 'A' ? ' (Chính)' : key === 'B' ? ' (Phụ)' : ''));
+            updatePresetButtons();
+        }
+
+        function loadSquadPreset(key) {
+            ensureGameExtras();
+            // auto-save current before switch
+            const prev = gameState.activePreset || 'A';
+            if (prev && prev !== key) {
+                gameState.squadPresets[prev] = snapshotSquadPreset();
+            }
+            gameState.activePreset = key;
+            const data = gameState.squadPresets[key];
+            if (data) {
+                applySquadPreset(data);
+            } else {
+                // empty preset: keep current but mark active
+            }
+            saveGame();
+            updatePresetButtons();
+            renderTacticsTab();
+            updateUI();
+        }
+
+        function updatePresetButtons() {
+            const active = (gameState && gameState.activePreset) || 'A';
+            document.querySelectorAll('.squad-preset-btn').forEach(btn => {
+                const k = btn.getAttribute('data-preset');
+                const has = gameState.squadPresets && gameState.squadPresets[k];
+                if (k === active) {
+                    btn.className = 'squad-preset-btn px-2 py-1 rounded-lg text-[11px] font-black border border-emerald-500/40 bg-emerald-500/20 text-emerald-300';
+                } else if (has) {
+                    btn.className = 'squad-preset-btn px-2 py-1 rounded-lg text-[11px] font-black border border-sky-500/30 bg-sky-500/10 text-sky-300';
+                } else {
+                    btn.className = 'squad-preset-btn px-2 py-1 rounded-lg text-[11px] font-black border border-slate-600 bg-slate-800 text-slate-300';
+                }
+            });
+        }
+
+        function setMatchdayRole(playerId, role) {
+            const p = gameState.squad.find(x => x.id === playerId);
+            if (!p) return;
+            if (role === 'list_market') {
+                listPlayerOnMarket(playerId);
+                return;
+            }
+            if (role === 'sell_now') {
+                sellPlayer(playerId);
+                return;
+            }
+            if (role === 'release') {
+                releasePlayer(playerId);
+                return;
+            }
+            if (role === 'start') {
+                if (!p.isStarting) {
+                    const starters = gameState.squad.filter(x => x.isStarting).length;
+                    if (starters >= 11) {
+                        alert('Đã đủ 11 người ra sân. Hãy gỡ 1 người trước.');
+                        renderTacticsTab();
+                        return;
+                    }
+                    p.isStarting = true;
+                    p.matchdayRole = 'start';
+                }
+            } else if (role === 'bench') {
+                const benches = gameState.squad.filter(x => !x.isStarting && x.matchdayRole === 'bench').length;
+                if (p.matchdayRole !== 'bench' && benches >= 7) {
+                    alert('Tối đa 7 cầu thủ dự bị đăng ký trận!');
+                    renderTacticsTab();
+                    return;
+                }
+                p.isStarting = false;
+                p.slotIndex = null;
+                p.matchdayRole = 'bench';
+            } else {
+                p.isStarting = false;
+                p.slotIndex = null;
+                p.matchdayRole = 'reserve';
+            }
+            saveGame();
+            renderTacticsTab();
+            updateUI();
+        }
+
+        function releasePlayer(playerId) {
+            const idx = gameState.squad.findIndex(p => p.id === playerId);
+            if (idx === -1) return;
+            const player = gameState.squad[idx];
+            if (gameState.squad.length <= MIN_SQUAD_SIZE) {
+                alert('Đội cần tối thiểu ' + MIN_SQUAD_SIZE + ' cầu thủ. Không thể sa thải thêm.');
+                renderTacticsTab();
+                return;
+            }
+            if (!confirm('Sa thải ' + player.name + '? (Không nhận tiền, rời CLB)')) {
+                renderTacticsTab();
+                return;
+            }
+            gameState.squad.splice(idx, 1);
+            if (typeof selectedTacticsPlayerId !== 'undefined' && selectedTacticsPlayerId === playerId) selectedTacticsPlayerId = null;
+            saveGame();
+            alert('Đã sa thải ' + player.name);
+            renderTacticsTab();
+            updateUI();
+        }
+
+        function listPlayerOnMarket(playerId) {
+            ensureTransferMarket();
+            const idx = gameState.squad.findIndex(p => p.id === playerId);
+            if (idx === -1) return;
+            const player = gameState.squad[idx];
+            if (gameState.squad.length <= MIN_SQUAD_SIZE) {
+                alert('Đội cần tối thiểu ' + MIN_SQUAD_SIZE + ' cầu thủ. Không thể đăng bán thêm.');
+                renderTacticsTab();
+                return;
+            }
+            const ask = Math.round((player.value || player.rating * 150000) * 0.85);
+            if (!confirm('Đăng bán ' + player.name + ' lên thị trường với giá $' + (ask/1e6).toFixed(2) + 'M?\nCầu thủ sẽ rời đội hình ngay.')) {
+                renderTacticsTab();
+                return;
+            }
+            gameState.squad.splice(idx, 1);
+            if (typeof selectedTacticsPlayerId !== 'undefined' && selectedTacticsPlayerId === playerId) selectedTacticsPlayerId = null;
+            gameState.transferMarket.unshift({
+                id: 90000 + Math.floor(Math.random() * 9000),
+                name: player.name,
+                pos: player.pos,
+                rating: player.rating,
+                age: player.age,
+                image: player.image || null,
+                value: ask,
+                wage: player.wage || player.rating * 1500,
+                clubFrom: gameState.clubName || 'Your Club',
+                leagueFrom: gameState.leagueId || 'listed',
+                isReal: !!player.isReal,
+                listedByMe: true,
+                cardOnly: false
+            });
+            saveGame();
+            alert('Đã đăng bán ' + player.name + ' trên thị trường.');
+            renderTacticsTab();
+            updateUI();
+            try { filterTransferMarket(); } catch (_) {}
+        }
+
+        // ===== CARD SYSTEM =====
+        function cardKey(name, plus) {
+            return String(name).toLowerCase() + '|+' + (plus || 0);
+        }
+
+        function getCardPlusForPlayer(playerName) {
+            ensureGameExtras();
+            const inv = gameState.cardInventory || [];
+            let best = 0;
+            inv.forEach(c => {
+                if (c.name === playerName && (c.plus || 0) > best) best = c.plus || 0;
+            });
+            return best;
+        }
+
+
+        function nationFlagEmoji(nation) {
+            if (!nation || nation === 'Unknown') return '';
+            const map = {
+                'England': '🏴󠁧󠁢󠁥󠁮󠁧󠁿', 'Germany': '🇩🇪', 'France': '🇫🇷', 'Spain': '🇪🇸', 'Italy': '🇮🇹',
+                'Portugal': '🇵🇹', 'Brazil': '🇧🇷', 'Argentina': '🇦🇷', 'Netherlands': '🇳🇱', 'Belgium': '🇧🇪',
+                'Croatia': '🇭🇷', 'Uruguay': '🇺🇾', 'Norway': '🇳🇴', 'Sweden': '🇸🇪', 'Denmark': '🇩🇰',
+                'Poland': '🇵🇱', 'Switzerland': '🇨🇭', 'Austria': '🇦🇹', 'Scotland': '🏴󠁧󠁢󠁳󠁣󠁴󠁿', 'Wales': '🏴󠁧󠁢󠁷󠁬󠁳󠁿',
+                'Japan': '🇯🇵', 'Korea': '🇰🇷', 'South Korea': '🇰🇷', 'Nigeria': '🇳🇬', 'Senegal': '🇸🇳',
+                'Morocco': '🇲🇦', 'Egypt': '🇪🇬', 'Ghana': '🇬🇭', 'Ivory Coast': '🇨🇮', 'Cameroon': '🇨🇲',
+                'USA': '🇺🇸', 'Mexico': '🇲🇽', 'Canada': '🇨🇦', 'Colombia': '🇨🇴', 'Chile': '🇨🇱',
+                'Turkey': '🇹🇷', 'Russia': '🇷🇺', 'Ukraine': '🇺🇦', 'Serbia': '🇷🇸', 'Czech': '🇨🇿',
+                'Vietnam': '🇻🇳', 'Việt Nam': '🇻🇳', 'Australia': '🇦🇺', 'Algeria': '🇩🇿', 'Tunisia': '🇹🇳'
+            };
+            if (map[nation]) return map[nation];
+            // try partial
+            for (const k of Object.keys(map)) {
+                if (nation.indexOf(k) >= 0 || k.indexOf(nation) >= 0) return map[k];
+            }
+            return '🏳️';
+        }
+
+        function fo4Tier(rating) {
+            const r = rating || 70;
+            if (r >= 90) return 'tier-icon';
+            if (r >= 80) return 'tier-gold';
+            if (r >= 70) return 'tier-silver';
+            return 'tier-bronze';
+        }
+
+        /** HTML khung thẻ kiểu FO4 / ICON */
+        function renderFo4CardFace(player, opts) {
+            opts = opts || {};
+            const rating = opts.rating != null ? opts.rating : (player.rating || 70);
+            const pos = player.pos || 'CM';
+            const name = (player.name || 'Unknown').replace(/\s*\[Thẻ.*?\]\s*/g, '').trim();
+            const shortName = name.length > 16 ? name.split(' ').slice(-2).join(' ') : name;
+            const img = (typeof resolvePlayerImage === 'function' ? resolvePlayerImage(player) : player.image) || player.image;
+            const nation = player.nationality || player.nation || '';
+            const flag = nationFlagEmoji(nation);
+            const plus = opts.plus != null ? opts.plus : 0;
+            const tier = fo4Tier(rating);
+            const label = opts.label || (rating >= 90 ? 'ICON' : (rating >= 80 ? 'GOLD' : ''));
+            const by = player.birthYear || (player.age ? (2026 - player.age) : '');
+            const photo = img
+                ? '<img class="fo4-photo" src="' + img + '" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display=\'none\';if(this.nextElementSibling)this.nextElementSibling.style.display=\'flex\'">'
+                  + '<div class="fo4-photo-placeholder" style="display:none">' + rating + '</div>'
+                : '<div class="fo4-photo-placeholder">' + rating + '</div>';
+            return '<div class="fo4-card ' + tier + (opts.selected ? ' selected' : '') + (opts.mergeable ? ' mergeable' : '') + '">'
+                + (label ? '<div class="fo4-badge-top">' + label + '</div>' : '')
+                + (plus > 0 ? '<div class="fo4-plus">+' + plus + '</div>' : '')
+                + '<div class="fo4-inner">'
+                + '<div class="fo4-top">'
+                + '<div class="fo4-ovr-block"><div class="fo4-ovr">' + rating + '</div><div class="fo4-pos">' + pos + '</div></div>'
+                + (flag ? '<div class="fo4-flag-fallback" title="' + nation + '">' + flag + '</div>' : '<div></div>')
+                + '</div>'
+                + '<div class="fo4-photo-wrap">' + photo + '</div>'
+                + '<div class="fo4-bottom">'
+                + '<div class="fo4-name" title="' + name + '">' + shortName + '</div>'
+                + '<div class="fo4-meta">' + (player.age ? player.age + 't' : '') + (by ? ' · ' + by : '') + (nation && nation !== 'Unknown' ? ' · ' + nation : '') + '</div>'
+                + '</div></div></div>';
+        }
+
+        let _playerImageIndex = null;
+
+        function normalizePlayerName(name) {
+            return String(name || '')
+                .replace(/\s*\[Thẻ.*?\]\s*/g, '')
+                .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+                .toLowerCase().replace(/[^a-z0-9\s]/g, ' ')
+                .replace(/\s+/g, ' ').trim();
+        }
+
+        function buildPlayerImageIndex() {
+            if (_playerImageIndex) return _playerImageIndex;
+            const map = Object.create(null);
+            try {
+                const leagues = typeof WORLD_CLUBS !== 'undefined' ? WORLD_CLUBS : {};
+                Object.keys(leagues).forEach(lid => {
+                    (leagues[lid] || []).forEach(club => {
+                        const pools = [];
+                        if (Array.isArray(club.players)) pools.push(...club.players);
+                        if (Array.isArray(club.keyPlayers)) pools.push(...club.keyPlayers);
+                        pools.forEach(p => {
+                            if (!p || !p.name) return;
+                            const key = normalizePlayerName(p.name);
+                            if (!key) return;
+                            const img = p.image || (p.pid || p.soccerwikiId
+                                ? ('https://cdn.soccerwiki.org/images/player/' + (p.pid || p.soccerwikiId) + '.png')
+                                : null);
+                            if (!img) return;
+                            // keep higher rating if duplicate
+                            if (!map[key] || (p.rating || 0) > (map[key].rating || 0)) {
+                                map[key] = {
+                                    image: img,
+                                    pid: p.pid || p.soccerwikiId || null,
+                                    soccerwikiId: p.soccerwikiId || p.pid || null,
+                                    rating: p.rating || 0,
+                                    nation: p.nation || p.nationality || null,
+                                    birthYear: p.birthYear || null
+                                };
+                            }
+                        });
+                    });
+                });
+            } catch (e) { console.warn('buildPlayerImageIndex', e); }
+            _playerImageIndex = map;
+            return map;
+        }
+
+        function lookupPlayerMeta(name) {
+            const map = buildPlayerImageIndex();
+            const key = normalizePlayerName(name);
+            if (!key) return null;
+            if (map[key]) return map[key];
+            // chỉ match họ khi index đã có surname map (O(1))
+            if (!_playerSurnameIndex) {
+                _playerSurnameIndex = Object.create(null);
+                Object.keys(map).forEach(k => {
+                    const parts = k.split(' ');
+                    const last = parts[parts.length - 1];
+                    if (!last || last.length < 3) return;
+                    if (!_playerSurnameIndex[last]) _playerSurnameIndex[last] = [];
+                    _playerSurnameIndex[last].push(k);
+                });
+            }
+            const parts = key.split(' ');
+            if (parts.length >= 2) {
+                const last = parts[parts.length - 1];
+                const hits = _playerSurnameIndex[last];
+                if (hits && hits.length === 1) return map[hits[0]];
+            }
+            return null;
+        }
+        let _playerSurnameIndex = null;
+        let _imagesBackfilled = false;
+
+        function resolvePlayerImage(player) {
+            if (!player) return null;
+            if (player.image && String(player.image).indexOf('http') === 0) return player.image;
+            const pid = player.soccerwikiId || player.pid;
+            if (pid) return 'https://cdn.soccerwiki.org/images/player/' + pid + '.png';
+            const meta = lookupPlayerMeta(player.name);
+            if (meta && meta.image) {
+                // backfill ids for next time
+                if (!player.soccerwikiId && meta.soccerwikiId) player.soccerwikiId = meta.soccerwikiId;
+                if (!player.pid && meta.pid) player.pid = meta.pid;
+                return meta.image;
+            }
+            return null;
+        }
+
+        function backfillAllImages(force) {
+            if (_imagesBackfilled && !force) return;
+            const apply = (p) => {
+                if (!p) return;
+                if (p.image && String(p.image).indexOf('http') === 0) {
+                    if (!p.soccerwikiId && !p.pid) {
+                        const meta = lookupPlayerMeta(p.name);
+                        if (meta) {
+                            if (meta.soccerwikiId) p.soccerwikiId = meta.soccerwikiId;
+                            if (meta.pid) p.pid = meta.pid;
+                        }
+                    }
+                    return;
+                }
+                const meta = lookupPlayerMeta(p.name);
+                if (meta) {
+                    p.image = meta.image;
+                    if (meta.soccerwikiId) p.soccerwikiId = meta.soccerwikiId;
+                    if (meta.pid) p.pid = meta.pid;
+                    if (!p.nationality && !p.nation && meta.nation) {
+                        p.nationality = meta.nation;
+                        p.nation = meta.nation;
+                    }
+                    if (!p.birthYear && meta.birthYear) p.birthYear = meta.birthYear;
+                } else {
+                    const pid = p.soccerwikiId || p.pid;
+                    if (pid) p.image = 'https://cdn.soccerwiki.org/images/player/' + pid + '.png';
+                }
+            };
+            // Chỉ squad + kho thẻ (market render resolve on-the-fly)
+            (gameState.squad || []).forEach(apply);
+            (gameState.cardInventory || []).forEach(apply);
+            _imagesBackfilled = true;
+        }
+
+        function effectiveRating(player) {
+            const plus = getCardPlusForPlayer(player.name);
+            // +1 => +1 OVR, max +10
+            return Math.min(99, (player.rating || 70) + plus);
+        }
+
+        function buyPlayerCard(marketPlayerId, qty) {
+            ensureGameExtras();
+            ensureTransferMarket();
+            const mp = gameState.transferMarket.find(p => p.id === marketPlayerId);
+            if (!mp) { alert('Không tìm thấy thẻ.'); return; }
+            let n = parseInt(qty, 10);
+            if (!n || n < 1) {
+                const input = document.getElementById('card-qty-' + marketPlayerId);
+                n = input ? parseInt(input.value, 10) : 1;
+            }
+            n = Math.max(1, Math.min(20, n || 1));
+            const unit = Math.round((mp.value || mp.rating * 150000) * 0.15);
+            const price = unit * n;
+            if (gameState.budget < price) {
+                alert('Không đủ ngân sách mua ' + n + ' thẻ ($' + (price/1e6).toFixed(2) + 'M)!');
+                return;
+            }
+            gameState.budget -= price;
+            const img = (typeof resolvePlayerImage === 'function' ? resolvePlayerImage(mp) : null) || mp.image || null;
+            const cleanName = String(mp.name || '').replace(/\s*\[Thẻ.*?\]\s*/g, '').trim();
+            for (let i = 0; i < n; i++) {
+                gameState.cardInventory.push({
+                    id: 'card_' + Date.now() + '_' + i + '_' + Math.floor(Math.random()*999),
+                    name: cleanName,
+                    pos: mp.pos,
+                    rating: mp.rating,
+                    image: img,
+                    age: mp.age,
+                    plus: 0,
+                    guaranteed: false
+                });
+            }
+            saveGame();
+            alert('Đã mua ' + n + ' thẻ ' + cleanName + ' (+0) — $' + (price/1e6).toFixed(2) + 'M');
+            updateUI();
+            filterTransferMarket();
+            renderCardInventory();
+        }
+
+        function buyGuaranteedCard(marketPlayerId) {
+            ensureGameExtras();
+            ensureTransferMarket();
+            const mp = gameState.transferMarket.find(p => p.id === marketPlayerId);
+            if (!mp) return;
+            const price = Math.round((mp.value || mp.rating * 150000) * 0.35);
+            if (gameState.budget < price) {
+                alert('Không đủ ngân sách mua thẻ ghép 100% ($' + (price/1e6).toFixed(2) + 'M)!');
+                return;
+            }
+            gameState.budget -= price;
+            gameState.cardInventory.push({
+                id: 'card_' + Date.now() + '_' + Math.floor(Math.random()*999),
+                name: mp.name,
+                pos: mp.pos,
+                rating: mp.rating,
+                image: mp.image || null,
+                plus: 0,
+                guaranteed: true
+            });
+            saveGame();
+            alert('Đã mua thẻ GHÉP 100% ' + mp.name + ' (+0)');
+            updateUI();
+            filterTransferMarket();
+            renderCardInventory();
+        }
+
+        let mergeAnimating = false;
+
+        function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+        function spawnMergeSparks(stage) {
+            for (let i = 0; i < 14; i++) {
+                const s = document.createElement('div');
+                s.className = 'merge-spark';
+                const angle = (Math.PI * 2 * i) / 14;
+                const dist = 60 + Math.random() * 80;
+                s.style.setProperty('--sx', Math.cos(angle) * dist + 'px');
+                s.style.setProperty('--sy', Math.sin(angle) * dist + 'px');
+                s.style.left = '50%';
+                s.style.top = '50%';
+                s.style.background = i % 2 ? '#fbbf24' : '#34d399';
+                stage.appendChild(s);
+                setTimeout(() => s.remove(), 750);
+            }
+        }
+
+        async function playMergeAnimation(a, b, ok, nextPlus) {
+            const overlay = document.getElementById('merge-overlay');
+            const left = document.getElementById('merge-card-left');
+            const right = document.getElementById('merge-card-right');
+            const result = document.getElementById('merge-card-result');
+            const status = document.getElementById('merge-status');
+            const stage = overlay.querySelector('.merge-stage');
+            if (!overlay || !left || !right) return;
+
+            // reset
+            left.className = 'merge-card-vis left fo4-merge';
+            right.className = 'merge-card-vis right fo4-merge';
+            result.style.display = 'none';
+            result.className = 'merge-card-vis result fo4-merge';
+            result.style.opacity = '0';
+            status.className = 'merge-status';
+            status.textContent = 'Đang ghép...';
+
+            // Render FO4 faces into merge cards
+            left.className = 'merge-card-vis left fo4-merge';
+            right.className = 'merge-card-vis right fo4-merge';
+            left.innerHTML = renderFo4CardFace(a, { plus: a.plus || 0, label: 'CARD' });
+            right.innerHTML = renderFo4CardFace(b, { plus: b.plus || 0, label: 'CARD' });
+            result.className = 'merge-card-vis result fo4-merge';
+            result.innerHTML = '';
+
+            overlay.classList.add('active');
+            overlay.setAttribute('aria-hidden', 'false');
+
+            await sleep(80);
+            // Ép vào nhau
+            left.classList.add('press');
+            right.classList.add('press');
+            await sleep(520);
+            // Flash
+            left.classList.add('flash');
+            right.classList.add('flash');
+            spawnMergeSparks(stage);
+            await sleep(280);
+            // Tung ra
+            left.classList.remove('press', 'flash');
+            right.classList.remove('press', 'flash');
+            left.classList.add('fly-out-left');
+            right.classList.add('fly-out-right');
+            await sleep(380);
+
+            // Kết quả
+            left.style.opacity = '0';
+            right.style.opacity = '0';
+            result.style.display = 'flex';
+            if (ok) {
+                result.className = 'merge-card-vis result fo4-merge';
+                result.innerHTML = renderFo4CardFace(a, { plus: nextPlus, label: 'ICON', rating: a.rating });
+                result.style.opacity = '1';
+                status.className = 'merge-status ok';
+                status.textContent = 'THÀNH CÔNG! ' + a.name + ' +' + nextPlus;
+                spawnMergeSparks(stage);
+            } else {
+                result.className = 'merge-card-vis result fo4-merge fail';
+                result.innerHTML = renderFo4CardFace(a, { plus: a.plus || 0, label: 'FAIL' });
+                result.style.opacity = '1';
+                status.className = 'merge-status fail';
+                status.textContent = 'THẤT BẠI — Mất 2 thẻ +' + (a.plus || 0);
+            }
+            await sleep(1400);
+
+            // cleanup
+            overlay.classList.remove('active');
+            overlay.setAttribute('aria-hidden', 'true');
+            left.className = 'merge-card-vis left';
+            right.className = 'merge-card-vis right';
+            left.style.opacity = '';
+            right.style.opacity = '';
+            result.style.display = 'none';
+        }
+
+
+        function defaultMergeRates() {
+            // % thành công khi ghép 2 thẻ cùng cấp +N → +(N+1)
+            return {
+                0: 90, 1: 84, 2: 78, 3: 72, 4: 66,
+                5: 60, 6: 54, 7: 48, 8: 42, 9: 36
+            };
+        }
+
+        function getMergeSuccessRate(level) {
+            const lvl = Math.max(0, Math.min(9, Number(level) || 0));
+            // Ưu tiên: localStorage (admin vừa lưu) > gameState > default
+            // Không tin save cloud vì có thể là tỉ lệ cũ
+            let rates = null;
+            try {
+                const raw = localStorage.getItem('fm_merge_rates');
+                if (raw) rates = JSON.parse(raw);
+            } catch (_) {}
+            if (!rates) {
+                try {
+                    const raw2 = localStorage.getItem('fm_admin_settings');
+                    if (raw2) {
+                        const s = JSON.parse(raw2);
+                        if (s && s.mergeRates) rates = s.mergeRates;
+                    }
+                } catch (_) {}
+            }
+            if (!rates && gameState && gameState.mergeRates) rates = gameState.mergeRates;
+            if (!rates) rates = defaultMergeRates();
+            let pct = rates[lvl];
+            if (pct == null) pct = rates[String(lvl)];
+            if (pct == null) return Math.max(0.35, 0.9 - lvl * 0.06);
+            const n = Number(pct);
+            if (isNaN(n)) return Math.max(0.35, 0.9 - lvl * 0.06);
+            // Hỗ trợ cả 0-1 (0.9) lẫn 0-100 (90)
+            const rate = n > 1 ? n / 100 : n;
+            return Math.max(0, Math.min(1, rate));
+        }
+
+        /** Đồng bộ tỉ lệ ghép từ admin settings / localStorage vào gameState */
+        function syncMergeRatesFromAdmin(settings) {
+            let rates = null;
+            if (settings && settings.mergeRates) rates = settings.mergeRates;
+            if (!rates) {
+                try {
+                    const raw = localStorage.getItem('fm_merge_rates');
+                    if (raw) rates = JSON.parse(raw);
+                } catch (_) {}
+            }
+            if (!rates) {
+                try {
+                    const raw2 = localStorage.getItem('fm_admin_settings');
+                    if (raw2) {
+                        const s = JSON.parse(raw2);
+                        if (s && s.mergeRates) rates = s.mergeRates;
+                    }
+                } catch (_) {}
+            }
+            if (!rates) rates = defaultMergeRates();
+            // chuẩn hóa key số
+            const normalized = {};
+            for (let i = 0; i <= 9; i++) {
+                let v = rates[i] != null ? rates[i] : rates[String(i)];
+                v = Number(v);
+                if (isNaN(v)) v = defaultMergeRates()[i];
+                // nếu lỡ lưu dạng 0-1
+                if (v > 0 && v <= 1) v = Math.round(v * 100);
+                normalized[i] = Math.max(0, Math.min(100, v));
+            }
+            gameState.mergeRates = normalized;
+            try { localStorage.setItem('fm_merge_rates', JSON.stringify(normalized)); } catch (_) {}
+            return normalized;
+        }
+
+        async function mergeCards(cardIdA, cardIdB) {
+            if (mergeAnimating) return;
+            ensureGameExtras();
+            const inv = gameState.cardInventory;
+            const a = inv.find(c => c.id === cardIdA);
+            const b = inv.find(c => c.id === cardIdB);
+            if (!a || !b || a.id === b.id) return;
+            if (a.name !== b.name) {
+                alert('Chỉ ghép được 2 thẻ cùng cầu thủ!');
+                return;
+            }
+            if ((a.plus || 0) !== (b.plus || 0)) {
+                alert('Hai thẻ phải cùng cấp +' + (a.plus || 0) + '!');
+                return;
+            }
+            const lvl = a.plus || 0;
+            if (lvl >= 10) {
+                alert('Đã đạt tối đa +10!');
+                return;
+            }
+            const guaranteed = !!(a.guaranteed || b.guaranteed);
+            try { syncMergeRatesFromAdmin(); } catch (_) {}
+            const successRate = guaranteed ? 1 : getMergeSuccessRate(lvl);
+            const ok = Math.random() < successRate;
+            console.log('[merge]', a.name, '+' + lvl, 'rate=', Math.round(successRate * 100) + '%', 'ok=', ok);
+            const nextPlus = lvl + 1;
+
+            mergeAnimating = true;
+            try {
+                await playMergeAnimation(a, b, ok, nextPlus);
+            } catch (e) { console.warn(e); }
+
+            // apply result after animation
+            gameState.cardInventory = inv.filter(c => c.id !== a.id && c.id !== b.id);
+            if (ok) {
+                gameState.cardInventory.push({
+                    id: 'card_' + Date.now() + '_' + Math.floor(Math.random()*999),
+                    name: a.name,
+                    pos: a.pos,
+                    rating: a.rating,
+                    image: a.image,
+                    plus: nextPlus,
+                    guaranteed: false
+                });
+            }
+            mergeAnimating = false;
+            selectedCardId = null;
+            saveGame();
+            renderCardInventory();
+            try { renderTacticsTab(); } catch (_) {}
+            updateUI();
+        }
+
+
+        function sellCard(cardId) {
+            ensureGameExtras();
+            const inv = gameState.cardInventory || [];
+            const idx = inv.findIndex(c => c.id === cardId);
+            if (idx === -1) { alert('Không tìm thấy thẻ.'); return; }
+            const card = inv[idx];
+            const plus = Number(card.plus) || 0;
+            // Giá thẻ: base 8% giá CT * (1 + plus*0.35), thẻ đã ghép (+1 trở lên) bán được
+            const baseVal = (card.rating || 70) * (card.rating || 70) * 2200;
+            const price = Math.round(baseVal * 0.08 * (1 + plus * 0.35) * (card.guaranteed ? 1.25 : 1));
+            if (!confirm('Bán thẻ ' + card.name + ' +' + plus + ' với giá $' + (price/1e6).toFixed(2) + 'M?\nThẻ sẽ lên thị trường chuyển nhượng (người khác / AI có thể mua).')) return;
+            inv.splice(idx, 1);
+            gameState.cardInventory = inv;
+            gameState.budget += price;
+            ensureTransferMarket();
+            // Đưa bản sao thẻ lên market như listing card
+            if (!gameState.cardMarket) gameState.cardMarket = [];
+            gameState.cardMarket.unshift({
+                id: 'mcard_' + Date.now() + '_' + Math.floor(Math.random()*999),
+                name: card.name,
+                pos: card.pos,
+                rating: card.rating,
+                plus: plus,
+                age: card.age || 24,
+                image: card.image || null,
+                value: price,
+                clubFrom: gameState.clubName || 'Your Club',
+                sellerUid: 'self',
+                isCardListing: true,
+                guaranteed: !!card.guaranteed
+            });
+            // Cũng hiện trong transfer market dạng cardOnly listing
+            gameState.transferMarket.unshift({
+                id: 95000 + Math.floor(Math.random()*4000),
+                name: card.name + ' [Thẻ +' + plus + ']',
+                pos: card.pos || 'CM',
+                rating: card.rating || 70,
+                age: card.age || 24,
+                image: card.image || null,
+                value: price,
+                wage: 0,
+                clubFrom: gameState.clubName || 'Your Club',
+                leagueFrom: 'card_market',
+                isReal: true,
+                cardOnly: true,
+                isCardListing: true,
+                cardPlus: plus,
+                listedByMe: true
+            });
+            if (selectedCardId === cardId) selectedCardId = null;
+            saveGame();
+            alert('Đã bán thẻ +$' + (price/1e6).toFixed(2) + 'M');
+            renderCardInventory();
+            updateUI();
+            if (document.getElementById('tab-transfers') && !document.getElementById('tab-transfers').classList.contains('hidden')) {
+                filterTransferMarket();
+            }
+        }
+
+        let selectedCardId = null;
+        let cardPlusFilter = null; // null = hiện tất cả; number = lọc +N
+
+        function addPlayerFromCard(cardId) {
+            ensureGameExtras();
+            const card = (gameState.cardInventory || []).find(c => c.id === cardId);
+            if (!card) { alert('Không tìm thấy thẻ.'); return; }
+            if (!canAddToSquad(1)) return;
+            const exists = gameState.squad.find(p => p.name === card.name);
+            if (exists) {
+                alert(card.name + ' đã có trong đội hình (bonus thẻ +' + getCardPlusForPlayer(card.name) + ' đã áp dụng).');
+                return;
+            }
+            const maxId = gameState.squad.reduce((m, p) => Math.max(m, Number(p.id) || 0), 200);
+            const pl = makePlayerFromData({
+                name: card.name,
+                pos: card.pos || 'CM',
+                rating: card.rating || 75,
+                age: card.age || 24,
+                image: card.image || null,
+                isReal: true,
+                soccerwikiId: card.soccerwikiId || null
+            }, maxId + 1);
+            pl.matchdayRole = 'reserve';
+            pl.isStarting = false;
+            pl.fromCard = true;
+            gameState.squad.push(pl);
+            saveGame();
+            alert('Đã thêm ' + card.name + ' vào đội hình (Ngoài danh sách). Vào Chiến thuật để xếp sân / dự bị.');
+            updateUI();
+            renderCardInventory();
+            if (document.getElementById('tab-tactics') && !document.getElementById('tab-tactics').classList.contains('hidden')) {
+                renderTacticsTab();
+            }
+        }
+
+        function renderCardInventory() {
+            try { backfillAllImages(false); } catch (_) {}
+            ensureGameExtras();
+            const box = document.getElementById('card-inventory-list');
+            const filtersEl = document.getElementById('card-plus-filters');
+            if (!box) return;
+            const inv = gameState.cardInventory || [];
+            if (!inv.length) {
+                box.innerHTML = '<div class="text-slate-500 text-sm col-span-full py-6 text-center">Chưa có thẻ nào. Mua thẻ từ thị trường chuyển nhượng.</div>';
+                if (filtersEl) filtersEl.innerHTML = '';
+                return;
+            }
+
+            const plusLevels = [...new Set(inv.map(c => Number(c.plus) || 0))].sort((a, b) => a - b);
+
+            // Filter bar: Tất cả + các cấp (lọc tùy chọn, mặc định hiện HẾT)
+            if (filtersEl) {
+                const allOn = cardPlusFilter === null || cardPlusFilter === undefined;
+                filtersEl.innerHTML =
+                    '<button type="button" data-plus-filter="all" class="px-2.5 py-1 rounded-lg text-[11px] font-bold border '
+                    + (allOn ? 'border-emerald-400 bg-emerald-500/20 text-emerald-300' : 'border-slate-700 bg-slate-900 text-slate-400 hover:border-slate-500')
+                    + '">Tất cả <span class="text-slate-500">(' + inv.length + ')</span></button>'
+                    + plusLevels.map(lv => {
+                        const on = cardPlusFilter === lv;
+                        const count = inv.filter(c => (Number(c.plus) || 0) === lv).length;
+                        return '<button type="button" data-plus-filter="' + lv + '" class="px-2.5 py-1 rounded-lg text-[11px] font-bold border '
+                            + (on ? 'border-amber-400 bg-amber-500/20 text-amber-300' : 'border-slate-700 bg-slate-900 text-slate-400 hover:border-slate-500')
+                            + '">+' + lv + ' <span class="text-slate-500">(' + count + ')</span></button>';
+                    }).join('')
+                    + (selectedCardId ? '<span class="text-[11px] text-amber-300/90 self-center ml-1">Đang chọn ghép — bấm thẻ cùng tên + cùng cấp</span>' : '');
+                filtersEl.querySelectorAll('[data-plus-filter]').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const v = btn.getAttribute('data-plus-filter');
+                        cardPlusFilter = (v === 'all') ? null : parseInt(v, 10);
+                        renderCardInventory();
+                    });
+                });
+            }
+
+            let list = inv.slice();
+            if (cardPlusFilter !== null && cardPlusFilter !== undefined) {
+                list = list.filter(c => (Number(c.plus) || 0) === cardPlusFilter);
+            }
+            list.sort((a, b) => a.name.localeCompare(b.name) || (Number(a.plus)||0) - (Number(b.plus)||0));
+
+            if (!list.length) {
+                box.innerHTML = '<div class="text-slate-500 text-sm col-span-full py-6 text-center">Không có thẻ ở bộ lọc này</div>';
+                return;
+            }
+
+            box.innerHTML = list.map(c => {
+                const sel = selectedCardId === c.id;
+                const inSquad = gameState.squad.some(p => p.name === c.name);
+                const plus = Number(c.plus) || 0;
+                let canMerge = false;
+                if (selectedCardId && selectedCardId !== c.id) {
+                    const selC = inv.find(x => x.id === selectedCardId);
+                    if (selC && selC.name === c.name && (Number(selC.plus)||0) === plus) canMerge = true;
+                }
+                const face = renderFo4CardFace(c, {
+                    rating: c.rating,
+                    plus: plus,
+                    selected: sel,
+                    mergeable: canMerge,
+                    label: plus > 0 ? ('+' + plus) : (c.guaranteed ? '100%' : (c.rating >= 90 ? 'ICON' : 'CARD'))
+                });
+                return '<div class="fo4-shell" data-card="' + c.id + '">'
+                    + face
+                    + '<div class="fo4-actions">'
+                    + (sel ? '<div class="text-[10px] text-amber-300 text-center font-bold">Đã chọn ghép</div>' : '')
+                    + (canMerge ? '<div class="text-[10px] text-emerald-300 text-center font-bold">Ghép được</div>' : '')
+                    + '<div class="text-[10px] text-center ' + (inSquad ? 'text-emerald-400' : 'text-slate-500') + '">' + (inSquad ? 'Trong đội' : 'Ngoài đội') + '</div>'
+                    + '<button type="button" data-select-merge="' + c.id + '" class="bg-sky-700 hover:bg-sky-600 text-white">' + (sel ? 'Bỏ chọn' : 'Chọn ghép') + '</button>'
+                    + '<button type="button" data-add-squad="' + c.id + '" class="' + (inSquad ? 'bg-slate-800 text-slate-500' : 'bg-emerald-600 hover:bg-emerald-500 text-white') + '">' + (inSquad ? 'Đã trong đội' : 'Thêm vào đội') + '</button>'
+                    + '<button type="button" data-sell-card="' + c.id + '" class="bg-amber-700 hover:bg-amber-600 text-white">Bán thẻ</button>'
+                    + '</div></div>';
+            }).join('');
+
+            box.querySelectorAll('[data-select-merge]').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const id = btn.getAttribute('data-select-merge');
+                    if (selectedCardId === id) {
+                        selectedCardId = null;
+                    } else if (!selectedCardId) {
+                        selectedCardId = id;
+                    } else {
+                        mergeCards(selectedCardId, id);
+                        selectedCardId = null;
+                        return;
+                    }
+                    renderCardInventory();
+                });
+            });
+            box.querySelectorAll('[data-add-squad]').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    addPlayerFromCard(btn.getAttribute('data-add-squad'));
+                });
+            });
+            box.querySelectorAll('[data-sell-card]').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    sellCard(btn.getAttribute('data-sell-card'));
+                });
+            });
+            box.querySelectorAll('.fo4-shell[data-card]').forEach(shell => {
+                const face = shell.querySelector('.fo4-card');
+                if (!face) return;
+                face.style.cursor = 'pointer';
+                face.addEventListener('click', () => {
+                    const id = shell.getAttribute('data-card');
+                    if (selectedCardId === id) {
+                        selectedCardId = null;
+                    } else if (!selectedCardId) {
+                        selectedCardId = id;
+                    } else {
+                        mergeCards(selectedCardId, id);
+                        selectedCardId = null;
+                        return;
+                    }
+                    renderCardInventory();
+                });
+            });
         }
 
         function generateTransferMarket() {
             let market = [];
-            // Cầu thủ thật / nổi bật từ dữ liệu FO4 (fifaaddict) + V.League free agents
-            const stars = [
-                { name: 'Nguyễn Công Phượng', pos: 'ST', rating: 76, age: 31 },
-                { name: 'Phan Văn Đức', pos: 'LW', rating: 75, age: 30 },
-                { name: 'Hà Đức Chinh', pos: 'ST', rating: 73, age: 29 },
-                { name: 'Trần Minh Vương', pos: 'CM', rating: 74, age: 30 },
-                { name: 'Bùi Tiến Dũng', pos: 'CB', rating: 74, age: 28 },
-                { name: 'Lương Xuân Trường', pos: 'CM', rating: 74, age: 31 },
-                { name: 'Nguyễn Tuấn Anh', pos: 'CM', rating: 75, age: 31 },
-                { name: 'Vũ Văn Thanh', pos: 'RB', rating: 74, age: 30 },
-                { name: 'Hồ Tấn Tài', pos: 'RB', rating: 74, age: 28 },
-                { name: 'Lê Viktor', pos: 'LW', rating: 73, age: 23 },
-                { name: 'Nguyễn Văn Toàn', pos: 'RW', rating: 75, age: 30 },
-                { name: 'Phạm Tuấn Hải', pos: 'ST', rating: 76, age: 27 },
-                { name: 'Đỗ Hùng Dũng', pos: 'CM', rating: 75, age: 32 },
-                { name: 'Quế Ngọc Hải', pos: 'CB', rating: 74, age: 33 },
-                { name: 'Nguyễn Trọng Hoàng', pos: 'RB', rating: 72, age: 35 },
-                { name: 'Lê Công Vinh', pos: 'ST', rating: 72, age: 40 }, // legend card style
-                { name: 'Nguyễn Hồng Sơn', pos: 'CAM', rating: 71, age: 55 }  // legend
-            ];
-            stars.forEach((s, i) => {
-                market.push({
-                    id: 500 + i, name: s.name, pos: s.pos, rating: s.rating, age: s.age,
-                    value: s.rating * 200000, wage: s.rating * 1500
+            let id = 5000 + Math.floor(Math.random() * 500);
+            const myClubId = gameState.clubId;
+            const seen = new Set();
+            const allClubs = [];
+            try {
+                Object.keys(WORLD_CLUBS || {}).forEach(lid => {
+                    (WORLD_CLUBS[lid] || []).forEach(c => allClubs.push(Object.assign({}, c, { _league: lid })));
+                });
+            } catch (e) { console.warn('WORLD_CLUBS', e); }
+            try {
+                if (typeof VLEAGUE_CLUBS !== 'undefined') {
+                    VLEAGUE_CLUBS.forEach(c => allClubs.push(Object.assign({}, c, { _league: 'vleague1' })));
+                }
+            } catch (e) {}
+
+            // FULL data: mọi CLB kể cả đội mình (đội mình = chỉ mua thẻ, không mua người)
+            allClubs.forEach(club => {
+                if (!club) return;
+                const isOwn = club.id === myClubId;
+                const list = (club.players && club.players.length) ? club.players : (club.keyPlayers || []);
+                list.forEach(kp => {
+                    if (!kp || !kp.name) return;
+                    const key = kp.name.toLowerCase();
+                    if (seen.has(key)) return;
+                    seen.add(key);
+                    const rating = kp.rating || 70;
+                    market.push({
+                        id: id++,
+                        name: kp.name,
+                        pos: kp.pos || 'CM',
+                        rating,
+                        age: kp.age || 25,
+                        birthYear: kp.birthYear || (2026 - (kp.age || 25)),
+                        nationality: kp.nation || kp.nationality || 'Unknown',
+                        image: kp.image || (kp.pid || kp.soccerwikiId ? ('https://cdn.soccerwiki.org/images/player/' + (kp.pid || kp.soccerwikiId) + '.png') : null),
+                        soccerwikiId: kp.soccerwikiId || kp.pid || null,
+                        value: Math.round(rating * rating * 2200),
+                        wage: rating * 1600,
+                        clubFrom: club.name || 'Unknown',
+                        leagueFrom: club._league || 'world',
+                        isReal: true,
+                        cardOnly: isOwn,
+                        isOwnClub: isOwn
+                    });
                 });
             });
-            const posList = ['ST','RW','LW','CAM','CM','CDM','CB','LB','RB','GK'];
-            for (let i = stars.length; i < 20; i++) {
-                const pos = posList[Math.floor(Math.random()*posList.length)];
-                const rating = Math.floor(Math.random()*12) + 68;
+
+            // Thêm chính cầu thủ trong đội hình hiện tại (phòng data JSON thiếu)
+            (gameState.squad || []).forEach(p => {
+                if (!p || !p.name) return;
+                const key = p.name.toLowerCase();
+                if (seen.has(key)) return;
+                seen.add(key);
                 market.push({
-                    id: 500 + i, name: getRandomName(), pos, rating,
-                    age: Math.floor(Math.random()*10)+19,
-                    value: rating * 160000, wage: rating * 1300
+                    id: id++,
+                    name: p.name,
+                    pos: p.pos || 'CM',
+                    rating: p.rating || 70,
+                    age: p.age || 25,
+                    image: p.image || null,
+                    value: Math.round((p.rating || 70) * (p.rating || 70) * 2200),
+                    wage: (p.rating || 70) * 1600,
+                    clubFrom: gameState.clubName || 'Đội bạn',
+                    leagueFrom: gameState.leagueId || 'own',
+                    isReal: !!p.isReal,
+                    cardOnly: true,
+                    isOwnClub: true
                 });
+            });
+
+            const freeAgents = [
+                { name: 'Nguyễn Công Phượng', pos: 'ST', rating: 76, age: 31 },
+                { name: 'Phan Văn Đức', pos: 'LW', rating: 75, age: 30 },
+                { name: 'Phạm Tuấn Hải', pos: 'ST', rating: 76, age: 27 },
+                { name: 'Nguyễn Hoàng Đức', pos: 'CAM', rating: 78, age: 28 },
+                { name: 'Đỗ Hùng Dũng', pos: 'CM', rating: 75, age: 32 },
+                { name: 'Quế Ngọc Hải', pos: 'CB', rating: 74, age: 33 },
+                { name: 'Bùi Tiến Dũng', pos: 'CB', rating: 74, age: 28 },
+                { name: 'Nguyễn Văn Toàn', pos: 'RW', rating: 75, age: 30 },
+                { name: 'Vũ Văn Thanh', pos: 'RB', rating: 74, age: 30 },
+                { name: 'Nguyễn Filip', pos: 'GK', rating: 76, age: 33 }
+            ];
+            freeAgents.forEach(s => {
+                const key = s.name.toLowerCase();
+                if (seen.has(key)) return;
+                seen.add(key);
+                market.push({
+                    id: id++, name: s.name, pos: s.pos, rating: s.rating, age: s.age,
+                    value: s.rating * 200000, wage: s.rating * 1500,
+                    clubFrom: 'Free Agent', leagueFrom: 'free', isReal: true, cardOnly: false
+                });
+            });
+
+            // Sắp xếp theo rating, FULL list (không cắt 80)
+            market.sort((a, b) => (b.rating || 0) - (a.rating || 0));
+            
+            // Giữ pool đủ lớn để tìm kiếm, ưu tiên OVR cao
+            market.sort((a, b) => (b.rating || 0) - (a.rating || 0));
+            if (market.length > 250) {
+                market = market.slice(0, 250);
             }
-            return market;
+return market;
+        }
+
+
+        async function applyPendingGifts() {
+            try {
+                const user = (window.getCurrentUser && window.getCurrentUser()) || null;
+                if (!user || !user.uid) return;
+                let gifts = user.pendingGifts || null;
+                // local fallback
+                if (!gifts) {
+                    const raw = localStorage.getItem('fm_pending_gifts_' + user.uid);
+                    if (raw) gifts = JSON.parse(raw);
+                }
+                if (!gifts) return;
+                let changed = false;
+                const money = Number(gifts.money || 0);
+                if (money > 0) {
+                    gameState.budget = (gameState.budget || 0) + money;
+                    changed = true;
+                }
+                const players = gifts.players || [];
+                players.forEach(gp => {
+                    if (!gp || !gp.name) return;
+                    if (gameState.squad.some(p => p.name === gp.name)) return;
+                    const maxId = gameState.squad.reduce((m, p) => Math.max(m, p.id || 0), 100);
+                    const pl = makePlayerFromData({
+                        name: gp.name, pos: gp.pos || 'CM', rating: gp.rating || 75,
+                        age: gp.age || 24, isReal: true, image: gp.image || null
+                    }, maxId + 1 + Math.floor(Math.random()*50));
+                    pl.matchdayRole = 'reserve';
+                    pl.isStarting = false;
+                    gameState.squad.push(pl);
+                    changed = true;
+                });
+                if (changed) {
+                    // clear gifts
+                    localStorage.removeItem('fm_pending_gifts_' + user.uid);
+                    try { await clearPendingGifts(); } catch(e) {}
+                    saveGame();
+                    alert('Bạn nhận quà từ Admin: ' + (money > 0 ? ('+$' + (money/1e6).toFixed(2) + 'M ') : '') + (players.length ? (players.length + ' cầu thủ') : ''));
+                    updateUI();
+                }
+            } catch (e) { console.warn('applyPendingGifts', e); }
+        }
+
+        function ensureTransferMarket(force) {
+            ensureGameExtras();
+            const m = gameState.transferMarket;
+            const needs = force || !m || !Array.isArray(m) || m.length === 0;
+            if (needs) {
+                gameState.transferMarket = generateTransferMarket();
+            }
         }
 
         // ==================== INIT & CLUB SELECT ====================
@@ -326,6 +1427,9 @@ function getClubsForLeague(leagueId) {
             if (saved) {
                 try {
                     gameState = JSON.parse(saved);
+                    ensureGameExtras();
+                    ensureTransferMarket();
+                    applyPendingGifts();
                     document.getElementById('club-select-modal').classList.add('hidden');
                     updateUI();
                     return;
@@ -338,18 +1442,26 @@ function getClubsForLeague(leagueId) {
 
         function renderLeagueCards() {
             const container = document.getElementById('league-cards');
-            container.innerHTML = Object.values(LEAGUES).map(lg => `
-                <button onclick="${lg.unlocked ? `selectLeague('${lg.id}')` : 'alert(\\'Giải đấu này sẽ được mở rộng trong bản cập nhật sau!\\')'}"
-                    class="p-5 rounded-2xl border text-left transition-all ${lg.unlocked
-                        ? 'bg-slate-900 border-emerald-500/40 hover:border-emerald-400 hover:bg-emerald-950/30 cursor-pointer'
-                        : 'bg-slate-900/50 border-slate-800 opacity-60 cursor-not-allowed'}">
-                    <div class="text-3xl mb-2">${lg.icon}</div>
-                    <h3 class="font-extrabold text-slate-100 text-lg">${lg.name}</h3>
-                    <p class="text-xs text-slate-400 mt-1">${lg.country} • ${lg.season}</p>
-                    <p class="text-xs text-slate-500 mt-2">${lg.desc}</p>
-                    ${!lg.unlocked ? '<span class="inline-block mt-2 text-[10px] px-2 py-0.5 rounded bg-slate-800 text-slate-400">Sắp ra mắt</span>' : ''}
-                </button>
-            `).join('');
+            container.innerHTML = Object.values(LEAGUES).map(lg => {
+                const onclick = lg.unlocked
+                    ? "selectLeague('" + lg.id + "')"
+                    : "alert('Giải đấu này sẽ được mở rộng trong bản cập nhật sau!')";
+                const cardClass = lg.unlocked
+                    ? 'bg-slate-900 border-emerald-500/40 hover:border-emerald-400 hover:bg-emerald-950/30 cursor-pointer'
+                    : 'bg-slate-900/50 border-slate-800 opacity-60 cursor-not-allowed';
+                const lockBadge = !lg.unlocked
+                    ? '<span class="inline-block mt-2 text-[10px] px-2 py-0.5 rounded bg-slate-800 text-slate-400">Sắp ra mắt</span>'
+                    : '';
+                return (
+                    '<button onclick="' + onclick + '" class="p-5 rounded-2xl border text-left transition-all ' + cardClass + '">' +
+                    '<div class="text-3xl mb-2">' + (lg.icon || '') + '</div>' +
+                    '<h3 class="font-extrabold text-slate-100 text-lg">' + lg.name + '</h3>' +
+                    '<p class="text-xs text-slate-400 mt-1">' + (lg.country || '') + '</p>' +
+                    '<p class="text-xs text-slate-500 mt-2">' + (lg.desc || '') + '</p>' +
+                    lockBadge +
+                    '</button>'
+                );
+            }).join('');
         }
 
         function selectLeague(leagueId) {
@@ -455,42 +1567,107 @@ function getClubsForLeague(leagueId) {
             AudioFX.whistle();
         }
 
-        function saveGame() {
-            localStorage.setItem('fm_game_save_v2', JSON.stringify(gameState));
-            // also keep old key for safety
-            localStorage.setItem('fm_game_save', JSON.stringify(gameState));
-            if (arguments.length === 0) {
-                // silent auto-save after match; only show alert when user clicks
-            }
+        let _cloudSaveTimer = null;
+        let _cloudSaveInFlight = false;
+
+        function scheduleCloudSave() {
+            try {
+                if (!getCurrentUser || !getCurrentUser()) return;
+            } catch (_) { return; }
+            if (_cloudSaveTimer) clearTimeout(_cloudSaveTimer);
+            _cloudSaveTimer = setTimeout(async () => {
+                if (_cloudSaveInFlight) return;
+                _cloudSaveInFlight = true;
+                try {
+                    await saveGameCloud(gameState);
+                    const badge = document.getElementById('cloud-save-badge');
+                    if (badge) {
+                        badge.textContent = 'Cloud ✓';
+                        badge.classList.remove('hidden', 'text-amber-400');
+                        badge.classList.add('text-emerald-400');
+                        setTimeout(() => badge.classList.add('hidden'), 2000);
+                    }
+                } catch (e) {
+                    console.warn('cloud save', e);
+                } finally {
+                    _cloudSaveInFlight = false;
+                }
+            }, 1500);
         }
 
-        function saveGameManual() {
+        function saveGame() {
+            try {
+                // Bỏ transferMarket nặng khỏi local save (regenerate khi cần)
+                const slim = Object.assign({}, gameState);
+                if (Array.isArray(slim.transferMarket) && slim.transferMarket.length > 20) {
+                    slim.transferMarket = [];
+                }
+                const json = JSON.stringify(slim);
+                localStorage.setItem('fm_game_save_v2', json);
+                localStorage.setItem('fm_game_save', json);
+            } catch (e) {
+                console.warn('local save failed', e);
+            }
+            scheduleCloudSave();
+        }
+
+        async function saveGameManual() {
             saveGame();
-            alert("Game đã được lưu thành công!");
+            try {
+                if (getCurrentUser()) {
+                    await saveGameCloud(gameState);
+                    alert('Đã lưu local + Firebase thành công!');
+                } else {
+                    alert('Đã lưu local (chưa đăng nhập — không đồng bộ cloud).');
+                }
+            } catch (e) {
+                alert('Đã lưu local. Cloud lỗi: ' + (e.message || e));
+            }
         }
 
         function resetGamePrompt() {
-            if (confirm("Bạn có chắc chắn muốn xóa tiến trình và chơi lại từ đầu?")) {
+            if (confirm('Bạn có chắc muốn xóa tiến trình local và cloud rồi chơi lại?')) {
                 localStorage.removeItem('fm_game_save_v2');
                 localStorage.removeItem('fm_game_save');
+                const u = getCurrentUser && getCurrentUser();
+                if (u) {
+                    // wipe cloud save by writing empty marker
+                    saveGameCloud({ reset: true, clubName: null }).catch(() => {});
+                    localStorage.removeItem('fm_cloud_save_' + u.uid);
+                }
                 location.reload();
             }
         }
+
+        // Lưu cloud khi thoát / ẩn tab
+        window.addEventListener('beforeunload', () => {
+            try {
+                localStorage.setItem('fm_game_save_v2', JSON.stringify(gameState));
+            } catch (_) {}
+        });
+        document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'hidden' && gameState && gameState.clubName) {
+                try {
+                    localStorage.setItem('fm_game_save_v2', JSON.stringify(gameState));
+                    if (getCurrentUser()) saveGameCloud(gameState).catch(() => {});
+                } catch (_) {}
+            }
+        });
 
         // ==================== UI ====================
         function switchTab(tabId) {
             AudioFX.click();
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-            document.querySelectorAll('.nav-tab').forEach(el => {
-                el.classList.remove('bg-emerald-600', 'text-white', 'shadow-md');
-                el.classList.add('text-slate-400');
+            document.querySelectorAll('.nav-tab').forEach(el => el.classList.remove('active'));
+            const tabEl = document.getElementById('tab-' + tabId);
+            if (tabEl) tabEl.classList.remove('hidden');
+            // Desktop side nav
+            const sideBtn = document.getElementById('nav-' + tabId);
+            if (sideBtn) sideBtn.classList.add('active');
+            // Mobile bottom nav
+            document.querySelectorAll('#bottom-nav .nav-tab').forEach(el => {
+                if (el.getAttribute('data-nav') === tabId) el.classList.add('active');
             });
-            document.getElementById(`tab-${tabId}`).classList.remove('hidden');
-            const activeBtn = document.getElementById(`nav-${tabId}`);
-            if (activeBtn) {
-                activeBtn.classList.add('bg-emerald-600', 'text-white', 'shadow-md');
-                activeBtn.classList.remove('text-slate-400');
-            }
             if (tabId === 'tactics') renderTacticsTab();
             if (tabId === 'transfers') renderTransfersTab();
             if (tabId === 'league') renderLeagueTab();
@@ -498,7 +1675,15 @@ function getClubsForLeague(leagueId) {
             if (tabId === 'finance') renderFinanceTab();
         }
 
+        let _uiRaf = null;
         function updateUI() {
+            if (_uiRaf) return;
+            _uiRaf = requestAnimationFrame(() => {
+                _uiRaf = null;
+                updateUINow();
+            });
+        }
+        function updateUINow() {
             // Badge
             const badgeEl = document.getElementById('club-badge');
             if (badgeEl) badgeEl.innerText = gameState.clubBadge || 'FC';
@@ -558,8 +1743,56 @@ function getClubsForLeague(leagueId) {
 
         function calculateAvgRating(players, positions) {
             const matched = players.filter(p => positions.includes(p.pos));
-            if (matched.length === 0) return 70;
-            return matched.reduce((s, p) => s + p.rating, 0) / matched.length;
+            if (matched.length === 0) {
+                // fallback: average all players with effective rating
+                if (!players || !players.length) return 70;
+                return players.reduce((s, p) => s + effectiveRating(p), 0) / players.length;
+            }
+            return matched.reduce((s, p) => s + effectiveRating(p), 0) / matched.length;
+        }
+
+        /** Chỉ số trận thực tế: OVR hiệu dụng + thể lực + morale */
+        function getTeamMatchPower(starters) {
+            if (!starters || !starters.length) {
+                return { att: 65, mid: 65, def: 65, ovr: 65, stamina: 80 };
+            }
+            const att = calculateAvgRating(starters, ['ST','CF','RW','LW','CAM']);
+            const mid = calculateAvgRating(starters, ['CM','CDM','CAM','LM','RM']);
+            const def = calculateAvgRating(starters, ['CB','LB','RB','LWB','RWB','GK']);
+            const ovr = starters.reduce((s, p) => s + effectiveRating(p), 0) / starters.length;
+            const stamina = starters.reduce((s, p) => s + (p.stamina != null ? p.stamina : 100), 0) / starters.length;
+            // morale CLB
+            const moraleBonus = ((gameState.morale || 70) - 70) * 0.08;
+            // form gần đây
+            let formBonus = 0;
+            starters.forEach(p => {
+                const recent = (p.form || []).slice(-5);
+                if (recent.length) {
+                    const score = recent.reduce((s, r) => s + (r === 'W' ? 1 : r === 'D' ? 0.3 : 0), 0);
+                    formBonus += score / recent.length;
+                }
+            });
+            formBonus = (formBonus / Math.max(1, starters.length)) * 2;
+            const stamFactor = 0.85 + (stamina / 100) * 0.15; // 85%–100%
+            return {
+                att: (att + moraleBonus + formBonus) * stamFactor,
+                mid: (mid + moraleBonus + formBonus * 0.7) * stamFactor,
+                def: (def + moraleBonus * 0.5 + formBonus * 0.5) * stamFactor,
+                ovr: ovr * stamFactor,
+                stamina
+            };
+        }
+
+        /** Chuyển chênh lệch chỉ số → xác suất (logistic) */
+        function strengthToProb(myStat, oppStat, base, scale) {
+            // base ~0.28 khi ngang sức; scale càng nhỏ càng nhạy với chênh lệch
+            const diff = myStat - oppStat;
+            const x = diff / (scale || 9);
+            // logistic centered at base
+            const logistic = 1 / (1 + Math.exp(-x));
+            // map logistic 0.5 → base
+            const p = base + (logistic - 0.5) * 0.7;
+            return Math.max(0.06, Math.min(0.72, p));
         }
 
         function setupNextMatchPreview() {
@@ -607,71 +1840,441 @@ function getClubsForLeague(leagueId) {
             }).reverse().join('');
         }
 
-        // ==================== TACTICS ====================
+        // ==================== TACTICS (kéo thả) ====================
+        let dragPlayerId = null;
+        let dragFromSlot = null;
+        let selectedTacticsPlayerId = null;
+
+        function positionsCompatible(posA, posB) {
+            // Chỉ cùng đúng vị trí (ST-ST, LW-LW, ...) — không gộp LW/RW hay CM/CDM
+            if (!posA || !posB) return false;
+            return String(posA).toUpperCase() === String(posB).toUpperCase();
+        }
+
+        function selectTacticsPlayer(playerId) {
+            const id = playerId == null ? null : Number(playerId);
+            if (selectedTacticsPlayerId === id) {
+                selectedTacticsPlayerId = null;
+            } else {
+                selectedTacticsPlayerId = id;
+            }
+            renderTacticsTab();
+        }
+
+        function swapWithSelected(targetPlayerId) {
+            if (selectedTacticsPlayerId == null) return;
+            const a = gameState.squad.find(p => p.id === selectedTacticsPlayerId);
+            const b = gameState.squad.find(p => p.id === targetPlayerId);
+            if (!a || !b || a.id === b.id) return;
+            if (a.injuryWeeks > 0 || b.injuryWeeks > 0) {
+                alert('Cầu thủ đang chấn thương, không thể đổi!');
+                return;
+            }
+            // Swap starting status + slotIndex
+            const aStart = a.isStarting, aSlot = a.slotIndex;
+            const bStart = b.isStarting, bSlot = b.slotIndex;
+            a.isStarting = bStart; a.slotIndex = bSlot;
+            b.isStarting = aStart; b.slotIndex = aSlot;
+            selectedTacticsPlayerId = null;
+            saveGame();
+            renderTacticsTab();
+            updateUI();
+        }
+
+
+        function assignStartersBySlots(slotPlayers) {
+            // slotPlayers: array of player ids or null length 11
+            gameState.squad.forEach(p => { p.isStarting = false; p.slotIndex = null; });
+            slotPlayers.forEach((pid, idx) => {
+                if (pid == null) return;
+                const pl = gameState.squad.find(p => p.id === pid);
+                if (pl) {
+                    pl.isStarting = true;
+                    pl.slotIndex = idx;
+                }
+            });
+        }
+
+        function getSlotAssignments(formation) {
+            const slots = getFormationPositions(formation);
+            const starters = gameState.squad.filter(p => p.isStarting);
+            // Prefer slotIndex if set
+            const assigned = new Array(slots.length).fill(null);
+            const used = new Set();
+            starters.forEach(p => {
+                if (typeof p.slotIndex === 'number' && p.slotIndex >= 0 && p.slotIndex < slots.length && !assigned[p.slotIndex]) {
+                    assigned[p.slotIndex] = p;
+                    used.add(p.id);
+                }
+            });
+            // Fill remaining by position match
+            slots.forEach((slot, idx) => {
+                if (assigned[idx]) return;
+                let match = starters.find(p => !used.has(p.id) && p.pos === slot.pos);
+                if (!match) match = starters.find(p => !used.has(p.id) && p.pos !== 'GK');
+                if (!match) match = starters.find(p => !used.has(p.id));
+                if (match) {
+                    assigned[idx] = match;
+                    match.slotIndex = idx;
+                    used.add(match.id);
+                }
+            });
+            return assigned;
+        }
+
+        function placePlayerInSlot(playerId, slotIndex) {
+            const player = gameState.squad.find(p => p.id === playerId);
+            if (!player || player.injuryWeeks > 0) return;
+            const slots = getFormationPositions(gameState.formation);
+            if (slotIndex < 0 || slotIndex >= slots.length) return;
+
+            const assigned = getSlotAssignments(gameState.formation);
+            const existing = assigned[slotIndex];
+
+            // If player already starting in another slot, clear that slot
+            const prevSlot = typeof player.slotIndex === 'number' ? player.slotIndex : assigned.findIndex(p => p && p.id === playerId);
+
+            if (existing && existing.id !== playerId) {
+                // swap
+                if (prevSlot >= 0) {
+                    existing.slotIndex = prevSlot;
+                    existing.isStarting = true;
+                } else {
+                    existing.isStarting = false;
+                    existing.slotIndex = null;
+                }
+            }
+
+            player.isStarting = true;
+            player.slotIndex = slotIndex;
+            player.matchdayRole = 'start';
+
+            // Cap at 11 starters: if more, bench lowest without slot
+            const starters = gameState.squad.filter(p => p.isStarting);
+            if (starters.length > 11) {
+                starters
+                    .filter(p => p.id !== playerId && (p.slotIndex === null || p.slotIndex === undefined))
+                    .sort((a,b) => a.rating - b.rating)
+                    .forEach(p => { p.isStarting = false; });
+            }
+            // Rebuild strict 11 from slots
+            const finalAssigned = getSlotAssignments(gameState.formation);
+            gameState.squad.forEach(p => { p.isStarting = false; });
+            finalAssigned.forEach((pl, idx) => {
+                if (pl) {
+                    const real = gameState.squad.find(x => x.id === pl.id);
+                    if (real) { real.isStarting = true; real.slotIndex = idx; }
+                }
+            });
+            saveGame();
+            renderTacticsTab();
+        }
+
         function renderTacticsTab() {
+            try { backfillAllImages(false); } catch (_) {}
             const pitchContainer = document.getElementById('pitch-players-container');
             const rosterContainer = document.getElementById('squad-roster-list');
+            if (!pitchContainer || !rosterContainer) return;
+
             const formation = gameState.formation;
             const slots = getFormationPositions(formation);
+            const assigned = getSlotAssignments(formation);
+            const starters = gameState.squad.filter(p => p.isStarting);
+            const selected = selectedTacticsPlayerId != null
+                ? gameState.squad.find(p => p.id === selectedTacticsPlayerId)
+                : null;
+            const selectedPos = selected ? selected.pos : null;
+
+            const countEl = document.getElementById('squad-starting-count');
+            if (countEl) {
+                countEl.innerHTML = starters.length + ' / 11 Ra Sân'
+                    + (selected
+                        ? ' <span class="text-amber-400 font-semibold">· Chọn: ' + selected.name.split(' ').pop()
+                        + ' (' + selected.pos + ') — bấm cầu thủ cùng vị trí để đổi</span>'
+                        : ' <span class="text-slate-500">· Bấm cầu thủ để chọn & làm sáng dự bị cùng vị trí</span>');
+            }
+            const formSel = document.getElementById('formation-select');
+            if (formSel) formSel.value = formation;
+
             pitchContainer.innerHTML = '';
-            let starters = gameState.squad.filter(p => p.isStarting);
-            document.getElementById('squad-starting-count').innerText = `${starters.length} / 11 Ra Sân`;
-            document.getElementById('formation-select').value = formation;
+            pitchContainer.style.position = 'relative';
+            pitchContainer.style.width = '100%';
+            pitchContainer.style.height = '100%';
 
             slots.forEach((slot, idx) => {
-                const player = starters[idx];
-                const playerCard = document.createElement('div');
-                playerCard.className = `absolute transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center cursor-pointer group transition-transform hover:scale-110`;
-                playerCard.style.top = slot.top;
-                playerCard.style.left = slot.left;
-                if (player) {
-                    playerCard.onclick = () => swapPlayerStartingStatus(player.id);
-                    const realBadge = player.isReal ? '<span class="absolute -top-1 -right-1 w-2 h-2 bg-amber-400 rounded-full"></span>' : '';
-                    playerCard.innerHTML = `
-                        <div class="relative w-9 h-9 rounded-full bg-slate-900 border-2 border-emerald-400 text-emerald-400 flex items-center justify-center text-xs font-black shadow-lg group-hover:bg-emerald-500 group-hover:text-slate-950">
-                            ${player.rating}${realBadge}
-                        </div>
-                        <div class="bg-slate-900/90 text-[10px] text-slate-100 px-2 py-0.5 rounded border border-slate-700 mt-1 font-semibold whitespace-nowrap shadow">
-                            ${player.name.split(' ').pop()} (${slot.pos})
-                        </div>`;
-                } else {
-                    playerCard.innerHTML = `<div class="w-9 h-9 rounded-full bg-slate-800/80 border-2 border-dashed border-slate-500 text-slate-400 flex items-center justify-center text-xs font-bold">+</div>`;
+                const player = assigned[idx];
+                const el = document.createElement('div');
+                el.className = 'absolute transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center z-10';
+                let topPos = slot.top, leftPos = slot.left;
+                if (gameState.formation === 'FREE' && player && gameState.freePositions && gameState.freePositions[player.id]) {
+                    topPos = gameState.freePositions[player.id].top;
+                    leftPos = gameState.freePositions[player.id].left;
                 }
-                pitchContainer.appendChild(playerCard);
+                el.style.top = topPos;
+                el.style.left = leftPos;
+                el.dataset.slotIndex = String(idx);
+
+                const slotMatches = selected && positionsCompatible(selectedPos, slot.pos);
+                if (slotMatches && !player) {
+                    el.classList.add('pos-slot-glow');
+                }
+
+                el.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    el.classList.add('scale-110');
+                });
+                el.addEventListener('dragleave', () => el.classList.remove('scale-110'));
+                el.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    el.classList.remove('scale-110');
+                    const pid = parseInt(e.dataTransfer.getData('text/playerId') || dragPlayerId, 10);
+                    if (!isNaN(pid)) {
+                        placePlayerInSlot(pid, idx);
+                        selectedTacticsPlayerId = null;
+                    }
+                    dragPlayerId = null;
+                });
+
+                if (player) {
+                    el.draggable = true;
+                    el.style.cursor = 'pointer';
+                    const isSelected = selected && selected.id === player.id;
+                    const isCompatibleOther = selected && selected.id !== player.id && positionsCompatible(selectedPos, player.pos);
+
+                    el.addEventListener('dragstart', (e) => {
+                        dragPlayerId = player.id;
+                        dragFromSlot = idx;
+                        selectedTacticsPlayerId = player.id;
+                        e.dataTransfer.setData('text/playerId', String(player.id));
+                        e.dataTransfer.effectAllowed = 'move';
+                    });
+                    el.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        if (selected && selected.id !== player.id && positionsCompatible(selectedPos, player.pos)) {
+                            // swap with selected
+                            swapWithSelected(player.id);
+                            return;
+                        }
+                        if (selected && selected.id === player.id) {
+                            // toggle off; second mode: bench if hold? just deselect
+                            selectedTacticsPlayerId = null;
+                            renderTacticsTab();
+                            return;
+                        }
+                        selectTacticsPlayer(player.id);
+                    });
+                    el.addEventListener('dblclick', (e) => {
+                        e.stopPropagation();
+                        player.isStarting = false;
+                        player.slotIndex = null;
+                        if (selectedTacticsPlayerId === player.id) selectedTacticsPlayerId = null;
+                        saveGame();
+                        renderTacticsTab();
+                    });
+
+                    const shortName = player.name.split(' ').pop();
+                    const cardPlus = getCardPlusForPlayer(player.name);
+                    const ringClass = isSelected
+                        ? 'border-amber-400 ring-2 ring-amber-400/60 shadow-lg shadow-amber-500/30'
+                        : (isCompatibleOther
+                            ? 'border-sky-400 ring-2 ring-sky-400/50 shadow-lg shadow-sky-500/25 pos-player-glow'
+                            : 'border-emerald-400');
+
+                    const imgUrl = resolvePlayerImage(player);
+                    if (imgUrl) {
+                        if (!player.image) player.image = imgUrl;
+                        const im = document.createElement('img');
+                        im.src = imgUrl;
+                        im.alt = shortName;
+                        im.loading = 'lazy';
+                        im.referrerPolicy = 'no-referrer';
+                        im.className = 'w-10 h-10 rounded-full object-cover border-2 bg-slate-800 ' + ringClass;
+                        im.addEventListener('error', function() {
+                            const badge = document.createElement('div');
+                            badge.className = 'w-10 h-10 rounded-full bg-slate-900 border-2 text-emerald-400 flex items-center justify-center text-xs font-black ' + ringClass;
+                            badge.textContent = String(typeof effectiveRating === 'function' ? effectiveRating(player) : player.rating);
+                            if (im.parentNode) im.replaceWith(badge);
+                        });
+                        el.appendChild(im);
+                    } else {
+                        const badge = document.createElement('div');
+                        badge.className = 'w-10 h-10 rounded-full bg-slate-900 border-2 text-emerald-400 flex items-center justify-center text-xs font-black ' + ringClass;
+                        badge.textContent = String(typeof effectiveRating === 'function' ? effectiveRating(player) : player.rating);
+                        el.appendChild(badge);
+                    }
+                    if (typeof cardPlus === 'number' && cardPlus > 0) {
+                        const plusEl = document.createElement('div');
+                        plusEl.className = 'absolute -top-2 left-1/2 -translate-x-1/2 z-20 px-1.5 py-0.5 rounded-md bg-amber-400 text-slate-950 text-[10px] font-black shadow-lg border border-amber-200 leading-none';
+                        plusEl.textContent = '+' + cardPlus;
+                        plusEl.title = 'Thẻ ghép +' + cardPlus;
+                        el.style.position = 'absolute';
+                        el.appendChild(plusEl);
+                    }
+                    const label = document.createElement('div');
+                    label.className = 'bg-slate-900/90 text-[10px] text-slate-100 px-2 py-0.5 rounded border mt-1 font-semibold whitespace-nowrap shadow '
+                        + (isSelected ? 'border-amber-400 text-amber-200' : (isCompatibleOther ? 'border-sky-400 text-sky-200' : 'border-slate-700'));
+                    label.textContent = player.name + ' (' + slot.pos + ')';
+                    label.title = player.name;
+                    label.style.maxWidth = '110px';
+                    label.style.overflow = 'hidden';
+                    label.style.textOverflow = 'ellipsis';
+                    el.appendChild(label);
+                } else {
+                    el.style.cursor = slotMatches ? 'pointer' : 'default';
+                    el.innerHTML = '<div class="w-10 h-10 rounded-full bg-slate-800/80 border-2 border-dashed '
+                        + (slotMatches ? 'border-amber-400 text-amber-300 pos-slot-glow' : 'border-slate-500 text-slate-400')
+                        + ' flex items-center justify-center text-xs font-bold">+</div><div class="text-[9px] mt-1 '
+                        + (slotMatches ? 'text-amber-300 font-bold' : 'text-slate-400') + '">' + slot.pos + '</div>';
+                    if (selected && slotMatches) {
+                        el.addEventListener('click', () => {
+                            placePlayerInSlot(selected.id, idx);
+                            selectedTacticsPlayerId = null;
+                        });
+                    }
+                }
+                pitchContainer.appendChild(el);
             });
 
-            const penaltySelect = document.getElementById('penalty-taker-select');
-            penaltySelect.innerHTML = gameState.squad.map(p =>
-                `<option value="${p.id}" ${p.id === gameState.penaltyTakerId ? 'selected' : ''}>${p.name} (OVR: ${p.rating})</option>`
-            ).join('');
 
-            rosterContainer.innerHTML = gameState.squad.map(player => {
-                const isStar = player.isStarting;
+            // FREE formation: kéo tự do trên sân
+            if (gameState.formation === 'FREE') {
+                if (!gameState.freePositions) gameState.freePositions = {};
+                pitchContainer.querySelectorAll('[data-slot-index]').forEach(el => {
+                    const idx = parseInt(el.dataset.slotIndex, 10);
+                    const pl = assigned[idx];
+                    if (!pl) return;
+                    el.style.cursor = 'move';
+                    let dragging = false;
+                    el.addEventListener('pointerdown', (e) => {
+                        if (e.button !== 0) return;
+                        dragging = true;
+                        el.setPointerCapture(e.pointerId);
+                        e.preventDefault();
+                    });
+                    el.addEventListener('pointermove', (e) => {
+                        if (!dragging) return;
+                        const rect = pitchContainer.getBoundingClientRect();
+                        let x = ((e.clientX - rect.left) / rect.width) * 100;
+                        let y = ((e.clientY - rect.top) / rect.height) * 100;
+                        x = Math.max(5, Math.min(95, x));
+                        y = Math.max(5, Math.min(95, y));
+                        el.style.left = x + '%';
+                        el.style.top = y + '%';
+                        gameState.freePositions[pl.id] = { top: y + '%', left: x + '%' };
+                    });
+                    el.addEventListener('pointerup', () => {
+                        if (dragging) { dragging = false; saveGame(); }
+                    });
+                });
+            }
+
+            const penaltySelect = document.getElementById('penalty-taker-select');
+            if (penaltySelect) {
+                penaltySelect.innerHTML = gameState.squad.map(p =>
+                    '<option value="' + p.id + '" ' + (p.id === gameState.penaltyTakerId ? 'selected' : '') + '>' + p.name + ' (OVR: ' + p.rating + ')</option>'
+                ).join('');
+            }
+
+            // ===== Split: XI / Bench(7) / Reserve =====
+            ensureGameExtras();
+            const startersList = gameState.squad.filter(p => p.isStarting).sort((a,b) => b.rating - a.rating);
+            const benchList = gameState.squad.filter(p => !p.isStarting && p.matchdayRole === 'bench').sort((a,b) => b.rating - a.rating);
+            const reserveList = gameState.squad.filter(p => !p.isStarting && p.matchdayRole !== 'bench').sort((a,b) => b.rating - a.rating);
+
+            function rowHtml(player, section) {
                 const injured = player.injuryWeeks > 0;
-                const formStr = (player.form || []).map(r => {
-                    const c = r === 'W' ? 'text-emerald-400' : (r === 'D' ? 'text-amber-400' : 'text-red-400');
-                    return `<span class="${c} font-bold">${r}</span>`;
-                }).join(' ');
-                return `
-                    <div class="p-2.5 rounded-xl border ${injured ? 'bg-red-950/20 border-red-500/30 opacity-70' : (isStar ? 'bg-emerald-950/20 border-emerald-500/30' : 'bg-slate-950/60 border-slate-800')} flex items-center justify-between hover:border-slate-700">
-                        <div class="flex items-center gap-3">
-                            <button onclick="swapPlayerStartingStatus(${player.id})" ${injured ? 'disabled' : ''} class="w-6 h-6 rounded flex items-center justify-center text-xs font-bold transition ${injured ? 'bg-red-900 text-red-300' : (isStar ? 'bg-emerald-500 text-slate-950' : 'bg-slate-800 text-slate-400 hover:bg-slate-700')}">
-                                ${injured ? 'INJ' : (isStar ? 'ST' : 'SUB')}
-                            </button>
-                            <div>
-                                <div class="font-bold text-xs text-slate-200 flex items-center gap-1.5 flex-wrap">
-                                    <span>${player.name}</span>
-                                    ${player.isReal ? '<span class="text-[9px] px-1 py-0.5 rounded bg-amber-500/20 text-amber-400 border border-amber-500/30">THẬT</span>' : ''}
-                                    <span class="text-[10px] px-1.5 py-0.2 rounded bg-slate-800 text-slate-300 border border-slate-700">${player.pos}</span>
-                                    ${player.personality ? `<span class="text-[9px] text-indigo-400">${player.personality}</span>` : ''}
-                                </div>
-                                <div class="text-[10px] text-slate-400">${player.age}t${player.birthYear ? ' ('+player.birthYear+')' : ''}${player.nationality && player.nationality !== 'Unknown' ? ' • '+player.nationality : ''} • Bàn: ${player.goals} • ${player.potential ? 'POT '+player.potential+' • ' : ''}$${(player.wage/1000).toFixed(0)}K</div>
-                                <div class="text-[10px] mt-0.5 flex gap-1 items-center">${formStr || '<span class="text-slate-600">Chưa có form</span>'}${injured ? ` <span class="text-red-400 ml-1">🏥 ${player.injuryWeeks} vòng</span>` : ''}</div>
-                            </div>
-                        </div>
-                        <div class="text-right"><span class="text-sm font-black text-amber-400">${player.rating}</span></div>
-                    </div>`;
-            }).join('');
+                const isSelected = selected && selected.id === player.id;
+                const isMatch = selected && selected.id !== player.id && !injured && positionsCompatible(selectedPos, player.pos);
+                const plus = getCardPlusForPlayer(player.name);
+                const eff = Math.min(99, player.rating + plus);
+                let rowClass = injured
+                    ? 'bg-red-950/20 border-red-500/30 opacity-70'
+                    : (isSelected
+                        ? 'bg-amber-950/40 border-amber-400/70 ring-1 ring-amber-400/40'
+                        : (isMatch
+                            ? 'bg-sky-950/40 border-sky-400/60 ring-1 ring-sky-400/30 pos-player-glow'
+                            : (section === 'start' ? 'bg-emerald-950/20 border-emerald-500/30' : (section === 'bench' ? 'bg-indigo-950/20 border-indigo-500/25' : 'bg-slate-950/60 border-slate-800'))));
+                const badge = injured ? 'INJ' : (isSelected ? '✓' : (isMatch ? '↔' : (section === 'start' ? 'ST' : (section === 'bench' ? 'BN' : 'RS'))));
+                const badgeCls = injured ? 'bg-red-900 text-red-300' : (isSelected ? 'bg-amber-400 text-slate-950' : (isMatch ? 'bg-sky-400 text-slate-950' : (section === 'start' ? 'bg-emerald-500 text-slate-950' : (section === 'bench' ? 'bg-indigo-500 text-white' : 'bg-slate-800 text-slate-400'))));
+                return (
+                    '<div class="p-2.5 rounded-xl border ' + rowClass +
+                    ' flex items-center justify-between hover:border-slate-600 cursor-pointer transition-all" draggable="' + (!injured) +
+                    '" data-player-id="' + player.id + '" data-pos="' + player.pos + '">' +
+                    '<div class="flex items-center gap-2 min-w-0">' +
+                    '<span class="w-6 h-6 rounded flex items-center justify-center text-[10px] font-bold shrink-0 ' + badgeCls + '">' + badge + '</span>' +
+                    '<div class="min-w-0">' +
+                    '<div class="font-bold text-xs text-slate-200 truncate" title="' + player.name + '">' + player.name +
+                    (player.isReal ? ' <span class="text-[9px] text-amber-400">THẬT</span>' : '') +
+                    (plus > 0 ? ' <span class="text-[9px] text-amber-300 font-black">+' + plus + '</span>' : '') +
+                    ' <span class="text-[10px] ' + (isMatch || isSelected ? 'text-sky-300 font-bold' : 'text-slate-400') + '">' + player.pos + '</span></div>' +
+                    '<div class="text-[10px] text-slate-500">OVR ' + player.rating + (plus ? ' → <span class="text-emerald-400">' + eff + '</span>' : '') + '</div>' +
+                    '</div></div>' +
+                    '<div class="flex items-center gap-1 shrink-0">' +
+                    '<select data-role-for="' + player.id + '" class="bg-slate-800 border border-slate-700 text-[10px] rounded px-1 py-0.5 text-slate-300 max-w-[100px]" onclick="event.stopPropagation()">' +
+                    '<option value="start"' + (section==='start'?' selected':'') + '>Ra sân</option>' +
+                    '<option value="bench"' + (section==='bench'?' selected':'') + '>Dự bị</option>' +
+                    '<option value="reserve"' + (section==='reserve'?' selected':'') + '>Ngoài DS</option>' +
+                    '<option value="list_market">Đăng bán</option>' +
+                    '<option value="sell_now">Bán ngay</option>' +
+                    '<option value="release">Sa thải</option>' +
+                    '</select>' +
+                    '<span class="text-sm font-black text-amber-400 w-6 text-right">' + eff + '</span>' +
+                    '</div></div>'
+                );
+            }
+
+            function sectionBlock(title, color, list, section, hint) {
+                return '<div class="space-y-1.5">' +
+                    '<div class="flex items-center justify-between sticky top-0 bg-slate-900/95 py-1 z-[1]">' +
+                    '<span class="text-[11px] font-bold ' + color + '">' + title + ' <span class="text-slate-500 font-semibold">(' + list.length + ')</span></span>' +
+                    (hint ? '<span class="text-[9px] text-slate-500">' + hint + '</span>' : '') +
+                    '</div>' +
+                    (list.length ? list.map(p => rowHtml(p, section)).join('') : '<div class="text-[11px] text-slate-600 px-1 py-2">Trống</div>') +
+                    '</div>';
+            }
+
+            rosterContainer.innerHTML =
+                sectionBlock('① Đội hình ra sân', 'text-emerald-400', startersList, 'start', 'tối đa 11') +
+                sectionBlock('② Dự bị trận (7)', 'text-indigo-300', benchList, 'bench', benchList.length + '/7') +
+                sectionBlock('③ Ngoài danh sách', 'text-slate-400', reserveList, 'reserve', '');
+
+            rosterContainer.querySelectorAll('[data-player-id]').forEach(row => {
+                const pid = parseInt(row.dataset.playerId, 10);
+                row.addEventListener('dragstart', (e) => {
+                    dragPlayerId = pid;
+                    selectedTacticsPlayerId = pid;
+                    e.dataTransfer.setData('text/playerId', String(pid));
+                    e.dataTransfer.effectAllowed = 'move';
+                });
+                row.addEventListener('click', (e) => {
+                    if (e.target.closest('select')) return;
+                    const pl = gameState.squad.find(p => p.id === pid);
+                    if (!pl || pl.injuryWeeks > 0) return;
+                    if (selected && selected.id !== pid && positionsCompatible(selectedPos, pl.pos)) {
+                        swapWithSelected(pid);
+                        return;
+                    }
+                    selectTacticsPlayer(pid);
+                });
+                row.addEventListener('dblclick', () => {
+                    const pl = gameState.squad.find(p => p.id === pid);
+                    if (!pl || pl.injuryWeeks > 0) return;
+                    const slots2 = getFormationPositions(gameState.formation === 'FREE' ? '4-3-3' : gameState.formation);
+                    const assigned2 = getSlotAssignments(gameState.formation === 'FREE' ? '4-3-3' : gameState.formation);
+                    let target = assigned2.findIndex((p, i) => !p && slots2[i].pos === pl.pos);
+                    if (target < 0) target = assigned2.findIndex(p => !p);
+                    if (target >= 0) {
+                        placePlayerInSlot(pid, target);
+                        selectedTacticsPlayerId = null;
+                    }
+                });
+            });
+            rosterContainer.querySelectorAll('[data-role-for]').forEach(sel => {
+                sel.addEventListener('change', () => {
+                    setMatchdayRole(parseInt(sel.getAttribute('data-role-for'), 10), sel.value);
+                });
+            });
+            updatePresetButtons();
         }
 
         function changeFormation(val) {
@@ -706,62 +2309,161 @@ function getClubsForLeague(leagueId) {
 
         // ==================== TRANSFERS ====================
         function renderTransfersTab() {
+            ensureTransferMarket();
+            populateTransferFilterOptions();
             filterTransferMarket();
             renderYouthAcademy();
+            renderCardInventory();
         }
 
         function switchTransferSubtab(subtab) {
-            document.getElementById('subtab-market').classList.toggle('hidden', subtab !== 'market');
-            document.getElementById('subtab-youth').classList.toggle('hidden', subtab !== 'youth');
-            document.getElementById('subtab-btn-market').className = subtab === 'market'
-                ? 'pb-3 px-2 font-bold text-sm text-emerald-400 border-b-2 border-emerald-400'
-                : 'pb-3 px-2 font-semibold text-sm text-slate-400 hover:text-slate-200';
-            document.getElementById('subtab-btn-youth').className = subtab === 'youth'
-                ? 'pb-3 px-2 font-bold text-sm text-emerald-400 border-b-2 border-emerald-400'
-                : 'pb-3 px-2 font-semibold text-sm text-slate-400 hover:text-slate-200';
+            ['market','youth','cards'].forEach(s => {
+                const el = document.getElementById('subtab-' + s);
+                if (el) el.classList.toggle('hidden', subtab !== s);
+                const btn = document.getElementById('subtab-btn-' + s);
+                if (btn) btn.className = subtab === s
+                    ? 'pb-3 px-2 font-bold text-sm text-emerald-400 border-b-2 border-emerald-400'
+                    : 'pb-3 px-2 font-semibold text-sm text-slate-400 hover:text-slate-200';
+            });
+            if (subtab === 'cards') renderCardInventory();
+            if (subtab === 'market') filterTransferMarket();
+            if (subtab === 'youth') renderYouthAcademy();
         }
 
         function filterTransferMarket() {
-            const query = (document.getElementById('transfer-search')?.value || '').toLowerCase();
+            ensureTransferMarket();
+            const query = (document.getElementById('transfer-search')?.value || '').trim().toLowerCase();
+            const clubQ = (document.getElementById('transfer-club-filter')?.value || '').trim().toLowerCase();
+            const nationQ = (document.getElementById('transfer-nation-filter')?.value || '').trim().toLowerCase();
             const posFilter = document.getElementById('transfer-pos-filter')?.value || 'ALL';
+            const ovrMin = parseInt(document.getElementById('transfer-ovr-min')?.value, 10);
+            const ovrMax = parseInt(document.getElementById('transfer-ovr-max')?.value, 10);
             const container = document.getElementById('transfer-market-cards');
-            const filtered = gameState.transferMarket.filter(p => {
-                const matchesName = p.name.toLowerCase().includes(query);
-                let matchesPos = true;
-                if (posFilter === 'FW') matchesPos = ['ST','RW','LW'].includes(p.pos);
-                if (posFilter === 'MF') matchesPos = ['CM','CAM','CDM'].includes(p.pos);
-                if (posFilter === 'DF') matchesPos = ['CB','LB','RB'].includes(p.pos);
-                if (posFilter === 'GK') matchesPos = p.pos === 'GK';
-                return matchesName && matchesPos;
+            const countEl = document.getElementById('transfer-result-count');
+            if (!container) return;
+
+            const list = gameState.transferMarket || [];
+            const hasFilter = !!(query || clubQ || nationQ || (posFilter && posFilter !== 'ALL')
+                || (!isNaN(ovrMin) && document.getElementById('transfer-ovr-min')?.value !== '')
+                || (!isNaN(ovrMax) && document.getElementById('transfer-ovr-max')?.value !== ''));
+
+            let filtered = list.filter(p => {
+                if (query) {
+                    const n = (p.name || '').toLowerCase();
+                    if (!n.includes(query)) return false;
+                }
+                if (clubQ) {
+                    const c = (p.clubFrom || '').toLowerCase();
+                    if (!c.includes(clubQ)) return false;
+                }
+                if (nationQ) {
+                    const nat = (p.nationality || p.nation || '').toLowerCase();
+                    if (!nat.includes(nationQ)) return false;
+                }
+                if (posFilter && posFilter !== 'ALL') {
+                    if (posFilter === 'FW') {
+                        if (!['ST','RW','LW'].includes(p.pos)) return false;
+                    } else if (posFilter === 'MF') {
+                        if (!['CM','CAM','CDM','LM','RM'].includes(p.pos)) return false;
+                    } else if (posFilter === 'DF') {
+                        if (!['CB','LB','RB'].includes(p.pos)) return false;
+                    } else if (posFilter === 'GK') {
+                        if (p.pos !== 'GK') return false;
+                    } else {
+                        // exact pos
+                        if (p.pos !== posFilter) return false;
+                    }
+                }
+                const r = p.rating || 0;
+                if (!isNaN(ovrMin) && document.getElementById('transfer-ovr-min')?.value !== '' && r < ovrMin) return false;
+                if (!isNaN(ovrMax) && document.getElementById('transfer-ovr-max')?.value !== '' && r > ovrMax) return false;
+                return true;
             });
+
+            // Sắp xếp OVR giảm dần
+            filtered.sort((a, b) => (b.rating || 0) - (a.rating || 0));
+
+            // Mặc định chỉ 20 hot nhất; khi đang lọc hiện tối đa 40
+            const limit = hasFilter ? 40 : 20;
+            const totalMatch = filtered.length;
+            filtered = filtered.slice(0, limit);
+
+            if (countEl) {
+                countEl.textContent = hasFilter
+                    ? ('Tìm thấy ' + totalMatch + (totalMatch > limit ? ' · hiện ' + limit : ''))
+                    : ('Top ' + filtered.length + ' hot nhất');
+            }
+
             if (filtered.length === 0) {
-                container.innerHTML = `<div class="col-span-full text-center py-8 text-slate-500 text-sm">Không tìm thấy cầu thủ phù hợp.</div>`;
+                container.innerHTML = '<div class="col-span-full text-center py-8 text-slate-500 text-sm">Không có cầu thủ khớp bộ lọc. <button type="button" onclick="clearTransferFilters()" class="text-emerald-400 underline">Xóa lọc</button> · <button type="button" onclick="gameState.transferMarket=generateTransferMarket();populateTransferFilterOptions();filterTransferMarket();" class="text-sky-400 underline">Làm mới market</button></div>';
                 return;
             }
-            container.innerHTML = filtered.map(player => `
-                <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl space-y-3 flex flex-col justify-between hover:border-slate-700">
-                    <div>
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <h4 class="font-extrabold text-slate-100 text-sm">${player.name}</h4>
-                                <span class="text-xs px-2 py-0.5 rounded bg-slate-800 text-emerald-400 border border-slate-700 font-semibold">${player.pos}</span>
-                            </div>
-                            <span class="text-xl font-black text-amber-400">${player.rating}</span>
-                        </div>
-                        <div class="text-xs text-slate-400 mt-2 space-y-1">
-                            <div>Tuổi: <strong class="text-slate-200">${player.age}</strong></div>
-                            <div>Lương đòi hỏi: <strong class="text-slate-200">$${(player.wage/1000).toFixed(0)}K / tuần</strong></div>
-                            <div>Giá chuyển nhượng: <strong class="text-amber-400 font-bold">$${(player.value/1000000).toFixed(2)}M</strong></div>
-                        </div>
-                    </div>
-                    <button onclick="buyPlayer(${player.id})" class="w-full py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl transition shadow">Mua Cầu Thủ</button>
-                </div>`).join('');
+
+            container.innerHTML = filtered.map(player => {
+                const price = player.value || player.rating * 180000;
+                const cardPrice = Math.round(price * 0.15);
+                const gCardPrice = Math.round(price * 0.35);
+                const face = renderFo4CardFace(player, { rating: player.rating, label: player.rating >= 90 ? 'ICON' : (player.isReal ? 'GOLD' : '') });
+                return '<div class="fo4-shell">'
+                    + face
+                    + '<div class="fo4-actions">'
+                    + (player.cardOnly || player.isOwnClub
+                        ? '<div class="text-center text-[10px] text-slate-500 py-1">Chỉ mua thẻ</div>'
+                        : '<button onclick="buyPlayer(' + player.id + ')" class="bg-emerald-600 hover:bg-emerald-500 text-white">Mua · $' + (price/1e6).toFixed(2) + 'M</button>')
+                    + '<div class="flex items-center gap-1">'
+                    + '<input id="card-qty-' + player.id + '" type="number" min="1" max="20" value="1" class="w-11 px-1 py-1 rounded-lg bg-slate-950 border border-slate-700 text-xs text-center text-slate-200" onclick="event.stopPropagation()">'
+                    + '<button onclick="buyPlayerCard(' + player.id + ')" class="flex-1 bg-sky-700 hover:bg-sky-600 text-white">Mua thẻ $' + (cardPrice/1e6).toFixed(2) + 'M</button>'
+                    + '</div>'
+                    + '<button onclick="buyGuaranteedCard(' + player.id + ')" class="bg-amber-700 hover:bg-amber-600 text-white">Thẻ 100% $' + (gCardPrice/1e6).toFixed(2) + 'M</button>'
+                    + '</div></div>';
+            }).join('');
+        }
+
+        function clearTransferFilters() {
+            const ids = ['transfer-search', 'transfer-club-filter', 'transfer-nation-filter', 'transfer-ovr-min', 'transfer-ovr-max'];
+            ids.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.value = '';
+            });
+            const pos = document.getElementById('transfer-pos-filter');
+            if (pos) pos.value = 'ALL';
+            filterTransferMarket();
+        }
+
+        function populateTransferFilterOptions() {
+            ensureTransferMarket();
+            const list = gameState.transferMarket || [];
+            const clubs = new Set();
+            const nations = new Set();
+            list.forEach(p => {
+                if (p.clubFrom) clubs.add(p.clubFrom);
+                const n = p.nationality || p.nation;
+                if (n && n !== 'Unknown') nations.add(n);
+            });
+            const clubList = document.getElementById('transfer-club-list');
+            const nationList = document.getElementById('transfer-nation-list');
+            if (clubList) {
+                clubList.innerHTML = [...clubs].sort().map(c => '<option value="' + c.replace(/"/g, '&quot;') + '">').join('');
+            }
+            if (nationList) {
+                nationList.innerHTML = [...nations].sort().map(c => '<option value="' + c.replace(/"/g, '&quot;') + '">').join('');
+            }
+        }
+
+        function canAddToSquad(extra) {
+            const n = (gameState.squad || []).length + (extra || 1);
+            if (n > MAX_SQUAD_SIZE) {
+                alert('Đội đã đủ tối đa ' + MAX_SQUAD_SIZE + ' cầu thủ!');
+                return false;
+            }
+            return true;
         }
 
         function buyPlayer(playerId) {
             const playerIndex = gameState.transferMarket.findIndex(p => p.id === playerId);
             if (playerIndex === -1) return;
             const player = gameState.transferMarket[playerIndex];
+            if (!canAddToSquad(1)) return;
             if (gameState.budget < player.value) {
                 alert("Ngân sách của bạn không đủ để chiêu mộ cầu thủ này!");
                 return;
@@ -769,12 +2471,44 @@ function getClubsForLeague(leagueId) {
             gameState.budget -= player.value;
             player.isStarting = false;
             player.stamina = 100; player.goals = 0; player.assists = 0; player.yellowCards = 0;
+            player.matchdayRole = 'reserve';
             gameState.squad.push(player);
             gameState.transferMarket.splice(playerIndex, 1);
             AudioFX.click();
             alert(`Chúc mừng! Bạn đã chiêu mộ thành công ${player.name} với giá $${(player.value/1000000).toFixed(2)}M!`);
             updateUI();
             filterTransferMarket();
+        }
+
+
+        function sellPlayer(playerId) {
+            const idx = gameState.squad.findIndex(p => p.id === playerId);
+            if (idx === -1) return;
+            const player = gameState.squad[idx];
+            if (gameState.squad.length <= MIN_SQUAD_SIZE) {
+                alert('Đội cần tối thiểu ' + MIN_SQUAD_SIZE + ' cầu thủ. Không thể bán thêm.');
+                return;
+            }
+            const price = Math.round((player.value || player.rating * 150000) * 0.7);
+            if (!confirm('Bán ' + player.name + ' với giá $' + (price/1e6).toFixed(2) + 'M?')) return;
+            gameState.budget += price;
+            gameState.squad.splice(idx, 1);
+            // đưa vào market
+            gameState.transferMarket.unshift({
+                ...player,
+                id: 80000 + Math.floor(Math.random()*10000),
+                clubFrom: gameState.clubName,
+                value: price,
+                isStarting: false
+            });
+            if (selectedTacticsPlayerId === playerId) selectedTacticsPlayerId = null;
+            alert('Đã bán ' + player.name + ' (+$' + (price/1e6).toFixed(2) + 'M)');
+            saveGame();
+            updateUI();
+            renderTacticsTab();
+            if (document.getElementById('tab-transfers') && !document.getElementById('tab-transfers').classList.contains('hidden')) {
+                filterTransferMarket();
+            }
         }
 
         function renderYouthAcademy() {
@@ -826,6 +2560,7 @@ function getClubsForLeague(leagueId) {
         }
 
         function signYouthPlayer(playerId) {
+            if (!canAddToSquad(1)) return;
             const idx = gameState.youthAcademy.findIndex(p => p.id === playerId);
             if (idx === -1) return;
             const player = gameState.youthAcademy[idx];
@@ -990,6 +2725,199 @@ function getClubsForLeague(leagueId) {
             return w[Math.floor(Math.random() * w.length)];
         }
 
+
+        // ==================== 2D LIVE PITCH ACTORS ====================
+        // Horizontal pitch: left = home goal, right = away goal
+        const LIVE_FORMATIONS = {
+            '4-3-3': [
+                { pos: 'GK', x: 6, y: 50 },
+                { pos: 'LB', x: 22, y: 18 }, { pos: 'CB', x: 20, y: 38 }, { pos: 'CB', x: 20, y: 62 }, { pos: 'RB', x: 22, y: 82 },
+                { pos: 'CM', x: 38, y: 28 }, { pos: 'CM', x: 36, y: 50 }, { pos: 'CM', x: 38, y: 72 },
+                { pos: 'LW', x: 58, y: 20 }, { pos: 'ST', x: 62, y: 50 }, { pos: 'RW', x: 58, y: 80 }
+            ],
+            '4-4-2': [
+                { pos: 'GK', x: 6, y: 50 },
+                { pos: 'LB', x: 22, y: 18 }, { pos: 'CB', x: 20, y: 38 }, { pos: 'CB', x: 20, y: 62 }, { pos: 'RB', x: 22, y: 82 },
+                { pos: 'LM', x: 42, y: 18 }, { pos: 'CM', x: 40, y: 38 }, { pos: 'CM', x: 40, y: 62 }, { pos: 'RM', x: 42, y: 82 },
+                { pos: 'ST', x: 60, y: 38 }, { pos: 'ST', x: 60, y: 62 }
+            ],
+            '4-2-3-1': [
+                { pos: 'GK', x: 6, y: 50 },
+                { pos: 'LB', x: 22, y: 18 }, { pos: 'CB', x: 20, y: 38 }, { pos: 'CB', x: 20, y: 62 }, { pos: 'RB', x: 22, y: 82 },
+                { pos: 'CDM', x: 34, y: 35 }, { pos: 'CDM', x: 34, y: 65 },
+                { pos: 'LW', x: 52, y: 18 }, { pos: 'CAM', x: 50, y: 50 }, { pos: 'RW', x: 52, y: 82 },
+                { pos: 'ST', x: 64, y: 50 }
+            ],
+            '3-5-2': [
+                { pos: 'GK', x: 6, y: 50 },
+                { pos: 'CB', x: 20, y: 28 }, { pos: 'CB', x: 18, y: 50 }, { pos: 'CB', x: 20, y: 72 },
+                { pos: 'LM', x: 40, y: 14 }, { pos: 'CM', x: 38, y: 35 }, { pos: 'CM', x: 36, y: 50 }, { pos: 'CM', x: 38, y: 65 }, { pos: 'RM', x: 40, y: 86 },
+                { pos: 'ST', x: 60, y: 38 }, { pos: 'ST', x: 60, y: 62 }
+            ],
+            '5-3-2': [
+                { pos: 'GK', x: 6, y: 50 },
+                { pos: 'LB', x: 24, y: 12 }, { pos: 'CB', x: 18, y: 30 }, { pos: 'CB', x: 16, y: 50 }, { pos: 'CB', x: 18, y: 70 }, { pos: 'RB', x: 24, y: 88 },
+                { pos: 'CM', x: 40, y: 30 }, { pos: 'CM', x: 38, y: 50 }, { pos: 'CM', x: 40, y: 70 },
+                { pos: 'ST', x: 58, y: 38 }, { pos: 'ST', x: 58, y: 62 }
+            ]
+        };
+
+        function getLiveFormationSlots(formationName) {
+            const key = formationName || '4-3-3';
+            return LIVE_FORMATIONS[key] || LIVE_FORMATIONS['4-3-3'];
+        }
+
+        function shortPlayerLabel(name) {
+            if (!name) return '?';
+            const parts = String(name).trim().split(/\s+/);
+            return parts.length <= 1 ? parts[0].slice(0, 6) : parts[parts.length - 1].slice(0, 7);
+        }
+
+        function assignPlayersToSlots(players, slots) {
+            const pool = (players || []).slice();
+            const used = new Set();
+            const assigned = [];
+            slots.forEach((slot, i) => {
+                let idx = pool.findIndex((p, j) => !used.has(j) && p.pos === slot.pos);
+                if (idx < 0) {
+                    // compatible groups
+                    const groups = {
+                        GK: ['GK'], CB: ['CB'], LB: ['LB','RB','CB'], RB: ['RB','LB','CB'],
+                        CDM: ['CDM','CM'], CM: ['CM','CDM','CAM'], CAM: ['CAM','CM'],
+                        LM: ['LM','LW','RM'], RM: ['RM','RW','LM'],
+                        LW: ['LW','LM','ST'], RW: ['RW','RM','ST'], ST: ['ST','CAM','LW','RW']
+                    };
+                    const g = groups[slot.pos] || [slot.pos];
+                    idx = pool.findIndex((p, j) => !used.has(j) && g.includes(p.pos));
+                }
+                if (idx < 0) idx = pool.findIndex((_, j) => !used.has(j));
+                const p = idx >= 0 ? pool[idx] : { name: 'CT ' + (i + 1), pos: slot.pos, rating: 70 };
+                if (idx >= 0) used.add(idx);
+                assigned.push({ player: p, baseX: slot.x, baseY: slot.y, pos: slot.pos });
+            });
+            return assigned;
+        }
+
+        function mirrorAwaySlot(x, y) {
+            return { x: 100 - x, y: y };
+        }
+
+        function initMatchPitchActors() {
+            const homeSlots = getLiveFormationSlots(gameState.formation || '4-3-3');
+            const awayFormationKeys = Object.keys(LIVE_FORMATIONS);
+            const awayForm = awayFormationKeys[Math.floor(Math.random() * awayFormationKeys.length)];
+            const awaySlots = getLiveFormationSlots(awayForm);
+            try {
+                const el = document.getElementById('sim-away-tactic');
+                if (el) el.innerText = awayForm;
+            } catch (_) {}
+
+            const starters = gameState.squad.filter(p => p.isStarting).slice(0, 11);
+            // Pad if needed
+            while (starters.length < 11) {
+                starters.push({ name: 'Dự bị ' + (starters.length + 1), pos: homeSlots[starters.length]?.pos || 'CM', rating: 68 });
+            }
+            const homeAssigned = assignPlayersToSlots(starters, homeSlots);
+
+            // Fake away XI from opponent ovr
+            const oppOvr = (matchSimState.opponent && matchSimState.opponent.ovr) || 72;
+            const awayFake = awaySlots.map((s, i) => ({
+                name: (matchSimState.opponent && matchSimState.opponent.name ? matchSimState.opponent.name.split(' ')[0] : 'Opp') + ' ' + (i + 1),
+                pos: s.pos,
+                rating: Math.max(60, Math.min(92, oppOvr + Math.floor(Math.random() * 7) - 3))
+            }));
+            // Prefer real-ish names from short labels only
+            const awayAssigned = awaySlots.map((s, i) => ({
+                player: awayFake[i],
+                baseX: mirrorAwaySlot(s.x, s.y).x,
+                baseY: mirrorAwaySlot(s.x, s.y).y,
+                pos: s.pos
+            }));
+
+            matchSimState.pitchActors = {
+                home: homeAssigned,
+                away: awayAssigned,
+                ref: { x: 50, y: 50 },
+                ballX: 50,
+                ballY: 50
+            };
+
+            const homeBox = document.getElementById('sim-home-dots');
+            const awayBox = document.getElementById('sim-away-dots');
+            const refBox = document.getElementById('sim-ref-dot');
+            if (!homeBox || !awayBox || !refBox) return;
+
+            homeBox.innerHTML = homeAssigned.map((a, i) => {
+                const isGk = a.pos === 'GK';
+                return '<div class="sim-player-dot home' + (isGk ? ' gk' : '') + '" data-side="home" data-idx="' + i + '" style="left:' + a.baseX + '%;top:' + a.baseY + '%" title="' + (a.player.name || '') + '">'
+                    + (isGk ? 'GK' : String(i + 1))
+                    + '<span class="sim-label">' + shortPlayerLabel(a.player.name) + '</span></div>';
+            }).join('');
+
+            awayBox.innerHTML = awayAssigned.map((a, i) => {
+                const isGk = a.pos === 'GK';
+                return '<div class="sim-player-dot away' + (isGk ? ' gk' : '') + '" data-side="away" data-idx="' + i + '" style="left:' + a.baseX + '%;top:' + a.baseY + '%" title="' + (a.player.name || '') + '">'
+                    + (isGk ? 'GK' : String(i + 1))
+                    + '<span class="sim-label">' + shortPlayerLabel(a.player.name) + '</span></div>';
+            }).join('');
+
+            refBox.innerHTML = '<div class="sim-ref-dot" id="sim-ref-actor" style="left:50%;top:48%"></div>';
+        }
+
+        function updateMatchPitchActors(ballLeftPct, ballTopPct) {
+            if (!matchSimState || !matchSimState.pitchActors) return;
+            const actors = matchSimState.pitchActors;
+            const bx = ballLeftPct != null ? ballLeftPct : actors.ballX;
+            const by = ballTopPct != null ? ballTopPct : actors.ballY;
+            actors.ballX = bx;
+            actors.ballY = by;
+
+            const shiftTowardBall = (baseX, baseY, strength, side) => {
+                // side home pushes a bit toward ball when ball on their half
+                const dx = (bx - baseX) * strength;
+                const dy = (by - baseY) * strength;
+                let x = baseX + dx;
+                let y = baseY + dy;
+                // small random jitter
+                x += (Math.random() - 0.5) * 2.2;
+                y += (Math.random() - 0.5) * 2.2;
+                x = Math.max(3, Math.min(97, x));
+                y = Math.max(6, Math.min(94, y));
+                return { x, y };
+            };
+
+            actors.home.forEach((a, i) => {
+                const strength = a.pos === 'GK' ? 0.04 : (a.pos === 'ST' || a.pos === 'LW' || a.pos === 'RW' ? 0.18 : 0.12);
+                const p = shiftTowardBall(a.baseX, a.baseY, strength, 'home');
+                a.curX = p.x; a.curY = p.y;
+                const el = document.querySelector('#sim-home-dots [data-idx="' + i + '"]');
+                if (el) {
+                    el.style.left = p.x + '%';
+                    el.style.top = p.y + '%';
+                }
+            });
+            actors.away.forEach((a, i) => {
+                const strength = a.pos === 'GK' ? 0.04 : (a.pos === 'ST' || a.pos === 'LW' || a.pos === 'RW' ? 0.18 : 0.12);
+                const p = shiftTowardBall(a.baseX, a.baseY, strength, 'away');
+                a.curX = p.x; a.curY = p.y;
+                const el = document.querySelector('#sim-away-dots [data-idx="' + i + '"]');
+                if (el) {
+                    el.style.left = p.x + '%';
+                    el.style.top = p.y + '%';
+                }
+            });
+
+            // Referee near ball but offset
+            const rx = Math.max(8, Math.min(92, bx + (Math.random() - 0.5) * 12));
+            const ry = Math.max(10, Math.min(90, by + (Math.random() - 0.5) * 14 + 6));
+            actors.ref = { x: rx, y: ry };
+            const refEl = document.getElementById('sim-ref-actor');
+            if (refEl) {
+                refEl.style.left = rx + '%';
+                refEl.style.top = ry + '%';
+            }
+        }
+
         function openMatchModal() {
             // Filter out injured players from starting
             gameState.squad.forEach(p => {
@@ -1048,7 +2976,23 @@ function getClubsForLeague(leagueId) {
             document.getElementById('stat-fouls-home').innerText = '0';
             document.getElementById('stat-fouls-away').innerText = '0';
 
+            // Báo cáo sức mạnh trước trận
+            const xi = gameState.squad.filter(p => p.isStarting);
+            const pw = getTeamMatchPower(xi);
+            const oAtt = opponent.att || opponent.ovr;
+            const oDef = opponent.def || opponent.ovr;
+            const oMid = opponent.mid != null ? opponent.mid : opponent.ovr;
+            addCommentary(
+                `<div class="text-sky-300 text-xs">[Phân tích] ${gameState.clubName}: ATT ${pw.att.toFixed(0)} · MID ${pw.mid.toFixed(0)} · DEF ${pw.def.toFixed(0)} · OVR ${pw.ovr.toFixed(0)}`
+                + `  vs  ${opponent.name}: ATT ${Number(oAtt).toFixed(0)} · MID ${Number(oMid).toFixed(0)} · DEF ${Number(oDef).toFixed(0)} · OVR ${Number(opponent.ovr).toFixed(0)}</div>`
+            );
+            const edge = pw.ovr - (opponent.ovr || 70);
+            if (edge >= 6) addCommentary(`<div class="text-emerald-400 text-xs">[Dự đoán] Đội bạn mạnh hơn rõ (~+${edge.toFixed(0)} OVR) — xác suất thắng cao.</div>`);
+            else if (edge <= -6) addCommentary(`<div class="text-amber-400 text-xs">[Dự đoán] Đối thủ mạnh hơn (~${edge.toFixed(0)} OVR) — cần đá chắc.</div>`);
+            else addCommentary(`<div class="text-slate-400 text-xs">[Dự đoán] Hai đội ngang tầm — trận có thể giằng co.</div>`);
+
             AudioFX.whistle();
+            initMatchPitchActors();
             startMatchSimulation();
         }
 
@@ -1135,28 +3079,60 @@ function getClubsForLeague(leagueId) {
                 document.getElementById('sim-clock').innerText = `${matchSimState.minute}' - Hiệp ${matchSimState.minute <= 45 ? '1' : '2'}`;
 
                 const ball = document.getElementById('sim-ball');
+                let ballX = 50, ballY = 50;
                 if (ball) {
-                    ball.style.left = `${Math.floor(Math.random()*80)+10}%`;
-                    ball.style.top = `${Math.floor(Math.random()*80)+10}%`;
+                    ballX = Math.floor(Math.random() * 80) + 10;
+                    ballY = Math.floor(Math.random() * 70) + 15;
+                    ball.style.left = ballX + '%';
+                    ball.style.top = ballY + '%';
                 }
+                try { updateMatchPitchActors(ballX, ballY); } catch (_) {}
 
                 const starters = gameState.squad.filter(p => p.isStarting);
-                let myAtt = calculateAvgRating(starters, ['ST','RW','LW','CAM']);
-                let myDef = calculateAvgRating(starters, ['CB','LB','RB','GK']);
-                // Form boost
-                starters.forEach(p => {
-                    const recent = (p.form || []).slice(-3);
-                    const wins = recent.filter(r => r === 'W').length;
-                    if (wins >= 2) myAtt += 0.5;
-                });
-                if (matchSimState.mentality === 'ATTACK') { myAtt += 5; myDef -= 3; }
-                if (matchSimState.mentality === 'DEFEND') { myAtt -= 4; myDef += 5; }
-                // Weather effect
+                const power = getTeamMatchPower(starters);
+                let myAtt = power.att;
+                let myMid = power.mid;
+                let myDef = power.def;
+                // Tâm lý trận
+                if (matchSimState.mentality === 'ATTACK') { myAtt += 4; myMid += 1; myDef -= 4; }
+                if (matchSimState.mentality === 'DEFEND') { myAtt -= 3; myDef += 5; myMid -= 1; }
+                // Phong cách chiến thuật
+                const style = gameState.tacticStyle || 'balanced';
+                if (style === 'attacking' || style === 'tiki-taka') { myAtt += 2; myMid += 2; }
+                if (style === 'defensive' || style === 'counter') { myDef += 2; myAtt += (style === 'counter' ? 1 : -1); }
+                // Thời tiết
                 if (gameState.weather === 'Mưa' || gameState.weather === 'Mưa nhẹ') {
-                    myAtt -= 2; myDef -= 1;
+                    myAtt -= 2; myMid -= 1; myDef -= 1;
                 }
-                const oppDef = matchSimState.opponent.def;
-                const oppAtt = matchSimState.opponent.att || matchSimState.opponent.ovr;
+                // Thể lực giảm dần theo phút
+                const fatigue = 1 - (matchSimState.minute / 90) * 0.08;
+                myAtt *= fatigue; myMid *= fatigue; myDef *= fatigue;
+
+                const oppOvr = matchSimState.opponent.ovr || 72;
+                let oppAtt = matchSimState.opponent.att || oppOvr;
+                let oppMid = (matchSimState.opponent.mid != null) ? matchSimState.opponent.mid : oppOvr;
+                let oppDef = matchSimState.opponent.def || oppOvr;
+                // Biến thiên nhẹ mỗi trận
+                if (!matchSimState._oppJitter) {
+                    matchSimState._oppJitter = {
+                        att: (Math.random() * 4 - 2),
+                        mid: (Math.random() * 4 - 2),
+                        def: (Math.random() * 4 - 2)
+                    };
+                }
+                oppAtt += matchSimState._oppJitter.att;
+                oppMid += matchSimState._oppJitter.mid;
+                oppDef += matchSimState._oppJitter.def;
+
+                // Kiểm soát bóng từ midfield
+                const posHome = Math.round(100 * myMid / (myMid + oppMid + 0.01));
+                const posAway = 100 - posHome;
+                if (matchSimState.minute % 5 === 0 || matchSimState.minute <= 2) {
+                    try {
+                        document.getElementById('stat-pos-home').innerText = posHome + '%';
+                        document.getElementById('stat-pos-away').innerText = posAway + '%';
+                    } catch (_) {}
+                }
 
                 const eventRoll = Math.random();
                 // Injury event
@@ -1169,10 +3145,9 @@ function getClubsForLeague(leagueId) {
                         v.injuryWeeks = weeks;
                         v.isStarting = false;
                         addCommentary(`<span class="text-red-400 font-bold">[${matchSimState.minute}'] 🏥 CHẤN THƯƠNG! ${v.name} phải rời sân (nghỉ ~${weeks} vòng)!</span>`);
-                        // auto sub if available
                         const bench = gameState.squad.filter(p => !p.isStarting && (!p.injuryWeeks || p.injuryWeeks <= 0));
                         if (bench.length && matchSimState.subsUsed < 3) {
-                            bench.sort((a,b) => b.rating - a.rating);
+                            bench.sort((a,b) => effectiveRating(b) - effectiveRating(a));
                             const sub = bench[0];
                             sub.isStarting = true;
                             matchSimState.subsUsed++;
@@ -1180,20 +3155,34 @@ function getClubsForLeague(leagueId) {
                             addCommentary(`<span class="text-indigo-300">[${matchSimState.minute}'] ${sub.name} vào thay thế.</span>`);
                         }
                     }
-                } else if (eventRoll < 0.17) {
-                    // Attack chance
-                    const homeChance = myAtt / (myAtt + oppDef + 8);
+                } else if (eventRoll < 0.18) {
+                    // Cơ hội tấn công: đội mạnh (mid + att) chiếm nhiều pha bóng hơn
+                    const homeAttackWeight = Math.pow(Math.max(1, myMid * 0.55 + myAtt * 0.45), 1.35);
+                    const awayAttackWeight = Math.pow(Math.max(1, oppMid * 0.55 + oppAtt * 0.45), 1.35);
+                    const homeChance = homeAttackWeight / (homeAttackWeight + awayAttackWeight);
                     const attackingTeam = Math.random() < homeChance ? 'HOME' : 'AWAY';
                     if (attackingTeam === 'HOME') {
                         matchSimState.homeShots++;
-                        const scorers = starters.filter(p => ['ST','CAM','RW','LW','CM'].includes(p.pos));
-                        const scorer = scorers[Math.floor(Math.random()*scorers.length)] || starters[0];
-                        // Highlight moment
-                        const isHighlight = Math.random() < 0.25;
-                        let goalChance = 0.30;
+                        // Scorer ưu tiên OVR cao ở hàng công
+                        let scorers = starters.filter(p => ['ST','CF','CAM','RW','LW','CM'].includes(p.pos));
+                        if (!scorers.length) scorers = starters.slice();
+                        scorers.sort((a,b) => effectiveRating(b) - effectiveRating(a));
+                        // Weighted pick: top players more likely
+                        let pick = 0;
+                        const r = Math.random();
+                        if (r < 0.45) pick = 0;
+                        else if (r < 0.75) pick = Math.min(1, scorers.length - 1);
+                        else pick = Math.floor(Math.random() * scorers.length);
+                        const scorer = scorers[pick];
+                        const isHighlight = Math.random() < 0.22 + Math.max(0, (myAtt - oppDef) / 80);
+                        // Goal chance phụ thuộc ATT vs DEF đối phương — đội mạnh ghi nhiều hơn rõ rệt
+                        let goalChance = strengthToProb(myAtt, oppDef, 0.28, 8.5);
+                        // Scorer cá nhân
+                        goalChance += (effectiveRating(scorer) - 75) * 0.006;
+                        goalChance = Math.max(0.05, Math.min(0.68, goalChance));
                         if (isHighlight) {
                             const hl = HIGHLIGHTS[Math.floor(Math.random()*4)];
-                            goalChance = hl.chance;
+                            goalChance = Math.min(0.72, goalChance + 0.08);
                             addCommentary(`[${matchSimState.minute}'] 🔥 ${hl.text(scorer.name)}`);
                         }
                         // VAR drama
@@ -1226,11 +3215,12 @@ function getClubsForLeague(leagueId) {
                         }
                     } else {
                         matchSimState.awayShots++;
-                        if (Math.random() < 0.28) {
-                            // maybe big save
-                            if (Math.random() < 0.15) {
+                        let awayGoalChance = strengthToProb(oppAtt, myDef, 0.28, 8.5);
+                        awayGoalChance = Math.max(0.05, Math.min(0.68, awayGoalChance));
+                        if (Math.random() < awayGoalChance) {
+                            if (Math.random() < 0.12) {
                                 const gk = starters.find(p => p.pos === 'GK');
-                                addCommentary(`[${matchSimState.minute}'] 🧤 ${gk ? gk.name : 'Thủ môn'} cứu thua xuất thần!`);
+                                addCommentary(`[${matchSimState.minute}'] 🧤 ${gk ? gk.name : 'Thủ môn'} cứu thua xuất thần! (OVR ${gk ? effectiveRating(gk) : '?'})`);
                             } else {
                                 matchSimState.awayScore++;
                                 document.getElementById('sim-away-score').innerText = matchSimState.awayScore;
@@ -1257,9 +3247,13 @@ function getClubsForLeague(leagueId) {
                     }
                 }
 
-                const posHome = Math.min(72, Math.max(28, 50 + (matchSimState.homeShots - matchSimState.awayShots) * 2.5));
-                document.getElementById('stat-pos-home').innerText = `${Math.round(posHome)}%`;
-                document.getElementById('stat-pos-away').innerText = `${Math.round(100 - posHome)}%`;
+                // Cập nhật possession từ mid (đã set ở trên) + shots
+                try {
+                    document.getElementById('stat-shots-home').innerText = matchSimState.homeShots;
+                    document.getElementById('stat-shots-away').innerText = matchSimState.awayShots;
+                    document.getElementById('stat-fouls-home').innerText = matchSimState.homeFouls;
+                    document.getElementById('stat-fouls-away').innerText = matchSimState.awayFouls;
+                } catch (_) {}
                 document.getElementById('stat-shots-home').innerText = matchSimState.homeShots;
                 document.getElementById('stat-shots-away').innerText = matchSimState.awayShots;
                 document.getElementById('stat-fouls-home').innerText = `${matchSimState.homeFouls}`;
@@ -1730,36 +3724,43 @@ function getClubsForLeague(leagueId) {
             document.getElementById('welcome-name').textContent = user.displayName || user.email?.split('@')[0] || 'HLV';
             if (isAdmin()) document.getElementById('admin-quick-link')?.classList.remove('hidden');
 
-            // Try cloud save
-            const cloud = await loadGameCloud();
-            if (cloud && cloud.clubName) {
-                Object.assign(gameState, cloud);
+            let loaded = null;
+            // 1) Cloud ưu tiên (đồng bộ giữa máy / sau khi update code)
+            try {
+                const cloud = await loadGameCloud();
+                if (cloud && cloud.clubName && !cloud.reset) loaded = cloud;
+            } catch (e) { console.warn(e); }
+
+            // 2) Local fallback
+            if (!loaded) {
+                try {
+                    const local = localStorage.getItem('fm_game_save_v2');
+                    if (local) {
+                        const data = JSON.parse(local);
+                        if (data.clubName) loaded = data;
+                    }
+                } catch (_) {}
+            }
+
+            if (loaded) {
+                Object.assign(gameState, loaded);
+                ensureGameExtras();
+                syncMergeRatesFromAdmin(settings); // ghi đè tỉ lệ cũ trong save
+                ensureTransferMarket();
+                await applyPendingGifts();
+                // Đồng bộ lại cloud ngay sau khi load local (phòng cloud trống)
+                scheduleCloudSave();
                 document.getElementById('club-mode-modal')?.classList.add('hidden');
                 document.getElementById('club-select-modal')?.classList.add('hidden');
                 updateUI();
                 return;
             }
-            // local save?
-            try {
-                const local = localStorage.getItem('fm_game_save_v2');
-                if (local) {
-                    const data = JSON.parse(local);
-                    if (data.clubName) {
-                        Object.assign(gameState, data);
-                        document.getElementById('club-mode-modal')?.classList.add('hidden');
-                        document.getElementById('club-select-modal')?.classList.add('hidden');
-                        updateUI();
-                        return;
-                    }
-                }
-            } catch (_) {}
 
-            // Need club choice
             if (settings.allowCustomClubs === false) {
                 document.getElementById('btn-custom-club')?.classList.add('opacity-40', 'pointer-events-none');
             }
+            syncMergeRatesFromAdmin(settings);
             document.getElementById('club-mode-modal')?.classList.remove('hidden');
-            // still init UI shells
             try { initGame(); } catch (_) {}
         }
 
@@ -1771,19 +3772,15 @@ function getClubsForLeague(leagueId) {
         }
         window.confirmStartGame = confirmStartGamePatched;
 
-        // Hook save to cloud
-        const _save = typeof saveGame === 'function' ? saveGame : null;
-        if (typeof saveGameManual === 'function') {
-            const _sm = saveGameManual;
-            window.saveGameManual = function() {
-                _sm();
-                saveGameCloud(gameState).catch(() => {});
-            };
-        }
+        // Cloud save: handled inside saveGame() via scheduleCloudSave
 
-        window.onload = function() {
+
+        // Boot immediately (module may load after window.onload already fired)
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => bootApp());
+        } else {
             bootApp();
-        };
+        }
 
 
     
@@ -1800,7 +3797,23 @@ try {
   window.updateTacticsStyle = updateTacticsStyle;
   window.swapPlayerStartingStatus = swapPlayerStartingStatus;
   window.filterTransferMarket = filterTransferMarket;
+  window.clearTransferFilters = clearTransferFilters;
+  window.populateTransferFilterOptions = populateTransferFilterOptions;
   window.buyPlayer = buyPlayer;
+  window.sellPlayer = sellPlayer;
+  window.sellCard = sellCard;
+  window.listPlayerOnMarket = listPlayerOnMarket;
+  window.releasePlayer = releasePlayer;
+  window.buyPlayerCard = buyPlayerCard;
+  window.buyGuaranteedCard = buyGuaranteedCard;
+  window.mergeCards = mergeCards;
+  window.addPlayerFromCard = addPlayerFromCard;
+  window.saveCurrentSquadPreset = saveCurrentSquadPreset;
+  window.loadSquadPreset = loadSquadPreset;
+  window.setMatchdayRole = setMatchdayRole;
+  window.generateTransferMarket = generateTransferMarket;
+  window.ensureTransferMarket = ensureTransferMarket;
+  window.placePlayerInSlot = placePlayerInSlot;
   window.scoutNewYouthPlayer = scoutNewYouthPlayer;
   window.signYouthPlayer = signYouthPlayer;
   window.switchTransferSubtab = switchTransferSubtab;
@@ -1814,6 +3827,7 @@ try {
   window.selectSubOut = selectSubOut;
   window.selectSubIn = selectSubIn;
   window.startNewSeason = startNewSeason;
-  window.saveGame = typeof saveGameManual !== 'undefined' ? saveGameManual : saveGame;
+  window.saveGame = saveGameManual;
+  window.saveGameSilent = saveGame;
   window.resetGamePrompt = resetGamePrompt;
 } catch(e) { console.warn('expose', e); }

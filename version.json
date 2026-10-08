@@ -1,9 +1,15 @@
 {
   "name": "football-club-manager",
-  "version": "1.0.1",
-  "buildDate": "2026-10-06T00:40:00+00:00",
+  "version": "1.3.1",
+  "buildDate": "2026-10-06T06:15:00+00:00",
   "firebase": "bongda-d94a5",
   "changelog": [
+    "1.3.1 - Highlight compatible position players when selecting in tactics",
+    "1.3.0 - Redesigned PC + mobile UI (glass header, bottom nav, pitch, cards)",
+    "1.2.0 - Full Premier League squads from SoccerWiki (~30 players/club)",
+    "1.1.0 - Drag-drop tactics, expanded transfer market, full 25-man squad generation, sell players",
+    "1.0.3 - Fix game.js syntax (duplicate getClubsForLeague + nested template) so game loads after login",
+    "1.0.2 - Fix Firebase login (Firestore fallback), better errors, remove build scripts",
     "1.0.1 - GitHub Pages ready (.nojekyll + deploy docs)",
     "1.0.0 - Firebase Auth, Admin panel, full top-division clubs + logos, custom clubs, modular structure"
   ]
