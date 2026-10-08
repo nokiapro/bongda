@@ -1,0 +1,53 @@
+{
+  "id": "leverkusen",
+  "name": "Bayer Leverkusen",
+  "short": "Leverkusen",
+  "badge": "B04",
+  "ovr": 85,
+  "budget": 100000000.0,
+  "stadium": "BayArena",
+  "capacity": 30000,
+  "league": "bundesliga",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/15.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Florian Wirtz",
+      "pos": "CAM",
+      "rating": 89,
+      "age": 23,
+      "birthYear": 2003,
+      "nation": "Germany",
+      "nationality": "Germany",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 92,
+      "wage": 124600,
+      "value": 16020000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    },
+    {
+      "id": 101,
+      "name": "Granit Xhaka",
+      "pos": "CDM",
+      "rating": 84,
+      "age": 34,
+      "birthYear": 1992,
+      "nation": "Switzerland",
+      "nationality": "Switzerland",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 87,
+      "wage": 117600,
+      "value": 15120000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

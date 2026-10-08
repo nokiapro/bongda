@@ -1,0 +1,34 @@
+{
+  "id": "atleticomg",
+  "name": "Atlético Mineiro",
+  "short": "Atlético-MG",
+  "badge": "CAM",
+  "ovr": 78,
+  "budget": 35000000.0,
+  "stadium": "Arena MRV",
+  "capacity": 46000,
+  "league": "brazil_seriea",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/330.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Hulk",
+      "pos": "ST",
+      "rating": 80,
+      "age": 39,
+      "birthYear": 1987,
+      "nation": "Brazil",
+      "nationality": "Brazil",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 83,
+      "wage": 112000,
+      "value": 14400000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

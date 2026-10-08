@@ -1,0 +1,34 @@
+{
+  "id": "clubbrugge",
+  "name": "Club Brugge",
+  "short": "Club Brugge",
+  "badge": "CLB",
+  "ovr": 78,
+  "budget": 40000000.0,
+  "stadium": "Jan Breydel",
+  "capacity": 29000,
+  "league": "belgium",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/2282.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Hans Vanaken",
+      "pos": "CAM",
+      "rating": 80,
+      "age": 33,
+      "birthYear": 1993,
+      "nation": "Belgium",
+      "nationality": "Belgium",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 83,
+      "wage": 112000,
+      "value": 14400000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

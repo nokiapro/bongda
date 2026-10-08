@@ -1,0 +1,34 @@
+{
+  "id": "hoffenheim",
+  "name": "Hoffenheim",
+  "short": "Hoffenheim",
+  "badge": "TSG",
+  "ovr": 76,
+  "budget": 40000000.0,
+  "stadium": "PreZero Arena",
+  "capacity": 30000,
+  "league": "bundesliga",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/533.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Andrej Kramarić",
+      "pos": "ST",
+      "rating": 82,
+      "age": 35,
+      "birthYear": 1991,
+      "nation": "Croatia",
+      "nationality": "Croatia",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 85,
+      "wage": 114800,
+      "value": 14760000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

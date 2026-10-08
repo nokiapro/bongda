@@ -1,0 +1,34 @@
+{
+  "id": "sttruiden",
+  "name": "Sint-Truiden",
+  "short": "STVV",
+  "badge": "STV",
+  "ovr": 70,
+  "budget": 10000000.0,
+  "stadium": "Stayen",
+  "capacity": 14000,
+  "league": "belgium",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/475.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Adriano Bertaccini",
+      "pos": "ST",
+      "rating": 72,
+      "age": 25,
+      "birthYear": 2001,
+      "nation": "Belgium",
+      "nationality": "Belgium",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 75,
+      "wage": 100800,
+      "value": 12960000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

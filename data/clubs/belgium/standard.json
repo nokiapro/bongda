@@ -1,0 +1,34 @@
+{
+  "id": "standard",
+  "name": "Standard Liège",
+  "short": "Standard",
+  "badge": "STD",
+  "ovr": 73,
+  "budget": 20000000.0,
+  "stadium": "Maurice Dufrasne",
+  "capacity": 27000,
+  "league": "belgium",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/458.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Soufiane Benjdida",
+      "pos": "ST",
+      "rating": 72,
+      "age": 24,
+      "birthYear": 2002,
+      "nation": "Belgium",
+      "nationality": "Belgium",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 75,
+      "wage": 100800,
+      "value": 12960000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

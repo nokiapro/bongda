@@ -1,0 +1,34 @@
+{
+  "id": "botafogo",
+  "name": "Botafogo",
+  "short": "Botafogo",
+  "badge": "BOT",
+  "ovr": 79,
+  "budget": 40000000.0,
+  "stadium": "Nilton Santos",
+  "capacity": 46000,
+  "league": "brazil_seriea",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/537.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Luiz Henrique",
+      "pos": "RW",
+      "rating": 82,
+      "age": 25,
+      "birthYear": 2001,
+      "nation": "Brazil",
+      "nationality": "Brazil",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 85,
+      "wage": 114800,
+      "value": 14760000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

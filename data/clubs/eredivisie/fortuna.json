@@ -1,0 +1,34 @@
+{
+  "id": "fortuna",
+  "name": "Fortuna Sittard",
+  "short": "Fortuna",
+  "badge": "FOR",
+  "ovr": 70,
+  "budget": 12000000.0,
+  "stadium": "Fortuna Sittard",
+  "capacity": 12000,
+  "league": "eredivisie",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/383.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Alen Halilović",
+      "pos": "CAM",
+      "rating": 72,
+      "age": 29,
+      "birthYear": 1997,
+      "nation": "Croatia",
+      "nationality": "Croatia",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 75,
+      "wage": 100800,
+      "value": 12960000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

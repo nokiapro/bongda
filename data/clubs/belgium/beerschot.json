@@ -1,0 +1,34 @@
+{
+  "id": "beerschot",
+  "name": "Beerschot",
+  "short": "Beerschot",
+  "badge": "BEE",
+  "ovr": 68,
+  "budget": 8000000.0,
+  "stadium": "Olympisch",
+  "capacity": 12000,
+  "league": "belgium",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/2021.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Marco Weymans",
+      "pos": "LB",
+      "rating": 68,
+      "age": 29,
+      "birthYear": 1997,
+      "nation": "Belgium",
+      "nationality": "Belgium",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 71,
+      "wage": 95200,
+      "value": 12240000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

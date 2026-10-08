@@ -1,0 +1,34 @@
+{
+  "id": "willemii",
+  "name": "Willem II",
+  "short": "Willem II",
+  "badge": "WIL",
+  "ovr": 70,
+  "budget": 12000000.0,
+  "stadium": "Koning Willem II",
+  "capacity": 14000,
+  "league": "eredivisie",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/403.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Kyan Vaesen",
+      "pos": "ST",
+      "rating": 72,
+      "age": 25,
+      "birthYear": 2001,
+      "nation": "Belgium",
+      "nationality": "Belgium",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 75,
+      "wage": 100800,
+      "value": 12960000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

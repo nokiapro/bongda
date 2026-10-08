@@ -1,0 +1,53 @@
+{
+  "id": "psv",
+  "name": "PSV Eindhoven",
+  "short": "PSV",
+  "badge": "PSV",
+  "ovr": 80,
+  "budget": 55000000.0,
+  "stadium": "Philips Stadion",
+  "capacity": 35000,
+  "league": "eredivisie",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/383.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Luuk de Jong",
+      "pos": "ST",
+      "rating": 80,
+      "age": 35,
+      "birthYear": 1991,
+      "nation": "Netherlands",
+      "nationality": "Netherlands",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 83,
+      "wage": 112000,
+      "value": 14400000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    },
+    {
+      "id": 101,
+      "name": "Joey Veerman",
+      "pos": "CM",
+      "rating": 82,
+      "age": 27,
+      "birthYear": 1999,
+      "nation": "Netherlands",
+      "nationality": "Netherlands",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 85,
+      "wage": 114800,
+      "value": 14760000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

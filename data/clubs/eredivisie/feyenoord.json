@@ -1,0 +1,34 @@
+{
+  "id": "feyenoord",
+  "name": "Feyenoord",
+  "short": "Feyenoord",
+  "badge": "FEY",
+  "ovr": 79,
+  "budget": 45000000.0,
+  "stadium": "De Kuip",
+  "capacity": 51000,
+  "league": "eredivisie",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/234.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Santiago Giménez",
+      "pos": "ST",
+      "rating": 82,
+      "age": 25,
+      "birthYear": 2001,
+      "nation": "Mexico",
+      "nationality": "Mexico",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 85,
+      "wage": 114800,
+      "value": 14760000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

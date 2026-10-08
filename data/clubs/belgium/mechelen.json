@@ -1,0 +1,34 @@
+{
+  "id": "mechelen",
+  "name": "Mechelen",
+  "short": "Mechelen",
+  "badge": "KVM",
+  "ovr": 71,
+  "budget": 12000000.0,
+  "stadium": "AFAS Stadion",
+  "capacity": 16000,
+  "league": "belgium",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/370.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Kerim Mrabti",
+      "pos": "CAM",
+      "rating": 74,
+      "age": 32,
+      "birthYear": 1994,
+      "nation": "Sweden",
+      "nationality": "Sweden",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 77,
+      "wage": 103600,
+      "value": 13320000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

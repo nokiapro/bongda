@@ -1,0 +1,34 @@
+{
+  "id": "athletico",
+  "name": "Athletico Paranaense",
+  "short": "Athletico",
+  "badge": "CAP",
+  "ovr": 75,
+  "budget": 25000000.0,
+  "stadium": "Ligga Arena",
+  "capacity": 42000,
+  "league": "brazil_seriea",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/679.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Fernandinho",
+      "pos": "CDM",
+      "rating": 76,
+      "age": 40,
+      "birthYear": 1986,
+      "nation": "Brazil",
+      "nationality": "Brazil",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 79,
+      "wage": 106400,
+      "value": 13680000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

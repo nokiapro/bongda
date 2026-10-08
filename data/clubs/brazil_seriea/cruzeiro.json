@@ -1,0 +1,34 @@
+{
+  "id": "cruzeiro",
+  "name": "Cruzeiro",
+  "short": "Cruzeiro",
+  "badge": "CRU",
+  "ovr": 76,
+  "budget": 28000000.0,
+  "stadium": "Mineirão",
+  "capacity": 62000,
+  "league": "brazil_seriea",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/609.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Matheus Pereira",
+      "pos": "CAM",
+      "rating": 80,
+      "age": 29,
+      "birthYear": 1997,
+      "nation": "Brazil",
+      "nationality": "Brazil",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 83,
+      "wage": 112000,
+      "value": 14400000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

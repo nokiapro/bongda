@@ -1,0 +1,34 @@
+{
+  "id": "charleroi",
+  "name": "Charleroi",
+  "short": "Charleroi",
+  "badge": "CHA",
+  "ovr": 71,
+  "budget": 12000000.0,
+  "stadium": "Pays de Charleroi",
+  "capacity": 14000,
+  "league": "belgium",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/172.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Parfait Guiagon",
+      "pos": "RW",
+      "rating": 72,
+      "age": 25,
+      "birthYear": 2001,
+      "nation": "Ivory Coast",
+      "nationality": "Ivory Coast",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 75,
+      "wage": 100800,
+      "value": 12960000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

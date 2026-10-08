@@ -1,0 +1,34 @@
+{
+  "id": "ajax",
+  "name": "Ajax",
+  "short": "Ajax",
+  "badge": "AJA",
+  "ovr": 78,
+  "budget": 50000000.0,
+  "stadium": "Johan Cruijff Arena",
+  "capacity": 55000,
+  "league": "eredivisie",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/610.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Brian Brobbey",
+      "pos": "ST",
+      "rating": 79,
+      "age": 24,
+      "birthYear": 2002,
+      "nation": "Netherlands",
+      "nationality": "Netherlands",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 82,
+      "wage": 110600,
+      "value": 14220000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

@@ -1,0 +1,34 @@
+{
+  "id": "groningen",
+  "name": "FC Groningen",
+  "short": "Groningen",
+  "badge": "GRO",
+  "ovr": 71,
+  "budget": 15000000.0,
+  "stadium": "Euroborg",
+  "capacity": 22000,
+  "league": "eredivisie",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/202.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Thom van Bergen",
+      "pos": "ST",
+      "rating": 72,
+      "age": 22,
+      "birthYear": 2004,
+      "nation": "Netherlands",
+      "nationality": "Netherlands",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 75,
+      "wage": 100800,
+      "value": 12960000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

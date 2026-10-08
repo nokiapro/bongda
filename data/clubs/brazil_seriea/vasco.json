@@ -1,0 +1,34 @@
+{
+  "id": "vasco",
+  "name": "Vasco da Gama",
+  "short": "Vasco",
+  "badge": "VAS",
+  "ovr": 74,
+  "budget": 22000000.0,
+  "stadium": "São Januário",
+  "capacity": 21000,
+  "league": "brazil_seriea",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/978.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Pablo Vegetti",
+      "pos": "ST",
+      "rating": 78,
+      "age": 37,
+      "birthYear": 1989,
+      "nation": "Argentina",
+      "nationality": "Argentina",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 81,
+      "wage": 109200,
+      "value": 14040000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

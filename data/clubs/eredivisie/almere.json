@@ -1,0 +1,34 @@
+{
+  "id": "almere",
+  "name": "Almere City",
+  "short": "Almere",
+  "badge": "ALM",
+  "ovr": 68,
+  "budget": 10000000.0,
+  "stadium": "Yanmar",
+  "capacity": 4500,
+  "league": "eredivisie",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/427.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Thomas Verheijdt",
+      "pos": "ST",
+      "rating": 70,
+      "age": 34,
+      "birthYear": 1992,
+      "nation": "Netherlands",
+      "nationality": "Netherlands",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 73,
+      "wage": 98000,
+      "value": 12600000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

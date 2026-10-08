@@ -1,0 +1,53 @@
+{
+  "id": "corinthians",
+  "name": "Corinthians",
+  "short": "Corinthians",
+  "badge": "COR",
+  "ovr": 77,
+  "budget": 35000000.0,
+  "stadium": "Neo Química",
+  "capacity": 49000,
+  "league": "brazil_seriea",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/1999.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Yuri Alberto",
+      "pos": "ST",
+      "rating": 80,
+      "age": 25,
+      "birthYear": 2001,
+      "nation": "Brazil",
+      "nationality": "Brazil",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 83,
+      "wage": 112000,
+      "value": 14400000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    },
+    {
+      "id": 101,
+      "name": "Memphis Depay",
+      "pos": "ST",
+      "rating": 82,
+      "age": 32,
+      "birthYear": 1994,
+      "nation": "Netherlands",
+      "nationality": "Netherlands",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 85,
+      "wage": 114800,
+      "value": 14760000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

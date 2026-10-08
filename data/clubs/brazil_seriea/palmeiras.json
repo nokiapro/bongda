@@ -1,0 +1,53 @@
+{
+  "id": "palmeiras",
+  "name": "Palmeiras",
+  "short": "Palmeiras",
+  "badge": "PAL",
+  "ovr": 81,
+  "budget": 55000000.0,
+  "stadium": "Allianz Parque",
+  "capacity": 43000,
+  "league": "brazil_seriea",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/1023.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Estêvão",
+      "pos": "RW",
+      "rating": 90,
+      "age": 18,
+      "birthYear": 2008,
+      "nation": "Brazil",
+      "nationality": "Brazil",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 93,
+      "wage": 126000,
+      "value": 16200000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    },
+    {
+      "id": 101,
+      "name": "Raphael Veiga",
+      "pos": "CAM",
+      "rating": 83,
+      "age": 31,
+      "birthYear": 1995,
+      "nation": "Brazil",
+      "nationality": "Brazil",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 86,
+      "wage": 116200,
+      "value": 14940000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

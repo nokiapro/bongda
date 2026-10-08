@@ -1,0 +1,53 @@
+{
+  "id": "flamengo",
+  "name": "Flamengo",
+  "short": "Flamengo",
+  "badge": "FLA",
+  "ovr": 82,
+  "budget": 60000000.0,
+  "stadium": "Maracanã",
+  "capacity": 78000,
+  "league": "brazil_seriea",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/614.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Gabigol",
+      "pos": "ST",
+      "rating": 82,
+      "age": 30,
+      "birthYear": 1996,
+      "nation": "Brazil",
+      "nationality": "Brazil",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 85,
+      "wage": 114800,
+      "value": 14760000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    },
+    {
+      "id": 101,
+      "name": "Pedro",
+      "pos": "ST",
+      "rating": 83,
+      "age": 29,
+      "birthYear": 1997,
+      "nation": "Brazil",
+      "nationality": "Brazil",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 86,
+      "wage": 116200,
+      "value": 14940000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

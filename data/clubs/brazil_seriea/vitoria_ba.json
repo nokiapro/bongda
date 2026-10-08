@@ -1,0 +1,34 @@
+{
+  "id": "vitoria_ba",
+  "name": "Vitória",
+  "short": "Vitória",
+  "badge": "VIT",
+  "ovr": 71,
+  "budget": 12000000.0,
+  "stadium": "Barradão",
+  "capacity": 35000,
+  "league": "brazil_seriea",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/2205.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Janderson",
+      "pos": "ST",
+      "rating": 72,
+      "age": 27,
+      "birthYear": 1999,
+      "nation": "Brazil",
+      "nationality": "Brazil",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 75,
+      "wage": 100800,
+      "value": 12960000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

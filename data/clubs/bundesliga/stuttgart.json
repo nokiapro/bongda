@@ -1,0 +1,34 @@
+{
+  "id": "stuttgart",
+  "name": "VfB Stuttgart",
+  "short": "Stuttgart",
+  "badge": "VFB",
+  "ovr": 80,
+  "budget": 55000000.0,
+  "stadium": "MHP Arena",
+  "capacity": 60000,
+  "league": "bundesliga",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/79.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Deniz Undav",
+      "pos": "ST",
+      "rating": 82,
+      "age": 29,
+      "birthYear": 1997,
+      "nation": "Germany",
+      "nationality": "Germany",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 85,
+      "wage": 114800,
+      "value": 14760000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

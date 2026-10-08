@@ -1,0 +1,34 @@
+{
+  "id": "nac",
+  "name": "NAC Breda",
+  "short": "NAC",
+  "badge": "NAC",
+  "ovr": 70,
+  "budget": 12000000.0,
+  "stadium": "Rat Verlegh",
+  "capacity": 19000,
+  "league": "eredivisie",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/1266.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Elías Már Ómarsson",
+      "pos": "ST",
+      "rating": 72,
+      "age": 31,
+      "birthYear": 1995,
+      "nation": "Iceland",
+      "nationality": "Iceland",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 75,
+      "wage": 100800,
+      "value": 12960000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

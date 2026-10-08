@@ -1,0 +1,34 @@
+{
+  "id": "cercle",
+  "name": "Cercle Brugge",
+  "short": "Cercle",
+  "badge": "CER",
+  "ovr": 71,
+  "budget": 12000000.0,
+  "stadium": "Jan Breydel",
+  "capacity": 29000,
+  "league": "belgium",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/1245.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Kévin Denkey",
+      "pos": "ST",
+      "rating": 76,
+      "age": 25,
+      "birthYear": 2001,
+      "nation": "Togo",
+      "nationality": "Togo",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 79,
+      "wage": 106400,
+      "value": 13680000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

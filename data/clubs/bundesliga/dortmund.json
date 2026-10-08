@@ -1,0 +1,53 @@
+{
+  "id": "dortmund",
+  "name": "Borussia Dortmund",
+  "short": "Dortmund",
+  "badge": "BVB",
+  "ovr": 84,
+  "budget": 110000000.0,
+  "stadium": "Signal Iduna Park",
+  "capacity": 81000,
+  "league": "bundesliga",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/16.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Serhou Guirassy",
+      "pos": "ST",
+      "rating": 85,
+      "age": 30,
+      "birthYear": 1996,
+      "nation": "Guinea",
+      "nationality": "Guinea",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 88,
+      "wage": 119000,
+      "value": 15300000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    },
+    {
+      "id": 101,
+      "name": "Gregor Kobel",
+      "pos": "GK",
+      "rating": 86,
+      "age": 28,
+      "birthYear": 1998,
+      "nation": "Switzerland",
+      "nationality": "Switzerland",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 89,
+      "wage": 120400,
+      "value": 15480000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

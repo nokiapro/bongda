@@ -1,0 +1,34 @@
+{
+  "id": "leipzig",
+  "name": "RB Leipzig",
+  "short": "Leipzig",
+  "badge": "RBL",
+  "ovr": 82,
+  "budget": 90000000.0,
+  "stadium": "Red Bull Arena",
+  "capacity": 47000,
+  "league": "bundesliga",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/23826.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Benjamin Šeško",
+      "pos": "ST",
+      "rating": 84,
+      "age": 23,
+      "birthYear": 2003,
+      "nation": "Slovenia",
+      "nationality": "Slovenia",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 87,
+      "wage": 117600,
+      "value": 15120000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

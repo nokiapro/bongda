@@ -1,0 +1,34 @@
+{
+  "id": "freiburg",
+  "name": "SC Freiburg",
+  "short": "Freiburg",
+  "badge": "SCF",
+  "ovr": 77,
+  "budget": 35000000.0,
+  "stadium": "Europa-Park Stadion",
+  "capacity": 34000,
+  "league": "bundesliga",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/60.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Vincenzo Grifo",
+      "pos": "LW",
+      "rating": 80,
+      "age": 33,
+      "birthYear": 1993,
+      "nation": "Italy",
+      "nationality": "Italy",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 83,
+      "wage": 112000,
+      "value": 14400000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

@@ -1,0 +1,53 @@
+{
+  "id": "bayern",
+  "name": "Bayern Munich",
+  "short": "Bayern",
+  "badge": "FCB",
+  "ovr": 89,
+  "budget": 160000000.0,
+  "stadium": "Allianz Arena",
+  "capacity": 75000,
+  "league": "bundesliga",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/27.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Harry Kane",
+      "pos": "ST",
+      "rating": 90,
+      "age": 33,
+      "birthYear": 1993,
+      "nation": "England",
+      "nationality": "England",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 93,
+      "wage": 126000,
+      "value": 16200000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    },
+    {
+      "id": 101,
+      "name": "Jamal Musiala",
+      "pos": "CAM",
+      "rating": 90,
+      "age": 23,
+      "birthYear": 2003,
+      "nation": "Germany",
+      "nationality": "Germany",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 93,
+      "wage": 126000,
+      "value": 16200000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}
