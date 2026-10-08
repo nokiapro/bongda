@@ -1,0 +1,34 @@
+{
+  "id": "huracan",
+  "name": "Huracán",
+  "short": "Huracán",
+  "badge": "HUR",
+  "ovr": 73,
+  "budget": 15000000.0,
+  "stadium": "Tomás Ducó",
+  "capacity": 48000,
+  "league": "argentina",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/2065.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Williams Alarcón",
+      "pos": "CM",
+      "rating": 74,
+      "age": 25,
+      "birthYear": 2001,
+      "nation": "Chile",
+      "nationality": "Chile",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 77,
+      "wage": 103600,
+      "value": 13320000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

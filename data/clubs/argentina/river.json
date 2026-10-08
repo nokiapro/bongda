@@ -1,0 +1,53 @@
+{
+  "id": "river",
+  "name": "River Plate",
+  "short": "River",
+  "badge": "CARP",
+  "ovr": 80,
+  "budget": 40000000.0,
+  "stadium": "Monumental",
+  "capacity": 85000,
+  "league": "argentina",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/209.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Franco Mastantuono",
+      "pos": "CAM",
+      "rating": 80,
+      "age": 18,
+      "birthYear": 2008,
+      "nation": "Argentina",
+      "nationality": "Argentina",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 83,
+      "wage": 112000,
+      "value": 14400000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    },
+    {
+      "id": 101,
+      "name": "Miguel Borja",
+      "pos": "ST",
+      "rating": 80,
+      "age": 33,
+      "birthYear": 1993,
+      "nation": "Colombia",
+      "nationality": "Colombia",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 83,
+      "wage": 112000,
+      "value": 14400000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

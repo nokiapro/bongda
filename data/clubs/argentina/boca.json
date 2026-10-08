@@ -1,0 +1,34 @@
+{
+  "id": "boca",
+  "name": "Boca Juniors",
+  "short": "Boca",
+  "badge": "CABJ",
+  "ovr": 79,
+  "budget": 35000000.0,
+  "stadium": "La Bombonera",
+  "capacity": 54000,
+  "league": "argentina",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/901.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Edinson Cavani",
+      "pos": "ST",
+      "rating": 80,
+      "age": 39,
+      "birthYear": 1987,
+      "nation": "Uruguay",
+      "nationality": "Uruguay",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 83,
+      "wage": 112000,
+      "value": 14400000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

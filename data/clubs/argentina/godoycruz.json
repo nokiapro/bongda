@@ -1,0 +1,34 @@
+{
+  "id": "godoycruz",
+  "name": "Godoy Cruz",
+  "short": "Godoy Cruz",
+  "badge": "GOD",
+  "ovr": 71,
+  "budget": 10000000.0,
+  "stadium": "Malvinas Argentinas",
+  "capacity": 42000,
+  "league": "argentina",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/12574.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Salomón Rodríguez",
+      "pos": "ST",
+      "rating": 72,
+      "age": 26,
+      "birthYear": 2000,
+      "nation": "Uruguay",
+      "nationality": "Uruguay",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 75,
+      "wage": 100800,
+      "value": 12960000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

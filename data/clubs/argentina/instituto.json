@@ -1,0 +1,34 @@
+{
+  "id": "instituto",
+  "name": "Instituto",
+  "short": "Instituto",
+  "badge": "INS",
+  "ovr": 71,
+  "budget": 10000000.0,
+  "stadium": "Juan Domingo Perón",
+  "capacity": 26000,
+  "league": "argentina",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/2418.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Santiago Rodríguez",
+      "pos": "CAM",
+      "rating": 72,
+      "age": 28,
+      "birthYear": 1998,
+      "nation": "Uruguay",
+      "nationality": "Uruguay",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 75,
+      "wage": 100800,
+      "value": 12960000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

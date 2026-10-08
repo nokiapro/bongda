@@ -1,0 +1,34 @@
+{
+  "id": "rosariocentral",
+  "name": "Rosario Central",
+  "short": "Central",
+  "badge": "RC",
+  "ovr": 73,
+  "budget": 14000000.0,
+  "stadium": "Gigante de Arroyito",
+  "capacity": 41000,
+  "league": "argentina",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/1415.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Jaminton Campaz",
+      "pos": "RW",
+      "rating": 74,
+      "age": 26,
+      "birthYear": 2000,
+      "nation": "Colombia",
+      "nationality": "Colombia",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 77,
+      "wage": 103600,
+      "value": 13320000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

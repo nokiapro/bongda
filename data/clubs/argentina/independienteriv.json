@@ -1,0 +1,34 @@
+{
+  "id": "independienteriv",
+  "name": "Independiente Rivadavia",
+  "short": "I. Rivadavia",
+  "badge": "RIV",
+  "ovr": 69,
+  "budget": 8000000.0,
+  "stadium": "Bautista Gargantini",
+  "capacity": 24000,
+  "league": "argentina",
+  "logo": "https://tmssl.akamaized.net/images/wappen/head/12575.png",
+  "players": [
+    {
+      "id": 100,
+      "name": "Sebastián Villa",
+      "pos": "LW",
+      "rating": 74,
+      "age": 29,
+      "birthYear": 1997,
+      "nation": "Colombia",
+      "nationality": "Colombia",
+      "image": null,
+      "soccerwikiId": null,
+      "potential": 77,
+      "wage": 103600,
+      "value": 13320000,
+      "isReal": true,
+      "stamina": 100,
+      "goals": 0,
+      "assists": 0
+    }
+  ],
+  "source": "top-division"
+}

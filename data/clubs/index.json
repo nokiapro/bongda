@@ -1,0 +1,2203 @@
+{
+  "argentina": [
+    {
+      "id": "banfield",
+      "name": "Banfield",
+      "ovr": 71,
+      "badge": "BAN",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/1443.png"
+    },
+    {
+      "id": "belgrano",
+      "name": "Belgrano",
+      "ovr": 72,
+      "badge": "BEL",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/2417.png"
+    },
+    {
+      "id": "boca",
+      "name": "Boca Juniors",
+      "ovr": 79,
+      "badge": "CABJ",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/901.png"
+    },
+    {
+      "id": "defensa",
+      "name": "Defensa y Justicia",
+      "ovr": 73,
+      "badge": "DYJ",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/23934.png"
+    },
+    {
+      "id": "estudiantes",
+      "name": "Estudiantes",
+      "ovr": 75,
+      "badge": "ELP",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/1029.png"
+    },
+    {
+      "id": "godoycruz",
+      "name": "Godoy Cruz",
+      "ovr": 71,
+      "badge": "GOD",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/12574.png"
+    },
+    {
+      "id": "huracan",
+      "name": "Huracán",
+      "ovr": 73,
+      "badge": "HUR",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/2065.png"
+    },
+    {
+      "id": "independiente",
+      "name": "Independiente",
+      "ovr": 75,
+      "badge": "IND",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/1234.png"
+    },
+    {
+      "id": "independienteriv",
+      "name": "Independiente Rivadavia",
+      "ovr": 69,
+      "badge": "RIV",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/12575.png"
+    },
+    {
+      "id": "instituto",
+      "name": "Instituto",
+      "ovr": 71,
+      "badge": "INS",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/2418.png"
+    },
+    {
+      "id": "lanus",
+      "name": "Lanús",
+      "ovr": 73,
+      "badge": "LAN",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/333.png"
+    },
+    {
+      "id": "platense",
+      "name": "Platense",
+      "ovr": 70,
+      "badge": "PLA",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/3709.png"
+    },
+    {
+      "id": "racing",
+      "name": "Racing Club",
+      "ovr": 76,
+      "badge": "RAC",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/1444.png"
+    },
+    {
+      "id": "river",
+      "name": "River Plate",
+      "ovr": 80,
+      "badge": "CARP",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/209.png"
+    },
+    {
+      "id": "rosariocentral",
+      "name": "Rosario Central",
+      "ovr": 73,
+      "badge": "RC",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/1415.png"
+    },
+    {
+      "id": "sanlorenzo",
+      "name": "San Lorenzo",
+      "ovr": 75,
+      "badge": "CASLA",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/1775.png"
+    },
+    {
+      "id": "sarmiento",
+      "name": "Sarmiento",
+      "ovr": 69,
+      "badge": "SAR",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/370.png"
+    },
+    {
+      "id": "talleres",
+      "name": "Talleres",
+      "ovr": 75,
+      "badge": "TAL",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/3938.png"
+    },
+    {
+      "id": "tigre",
+      "name": "Tigre",
+      "ovr": 71,
+      "badge": "TIG",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/11831.png"
+    },
+    {
+      "id": "velez",
+      "name": "Vélez Sarsfield",
+      "ovr": 75,
+      "badge": "VEL",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/1025.png"
+    }
+  ],
+  "belgium": [
+    {
+      "id": "anderlecht",
+      "name": "Anderlecht",
+      "ovr": 76,
+      "badge": "AND",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/40.png"
+    },
+    {
+      "id": "antwerp",
+      "name": "Royal Antwerp",
+      "ovr": 75,
+      "badge": "ANT",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/1096.png"
+    },
+    {
+      "id": "beerschot",
+      "name": "Beerschot",
+      "ovr": 68,
+      "badge": "BEE",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/2021.png"
+    },
+    {
+      "id": "cercle",
+      "name": "Cercle Brugge",
+      "ovr": 71,
+      "badge": "CER",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/1245.png"
+    },
+    {
+      "id": "charleroi",
+      "name": "Charleroi",
+      "ovr": 71,
+      "badge": "CHA",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/172.png"
+    },
+    {
+      "id": "clubbrugge",
+      "name": "Club Brugge",
+      "ovr": 78,
+      "badge": "CLB",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/2282.png"
+    },
+    {
+      "id": "dender",
+      "name": "Dender",
+      "ovr": 68,
+      "badge": "DEN",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/123.png"
+    },
+    {
+      "id": "genk",
+      "name": "Genk",
+      "ovr": 76,
+      "badge": "GNK",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/1161.png"
+    },
+    {
+      "id": "gent",
+      "name": "Gent",
+      "ovr": 74,
+      "badge": "GNT",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/157.png"
+    },
+    {
+      "id": "kortrijk",
+      "name": "Kortrijk",
+      "ovr": 69,
+      "badge": "KVK",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/969.png"
+    },
+    {
+      "id": "mechelen",
+      "name": "Mechelen",
+      "ovr": 71,
+      "badge": "KVM",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/370.png"
+    },
+    {
+      "id": "ohleuven",
+      "name": "OH Leuven",
+      "ovr": 70,
+      "badge": "OHL",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/968.png"
+    },
+    {
+      "id": "standard",
+      "name": "Standard Liège",
+      "ovr": 73,
+      "badge": "STD",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/458.png"
+    },
+    {
+      "id": "sttruiden",
+      "name": "Sint-Truiden",
+      "ovr": 70,
+      "badge": "STV",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/475.png"
+    },
+    {
+      "id": "union_sg",
+      "name": "Union Saint-Gilloise",
+      "ovr": 77,
+      "badge": "USG",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/2016.png"
+    },
+    {
+      "id": "westerlo",
+      "name": "Westerlo",
+      "ovr": 71,
+      "badge": "WES",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/2864.png"
+    }
+  ],
+  "brazil_seriea": [
+    {
+      "id": "athletico",
+      "name": "Athletico Paranaense",
+      "ovr": 75,
+      "badge": "CAP",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/679.png"
+    },
+    {
+      "id": "atleticogo",
+      "name": "Atlético Goianiense",
+      "ovr": 70,
+      "badge": "ACG",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/11379.png"
+    },
+    {
+      "id": "atleticomg",
+      "name": "Atlético Mineiro",
+      "ovr": 78,
+      "badge": "CAM",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/330.png"
+    },
+    {
+      "id": "bahia",
+      "name": "Bahia",
+      "ovr": 75,
+      "badge": "BAH",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/10010.png"
+    },
+    {
+      "id": "botafogo",
+      "name": "Botafogo",
+      "ovr": 79,
+      "badge": "BOT",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/537.png"
+    },
+    {
+      "id": "corinthians",
+      "name": "Corinthians",
+      "ovr": 77,
+      "badge": "COR",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/1999.png"
+    },
+    {
+      "id": "criciuma",
+      "name": "Criciúma",
+      "ovr": 70,
+      "badge": "CRI",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/10895.png"
+    },
+    {
+      "id": "cruzeiro",
+      "name": "Cruzeiro",
+      "ovr": 76,
+      "badge": "CRU",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/609.png"
+    },
+    {
+      "id": "cuiaba",
+      "name": "Cuiabá",
+      "ovr": 71,
+      "badge": "CUI",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/28022.png"
+    },
+    {
+      "id": "flamengo",
+      "name": "Flamengo",
+      "ovr": 82,
+      "badge": "FLA",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/614.png"
+    },
+    {
+      "id": "fluminense",
+      "name": "Fluminense",
+      "ovr": 79,
+      "badge": "FLU",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/2462.png"
+    },
+    {
+      "id": "fortaleza",
+      "name": "Fortaleza",
+      "ovr": 74,
+      "badge": "FOR",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/6601.png"
+    },
+    {
+      "id": "gremio",
+      "name": "Grêmio",
+      "ovr": 76,
+      "badge": "GRE",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/210.png"
+    },
+    {
+      "id": "internacional",
+      "name": "Internacional",
+      "ovr": 77,
+      "badge": "INT",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/6600.png"
+    },
+    {
+      "id": "juventude",
+      "name": "Juventude",
+      "ovr": 71,
+      "badge": "JUV",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/10894.png"
+    },
+    {
+      "id": "palmeiras",
+      "name": "Palmeiras",
+      "ovr": 81,
+      "badge": "PAL",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/1023.png"
+    },
+    {
+      "id": "redbullbr",
+      "name": "Red Bull Bragantino",
+      "ovr": 75,
+      "badge": "RBB",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/8793.png"
+    },
+    {
+      "id": "sao_paulo",
+      "name": "São Paulo",
+      "ovr": 78,
+      "badge": "SAO",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/585.png"
+    },
+    {
+      "id": "vasco",
+      "name": "Vasco da Gama",
+      "ovr": 74,
+      "badge": "VAS",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/978.png"
+    },
+    {
+      "id": "vitoria_ba",
+      "name": "Vitória",
+      "ovr": 71,
+      "badge": "VIT",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/2205.png"
+    }
+  ],
+  "bundesliga": [
+    {
+      "id": "augsburg",
+      "name": "Augsburg",
+      "ovr": 73,
+      "badge": "FCA",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/167.png"
+    },
+    {
+      "id": "bayern",
+      "name": "Bayern Munich",
+      "ovr": 89,
+      "badge": "FCB",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/27.png"
+    },
+    {
+      "id": "bochum",
+      "name": "VfL Bochum",
+      "ovr": 71,
+      "badge": "BOC",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/8.png"
+    },
+    {
+      "id": "dortmund",
+      "name": "Borussia Dortmund",
+      "ovr": 84,
+      "badge": "BVB",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/16.png"
+    },
+    {
+      "id": "frankfurt",
+      "name": "Eintracht Frankfurt",
+      "ovr": 79,
+      "badge": "SGE",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/24.png"
+    },
+    {
+      "id": "freiburg",
+      "name": "SC Freiburg",
+      "ovr": 77,
+      "badge": "SCF",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/60.png"
+    },
+    {
+      "id": "gladbach",
+      "name": "Borussia Mönchengladbach",
+      "ovr": 76,
+      "badge": "BMG",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/18.png"
+    },
+    {
+      "id": "heidenheim",
+      "name": "Heidenheim",
+      "ovr": 72,
+      "badge": "FCH",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/2036.png"
+    },
+    {
+      "id": "hoffenheim",
+      "name": "Hoffenheim",
+      "ovr": 76,
+      "badge": "TSG",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/533.png"
+    },
+    {
+      "id": "holstein",
+      "name": "Holstein Kiel",
+      "ovr": 70,
+      "badge": "KIE",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/269.png"
+    },
+    {
+      "id": "leipzig",
+      "name": "RB Leipzig",
+      "ovr": 82,
+      "badge": "RBL",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/23826.png"
+    },
+    {
+      "id": "leverkusen",
+      "name": "Bayer Leverkusen",
+      "ovr": 85,
+      "badge": "B04",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/15.png"
+    },
+    {
+      "id": "mainz",
+      "name": "Mainz 05",
+      "ovr": 74,
+      "badge": "M05",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/39.png"
+    },
+    {
+      "id": "stpauli",
+      "name": "St. Pauli",
+      "ovr": 71,
+      "badge": "STP",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/35.png"
+    },
+    {
+      "id": "stuttgart",
+      "name": "VfB Stuttgart",
+      "ovr": 80,
+      "badge": "VFB",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/79.png"
+    },
+    {
+      "id": "unionberlin",
+      "name": "Union Berlin",
+      "ovr": 74,
+      "badge": "FCU",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/41.png"
+    },
+    {
+      "id": "werder",
+      "name": "Werder Bremen",
+      "ovr": 75,
+      "badge": "SVW",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/86.png"
+    },
+    {
+      "id": "wolfsburg",
+      "name": "VfL Wolfsburg",
+      "ovr": 77,
+      "badge": "WOB",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/82.png"
+    }
+  ],
+  "eredivisie": [
+    {
+      "id": "ajax",
+      "name": "Ajax",
+      "ovr": 78,
+      "badge": "AJA",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/610.png"
+    },
+    {
+      "id": "almere",
+      "name": "Almere City",
+      "ovr": 68,
+      "badge": "ALM",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/427.png"
+    },
+    {
+      "id": "az",
+      "name": "AZ Alkmaar",
+      "ovr": 76,
+      "badge": "AZ",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/1090.png"
+    },
+    {
+      "id": "feyenoord",
+      "name": "Feyenoord",
+      "ovr": 79,
+      "badge": "FEY",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/234.png"
+    },
+    {
+      "id": "fortuna",
+      "name": "Fortuna Sittard",
+      "ovr": 70,
+      "badge": "FOR",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/383.png"
+    },
+    {
+      "id": "goahead",
+      "name": "Go Ahead Eagles",
+      "ovr": 72,
+      "badge": "GAE",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/1435.png"
+    },
+    {
+      "id": "groningen",
+      "name": "FC Groningen",
+      "ovr": 71,
+      "badge": "GRO",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/202.png"
+    },
+    {
+      "id": "heerenveen",
+      "name": "Heerenveen",
+      "ovr": 72,
+      "badge": "HEE",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/1194.png"
+    },
+    {
+      "id": "heracles",
+      "name": "Heracles Almelo",
+      "ovr": 70,
+      "badge": "HER",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/171.png"
+    },
+    {
+      "id": "nac",
+      "name": "NAC Breda",
+      "ovr": 70,
+      "badge": "NAC",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/1266.png"
+    },
+    {
+      "id": "nec",
+      "name": "NEC Nijmegen",
+      "ovr": 71,
+      "badge": "NEC",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/1269.png"
+    },
+    {
+      "id": "pec",
+      "name": "PEC Zwolle",
+      "ovr": 70,
+      "badge": "PEC",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/1268.png"
+    },
+    {
+      "id": "psv",
+      "name": "PSV Eindhoven",
+      "ovr": 80,
+      "badge": "PSV",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/383.png"
+    },
+    {
+      "id": "sparta",
+      "name": "Sparta Rotterdam",
+      "ovr": 71,
+      "badge": "SPA",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/468.png"
+    },
+    {
+      "id": "twente",
+      "name": "FC Twente",
+      "ovr": 75,
+      "badge": "TWE",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/317.png"
+    },
+    {
+      "id": "utrecht",
+      "name": "FC Utrecht",
+      "ovr": 74,
+      "badge": "UTR",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/200.png"
+    },
+    {
+      "id": "waalwijk",
+      "name": "RKC Waalwijk",
+      "ovr": 69,
+      "badge": "RKC",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/1267.png"
+    },
+    {
+      "id": "willemii",
+      "name": "Willem II",
+      "ovr": 70,
+      "badge": "WIL",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/403.png"
+    }
+  ],
+  "japan": [
+    {
+      "id": "urawareds",
+      "name": "Urawa Red Diamonds",
+      "ovr": 75,
+      "badge": "URD",
+      "logo": null
+    },
+    {
+      "id": "visselkobe",
+      "name": "Vissel Kobe",
+      "ovr": 76,
+      "badge": "VK",
+      "logo": null
+    }
+  ],
+  "korea": [
+    {
+      "id": "jeonbuk",
+      "name": "Jeonbuk Hyundai",
+      "ovr": 75,
+      "badge": "JHM",
+      "logo": null
+    },
+    {
+      "id": "ulsan",
+      "name": "Ulsan HD",
+      "ovr": 76,
+      "badge": "UHD",
+      "logo": null
+    }
+  ],
+  "laliga": [
+    {
+      "id": "alaves",
+      "name": "Deportivo Alavés",
+      "ovr": 72,
+      "badge": "ALA",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/1108.png"
+    },
+    {
+      "id": "athletic",
+      "name": "Athletic Club",
+      "ovr": 80,
+      "badge": "ATH",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/621.png"
+    },
+    {
+      "id": "atletico",
+      "name": "Atlético Madrid",
+      "ovr": 84,
+      "badge": "ATM",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/13.png"
+    },
+    {
+      "id": "barcelona",
+      "name": "FC Barcelona",
+      "ovr": 88,
+      "badge": "FCB",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/131.png"
+    },
+    {
+      "id": "celta",
+      "name": "Celta Vigo",
+      "ovr": 74,
+      "badge": "CEL",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/940.png"
+    },
+    {
+      "id": "espanyol",
+      "name": "Espanyol",
+      "ovr": 72,
+      "badge": "ESP",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/714.png"
+    },
+    {
+      "id": "getafe",
+      "name": "Getafe",
+      "ovr": 74,
+      "badge": "GET",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/3709.png"
+    },
+    {
+      "id": "girona",
+      "name": "Girona",
+      "ovr": 78,
+      "badge": "GIR",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/12321.png"
+    },
+    {
+      "id": "laspalmas",
+      "name": "Las Palmas",
+      "ovr": 72,
+      "badge": "LPA",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/472.png"
+    },
+    {
+      "id": "leganes",
+      "name": "Leganés",
+      "ovr": 71,
+      "badge": "LEG",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/1244.png"
+    },
+    {
+      "id": "mallorca",
+      "name": "Mallorca",
+      "ovr": 73,
+      "badge": "MLL",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/237.png"
+    },
+    {
+      "id": "osasuna",
+      "name": "Osasuna",
+      "ovr": 74,
+      "badge": "OSA",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/331.png"
+    },
+    {
+      "id": "rayo",
+      "name": "Rayo Vallecano",
+      "ovr": 73,
+      "badge": "RAY",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/367.png"
+    },
+    {
+      "id": "realbetis",
+      "name": "Real Betis",
+      "ovr": 79,
+      "badge": "BET",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/150.png"
+    },
+    {
+      "id": "realmadrid",
+      "name": "Real Madrid",
+      "ovr": 91,
+      "badge": "RM",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/418.png"
+    },
+    {
+      "id": "realsociedad",
+      "name": "Real Sociedad",
+      "ovr": 80,
+      "badge": "RSO",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/681.png"
+    },
+    {
+      "id": "sevilla",
+      "name": "Sevilla FC",
+      "ovr": 77,
+      "badge": "SEV",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/368.png"
+    },
+    {
+      "id": "valencia",
+      "name": "Valencia CF",
+      "ovr": 76,
+      "badge": "VAL",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/1049.png"
+    },
+    {
+      "id": "valladolid",
+      "name": "Real Valladolid",
+      "ovr": 70,
+      "badge": "VLL",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/366.png"
+    },
+    {
+      "id": "villarreal",
+      "name": "Villarreal",
+      "ovr": 79,
+      "badge": "VIL",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/1050.png"
+    }
+  ],
+  "ligue1": [
+    {
+      "id": "angers",
+      "name": "Angers",
+      "ovr": 70,
+      "badge": "ANG",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/1420.png"
+    },
+    {
+      "id": "auxerre",
+      "name": "Auxerre",
+      "ovr": 71,
+      "badge": "AJA",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/290.png"
+    },
+    {
+      "id": "brest",
+      "name": "Brest",
+      "ovr": 74,
+      "badge": "BRS",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/512.png"
+    },
+    {
+      "id": "lehavre",
+      "name": "Le Havre",
+      "ovr": 71,
+      "badge": "HAC",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/738.png"
+    },
+    {
+      "id": "lens",
+      "name": "RC Lens",
+      "ovr": 77,
+      "badge": "RCL",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/826.png"
+    },
+    {
+      "id": "lille",
+      "name": "Lille OSC",
+      "ovr": 79,
+      "badge": "LOSC",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/1082.png"
+    },
+    {
+      "id": "lyon",
+      "name": "Olympique Lyonnais",
+      "ovr": 77,
+      "badge": "OL",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/974.png"
+    },
+    {
+      "id": "marseille",
+      "name": "Olympique Marseille",
+      "ovr": 78,
+      "badge": "OM",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/1041.png"
+    },
+    {
+      "id": "monaco",
+      "name": "AS Monaco",
+      "ovr": 80,
+      "badge": "ASM",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/162.png"
+    },
+    {
+      "id": "montpellier",
+      "name": "Montpellier",
+      "ovr": 72,
+      "badge": "MPL",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/969.png"
+    },
+    {
+      "id": "nantes",
+      "name": "Nantes",
+      "ovr": 73,
+      "badge": "FCN",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/995.png"
+    },
+    {
+      "id": "nice",
+      "name": "OGC Nice",
+      "ovr": 78,
+      "badge": "NIC",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/417.png"
+    },
+    {
+      "id": "psg",
+      "name": "Paris Saint-Germain",
+      "ovr": 88,
+      "badge": "PSG",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/583.png"
+    },
+    {
+      "id": "reims",
+      "name": "Reims",
+      "ovr": 73,
+      "badge": "REI",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/1421.png"
+    },
+    {
+      "id": "rennes",
+      "name": "Stade Rennais",
+      "ovr": 76,
+      "badge": "REN",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/273.png"
+    },
+    {
+      "id": "saintetienne",
+      "name": "Saint-Étienne",
+      "ovr": 71,
+      "badge": "ASSE",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/618.png"
+    },
+    {
+      "id": "strasbourg",
+      "name": "Strasbourg",
+      "ovr": 74,
+      "badge": "RCS",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/667.png"
+    },
+    {
+      "id": "toulouse",
+      "name": "Toulouse",
+      "ovr": 73,
+      "badge": "TFC",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/415.png"
+    }
+  ],
+  "mexico": [
+    {
+      "id": "america",
+      "name": "Club América",
+      "ovr": 78,
+      "badge": "AME",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/1035.png"
+    },
+    {
+      "id": "atlas",
+      "name": "Atlas",
+      "ovr": 72,
+      "badge": "ATL",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/1034.png"
+    },
+    {
+      "id": "chivas",
+      "name": "Guadalajara",
+      "ovr": 76,
+      "badge": "CHI",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/1051.png"
+    },
+    {
+      "id": "cruzazul",
+      "name": "Cruz Azul",
+      "ovr": 76,
+      "badge": "CAZ",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/1033.png"
+    },
+    {
+      "id": "juarez",
+      "name": "Juárez",
+      "ovr": 69,
+      "badge": "JUA",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/22474.png"
+    },
+    {
+      "id": "leon",
+      "name": "León",
+      "ovr": 74,
+      "badge": "LEO",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/22470.png"
+    },
+    {
+      "id": "mazatlan",
+      "name": "Mazatlán",
+      "ovr": 69,
+      "badge": "MAZ",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/22473.png"
+    },
+    {
+      "id": "monterrey",
+      "name": "Monterrey",
+      "ovr": 77,
+      "badge": "MTY",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/10410.png"
+    },
+    {
+      "id": "necaxa",
+      "name": "Necaxa",
+      "ovr": 71,
+      "badge": "NEC",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/1036.png"
+    },
+    {
+      "id": "pachuca",
+      "name": "Pachuca",
+      "ovr": 74,
+      "badge": "PAC",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/1037.png"
+    },
+    {
+      "id": "puebla",
+      "name": "Puebla",
+      "ovr": 71,
+      "badge": "PUE",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/1032.png"
+    },
+    {
+      "id": "pumas",
+      "name": "Pumas UNAM",
+      "ovr": 74,
+      "badge": "PUM",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/1038.png"
+    },
+    {
+      "id": "queretaro",
+      "name": "Querétaro",
+      "ovr": 70,
+      "badge": "QUE",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/10413.png"
+    },
+    {
+      "id": "sanluis",
+      "name": "Atlético San Luis",
+      "ovr": 70,
+      "badge": "ASL",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/22472.png"
+    },
+    {
+      "id": "santos",
+      "name": "Santos Laguna",
+      "ovr": 73,
+      "badge": "SAN",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/10412.png"
+    },
+    {
+      "id": "tigres",
+      "name": "Tigres UANL",
+      "ovr": 77,
+      "badge": "TIG",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/10411.png"
+    },
+    {
+      "id": "tijuana",
+      "name": "Tijuana",
+      "ovr": 71,
+      "badge": "TIJ",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/22471.png"
+    },
+    {
+      "id": "toluca",
+      "name": "Toluca",
+      "ovr": 75,
+      "badge": "TOL",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/1039.png"
+    }
+  ],
+  "mls": [
+    {
+      "id": "intermiami",
+      "name": "Inter Miami",
+      "ovr": 80,
+      "badge": "MIA",
+      "logo": null
+    },
+    {
+      "id": "lafc",
+      "name": "Los Angeles FC",
+      "ovr": 78,
+      "badge": "LAFC",
+      "logo": null
+    }
+  ],
+  "national": [
+    {
+      "id": "algeria",
+      "name": "Algeria",
+      "ovr": 78,
+      "badge": "DZ",
+      "logo": null
+    },
+    {
+      "id": "argentina",
+      "name": "Argentina",
+      "ovr": 88,
+      "badge": "AR",
+      "logo": null
+    },
+    {
+      "id": "australia",
+      "name": "Úc",
+      "ovr": 76,
+      "badge": "AU",
+      "logo": null
+    },
+    {
+      "id": "austria",
+      "name": "Áo",
+      "ovr": 78,
+      "badge": "AT",
+      "logo": null
+    },
+    {
+      "id": "belgium",
+      "name": "Bỉ",
+      "ovr": 83,
+      "badge": "BE",
+      "logo": null
+    },
+    {
+      "id": "brazil",
+      "name": "Brazil",
+      "ovr": 89,
+      "badge": "BR",
+      "logo": null
+    },
+    {
+      "id": "cameroon",
+      "name": "Cameroon",
+      "ovr": 77,
+      "badge": "CM",
+      "logo": null
+    },
+    {
+      "id": "canada",
+      "name": "Canada",
+      "ovr": 77,
+      "badge": "CA",
+      "logo": null
+    },
+    {
+      "id": "china",
+      "name": "Trung Quốc",
+      "ovr": 68,
+      "badge": "CN",
+      "logo": null
+    },
+    {
+      "id": "colombia",
+      "name": "Colombia",
+      "ovr": 81,
+      "badge": "CO",
+      "logo": null
+    },
+    {
+      "id": "croatia",
+      "name": "Croatia",
+      "ovr": 82,
+      "badge": "HR",
+      "logo": null
+    },
+    {
+      "id": "denmark",
+      "name": "Đan Mạch",
+      "ovr": 80,
+      "badge": "DK",
+      "logo": null
+    },
+    {
+      "id": "egypt",
+      "name": "Ai Cập",
+      "ovr": 78,
+      "badge": "EG",
+      "logo": null
+    },
+    {
+      "id": "england",
+      "name": "Anh",
+      "ovr": 87,
+      "badge": "EN",
+      "logo": null
+    },
+    {
+      "id": "france",
+      "name": "Pháp",
+      "ovr": 90,
+      "badge": "FR",
+      "logo": null
+    },
+    {
+      "id": "germany",
+      "name": "Đức",
+      "ovr": 86,
+      "badge": "DE",
+      "logo": null
+    },
+    {
+      "id": "ghana",
+      "name": "Ghana",
+      "ovr": 77,
+      "badge": "GH",
+      "logo": null
+    },
+    {
+      "id": "hungary",
+      "name": "Hungary",
+      "ovr": 76,
+      "badge": "HU",
+      "logo": null
+    },
+    {
+      "id": "indonesia",
+      "name": "Indonesia",
+      "ovr": 68,
+      "badge": "ID",
+      "logo": null
+    },
+    {
+      "id": "italy",
+      "name": "Ý",
+      "ovr": 84,
+      "badge": "IT",
+      "logo": null
+    },
+    {
+      "id": "ivorycoast",
+      "name": "Bờ Biển Ngà",
+      "ovr": 79,
+      "badge": "CI",
+      "logo": null
+    },
+    {
+      "id": "japan",
+      "name": "Nhật Bản",
+      "ovr": 80,
+      "badge": "JP",
+      "logo": null
+    },
+    {
+      "id": "korea",
+      "name": "Hàn Quốc",
+      "ovr": 79,
+      "badge": "KR",
+      "logo": null
+    },
+    {
+      "id": "malaysia",
+      "name": "Malaysia",
+      "ovr": 65,
+      "badge": "MY",
+      "logo": null
+    },
+    {
+      "id": "mexico",
+      "name": "Mexico",
+      "ovr": 79,
+      "badge": "MX",
+      "logo": null
+    },
+    {
+      "id": "morocco",
+      "name": "Ma-rốc",
+      "ovr": 81,
+      "badge": "MA",
+      "logo": null
+    },
+    {
+      "id": "netherlands",
+      "name": "Hà Lan",
+      "ovr": 85,
+      "badge": "NL",
+      "logo": null
+    },
+    {
+      "id": "nigeria",
+      "name": "Nigeria",
+      "ovr": 80,
+      "badge": "NG",
+      "logo": null
+    },
+    {
+      "id": "norway",
+      "name": "Na Uy",
+      "ovr": 80,
+      "badge": "NO",
+      "logo": null
+    },
+    {
+      "id": "philippines",
+      "name": "Philippines",
+      "ovr": 62,
+      "badge": "PH",
+      "logo": null
+    },
+    {
+      "id": "poland",
+      "name": "Ba Lan",
+      "ovr": 79,
+      "badge": "PL",
+      "logo": null
+    },
+    {
+      "id": "portugal",
+      "name": "Bồ Đào Nha",
+      "ovr": 86,
+      "badge": "PT",
+      "logo": null
+    },
+    {
+      "id": "scotland",
+      "name": "Scotland",
+      "ovr": 76,
+      "badge": "SC",
+      "logo": null
+    },
+    {
+      "id": "senegal",
+      "name": "Senegal",
+      "ovr": 80,
+      "badge": "SN",
+      "logo": null
+    },
+    {
+      "id": "serbia",
+      "name": "Serbia",
+      "ovr": 80,
+      "badge": "RS",
+      "logo": null
+    },
+    {
+      "id": "singapore",
+      "name": "Singapore",
+      "ovr": 60,
+      "badge": "SG",
+      "logo": null
+    },
+    {
+      "id": "spain",
+      "name": "Tây Ban Nha",
+      "ovr": 87,
+      "badge": "ES",
+      "logo": null
+    },
+    {
+      "id": "sweden",
+      "name": "Thụy Điển",
+      "ovr": 77,
+      "badge": "SE",
+      "logo": null
+    },
+    {
+      "id": "switzerland",
+      "name": "Thụy Sĩ",
+      "ovr": 80,
+      "badge": "CH",
+      "logo": null
+    },
+    {
+      "id": "thailand",
+      "name": "Thái Lan",
+      "ovr": 70,
+      "badge": "TH",
+      "logo": null
+    },
+    {
+      "id": "turkey",
+      "name": "Thổ Nhĩ Kỳ",
+      "ovr": 80,
+      "badge": "TR",
+      "logo": null
+    },
+    {
+      "id": "ukraine",
+      "name": "Ukraine",
+      "ovr": 78,
+      "badge": "UA",
+      "logo": null
+    },
+    {
+      "id": "uruguay",
+      "name": "Uruguay",
+      "ovr": 81,
+      "badge": "UY",
+      "logo": null
+    },
+    {
+      "id": "usa",
+      "name": "Mỹ",
+      "ovr": 80,
+      "badge": "US",
+      "logo": null
+    },
+    {
+      "id": "vietnam",
+      "name": "Việt Nam",
+      "ovr": 72,
+      "badge": "VN",
+      "logo": null
+    },
+    {
+      "id": "wales",
+      "name": "Wales",
+      "ovr": 74,
+      "badge": "WA",
+      "logo": null
+    }
+  ],
+  "portugal": [
+    {
+      "id": "arouca",
+      "name": "Arouca",
+      "ovr": 70,
+      "badge": "ARO",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/23000.png"
+    },
+    {
+      "id": "avspes",
+      "name": "AVS",
+      "ovr": 68,
+      "badge": "AVS",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/65070.png"
+    },
+    {
+      "id": "benfica",
+      "name": "Benfica",
+      "ovr": 82,
+      "badge": "SLB",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/294.png"
+    },
+    {
+      "id": "boavista",
+      "name": "Boavista",
+      "ovr": 70,
+      "badge": "BOA",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/737.png"
+    },
+    {
+      "id": "braga",
+      "name": "SC Braga",
+      "ovr": 77,
+      "badge": "SCB",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/1075.png"
+    },
+    {
+      "id": "casa_pia",
+      "name": "Casa Pia",
+      "ovr": 70,
+      "badge": "CAS",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/24234.png"
+    },
+    {
+      "id": "estoril",
+      "name": "Estoril Praia",
+      "ovr": 70,
+      "badge": "EST",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/7378.png"
+    },
+    {
+      "id": "estrela",
+      "name": "Estrela Amadora",
+      "ovr": 69,
+      "badge": "EST2",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/7179.png"
+    },
+    {
+      "id": "famalicao",
+      "name": "Famalicão",
+      "ovr": 72,
+      "badge": "FAM",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/3321.png"
+    },
+    {
+      "id": "farense",
+      "name": "Farense",
+      "ovr": 69,
+      "badge": "FAR",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/2423.png"
+    },
+    {
+      "id": "gilvicente",
+      "name": "Gil Vicente",
+      "ovr": 70,
+      "badge": "GIL",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/2422.png"
+    },
+    {
+      "id": "moreirense",
+      "name": "Moreirense",
+      "ovr": 71,
+      "badge": "MOR",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/2690.png"
+    },
+    {
+      "id": "nacional",
+      "name": "Nacional",
+      "ovr": 69,
+      "badge": "NAC",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/2424.png"
+    },
+    {
+      "id": "porto",
+      "name": "FC Porto",
+      "ovr": 81,
+      "badge": "FCP",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/720.png"
+    },
+    {
+      "id": "rioave",
+      "name": "Rio Ave",
+      "ovr": 70,
+      "badge": "RIO",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/2425.png"
+    },
+    {
+      "id": "santa_clara",
+      "name": "Santa Clara",
+      "ovr": 70,
+      "badge": "SCL",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/2427.png"
+    },
+    {
+      "id": "sporting",
+      "name": "Sporting CP",
+      "ovr": 82,
+      "badge": "SCP",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/336.png"
+    },
+    {
+      "id": "vitoria",
+      "name": "Vitória Guimarães",
+      "ovr": 74,
+      "badge": "VSC",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/2420.png"
+    }
+  ],
+  "premier": [
+    {
+      "id": "arsenal",
+      "name": "Arsenal",
+      "ovr": 87,
+      "badge": "AFC",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/11.png"
+    },
+    {
+      "id": "astonvilla",
+      "name": "Aston Villa",
+      "ovr": 81,
+      "badge": "AVFC",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/405.png"
+    },
+    {
+      "id": "bournemouth",
+      "name": "AFC Bournemouth",
+      "ovr": 75,
+      "badge": "BOU",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/989.png"
+    },
+    {
+      "id": "brentford",
+      "name": "Brentford",
+      "ovr": 76,
+      "badge": "BRE",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/1148.png"
+    },
+    {
+      "id": "brighton",
+      "name": "Brighton",
+      "ovr": 78,
+      "badge": "BHA",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/1237.png"
+    },
+    {
+      "id": "chelsea",
+      "name": "Chelsea",
+      "ovr": 84,
+      "badge": "CFC",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/631.png"
+    },
+    {
+      "id": "crystalpalace",
+      "name": "Crystal Palace",
+      "ovr": 77,
+      "badge": "CRY",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/873.png"
+    },
+    {
+      "id": "everton",
+      "name": "Everton",
+      "ovr": 75,
+      "badge": "EVE",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/29.png"
+    },
+    {
+      "id": "fulham",
+      "name": "Fulham",
+      "ovr": 76,
+      "badge": "FUL",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/931.png"
+    },
+    {
+      "id": "ipswich",
+      "name": "Ipswich Town",
+      "ovr": 72,
+      "badge": "IPS",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/677.png"
+    },
+    {
+      "id": "leicester",
+      "name": "Leicester City",
+      "ovr": 73,
+      "badge": "LEI",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/1003.png"
+    },
+    {
+      "id": "liverpool",
+      "name": "Liverpool",
+      "ovr": 88,
+      "badge": "LFC",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/31.png"
+    },
+    {
+      "id": "mancity",
+      "name": "Manchester City",
+      "ovr": 90,
+      "badge": "MC",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/281.png"
+    },
+    {
+      "id": "manutd",
+      "name": "Manchester United",
+      "ovr": 83,
+      "badge": "MU",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/985.png"
+    },
+    {
+      "id": "newcastle",
+      "name": "Newcastle United",
+      "ovr": 82,
+      "badge": "NUFC",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/762.png"
+    },
+    {
+      "id": "nottingham",
+      "name": "Nottingham Forest",
+      "ovr": 76,
+      "badge": "NFO",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/703.png"
+    },
+    {
+      "id": "southampton",
+      "name": "Southampton",
+      "ovr": 72,
+      "badge": "SOU",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/180.png"
+    },
+    {
+      "id": "tottenham",
+      "name": "Tottenham Hotspur",
+      "ovr": 83,
+      "badge": "TH",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/148.png"
+    },
+    {
+      "id": "westham",
+      "name": "West Ham United",
+      "ovr": 77,
+      "badge": "WHU",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/379.png"
+    },
+    {
+      "id": "wolves",
+      "name": "Wolverhampton",
+      "ovr": 75,
+      "badge": "WOL",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/543.png"
+    }
+  ],
+  "russia": [
+    {
+      "id": "akhmat",
+      "name": "Akhmat Grozny",
+      "ovr": 71,
+      "badge": "AKH",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/2439.png"
+    },
+    {
+      "id": "akron",
+      "name": "Akron Tolyatti",
+      "ovr": 70,
+      "badge": "AKR",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/124.png"
+    },
+    {
+      "id": "cska",
+      "name": "CSKA Moscow",
+      "ovr": 77,
+      "badge": "CSK",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/2410.png"
+    },
+    {
+      "id": "dynamo_mkh",
+      "name": "Dynamo Makhachkala",
+      "ovr": 68,
+      "badge": "DM",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/129.png"
+    },
+    {
+      "id": "dynamo_mos",
+      "name": "Dynamo Moscow",
+      "ovr": 76,
+      "badge": "DYN",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/121.png"
+    },
+    {
+      "id": "fakel",
+      "name": "Fakel Voronezh",
+      "ovr": 69,
+      "badge": "FAK",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/126.png"
+    },
+    {
+      "id": "khimki",
+      "name": "Khimki",
+      "ovr": 69,
+      "badge": "KHI",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/128.png"
+    },
+    {
+      "id": "krasnodar",
+      "name": "Krasnodar",
+      "ovr": 78,
+      "badge": "KRA",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/16704.png"
+    },
+    {
+      "id": "krylya",
+      "name": "Krylya Sovetov",
+      "ovr": 71,
+      "badge": "KRY",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/1233.png"
+    },
+    {
+      "id": "lokomotiv",
+      "name": "Lokomotiv Moscow",
+      "ovr": 75,
+      "badge": "LOK",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/1232.png"
+    },
+    {
+      "id": "nizhny",
+      "name": "Nizhny Novgorod",
+      "ovr": 70,
+      "badge": "PAR",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/127.png"
+    },
+    {
+      "id": "orenburg",
+      "name": "Orenburg",
+      "ovr": 70,
+      "badge": "ORE",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/125.png"
+    },
+    {
+      "id": "rostov",
+      "name": "Rostov",
+      "ovr": 73,
+      "badge": "ROS",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/1230.png"
+    },
+    {
+      "id": "rubin",
+      "name": "Rubin Kazan",
+      "ovr": 73,
+      "badge": "RUB",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/1231.png"
+    },
+    {
+      "id": "spartak",
+      "name": "Spartak Moscow",
+      "ovr": 77,
+      "badge": "SPA",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/232.png"
+    },
+    {
+      "id": "zenit",
+      "name": "Zenit Saint Petersburg",
+      "ovr": 80,
+      "badge": "ZEN",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/964.png"
+    }
+  ],
+  "saudi": [
+    {
+      "id": "alhilal",
+      "name": "Al Hilal",
+      "ovr": 85,
+      "badge": "HIL",
+      "logo": null
+    },
+    {
+      "id": "alittihad",
+      "name": "Al Ittihad",
+      "ovr": 81,
+      "badge": "ITT",
+      "logo": null
+    },
+    {
+      "id": "alnassr",
+      "name": "Al Nassr",
+      "ovr": 84,
+      "badge": "NSR",
+      "logo": null
+    }
+  ],
+  "seriea": [
+    {
+      "id": "acmilan",
+      "name": "AC Milan",
+      "ovr": 84,
+      "badge": "ACM",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/5.png"
+    },
+    {
+      "id": "atalanta",
+      "name": "Atalanta",
+      "ovr": 82,
+      "badge": "ATA",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/800.png"
+    },
+    {
+      "id": "bologna",
+      "name": "Bologna",
+      "ovr": 78,
+      "badge": "BOL",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/1025.png"
+    },
+    {
+      "id": "cagliari",
+      "name": "Cagliari",
+      "ovr": 73,
+      "badge": "CAG",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/1390.png"
+    },
+    {
+      "id": "como",
+      "name": "Como",
+      "ovr": 71,
+      "badge": "COM",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/1044.png"
+    },
+    {
+      "id": "empoli",
+      "name": "Empoli",
+      "ovr": 71,
+      "badge": "EMP",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/853.png"
+    },
+    {
+      "id": "fiorentina",
+      "name": "Fiorentina",
+      "ovr": 78,
+      "badge": "FIO",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/430.png"
+    },
+    {
+      "id": "genoa",
+      "name": "Genoa",
+      "ovr": 74,
+      "badge": "GEN",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/607.png"
+    },
+    {
+      "id": "hellas",
+      "name": "Hellas Verona",
+      "ovr": 72,
+      "badge": "HEL",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/276.png"
+    },
+    {
+      "id": "inter",
+      "name": "Inter Milan",
+      "ovr": 87,
+      "badge": "INT",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/46.png"
+    },
+    {
+      "id": "juventus",
+      "name": "Juventus",
+      "ovr": 83,
+      "badge": "JUV",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/506.png"
+    },
+    {
+      "id": "lazio",
+      "name": "Lazio",
+      "ovr": 79,
+      "badge": "LAZ",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/398.png"
+    },
+    {
+      "id": "lecce",
+      "name": "Lecce",
+      "ovr": 72,
+      "badge": "LEC",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/1005.png"
+    },
+    {
+      "id": "monza",
+      "name": "Monza",
+      "ovr": 72,
+      "badge": "MON",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/2919.png"
+    },
+    {
+      "id": "napoli",
+      "name": "Napoli",
+      "ovr": 83,
+      "badge": "NAP",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/6195.png"
+    },
+    {
+      "id": "parma",
+      "name": "Parma",
+      "ovr": 72,
+      "badge": "PAR",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/130.png"
+    },
+    {
+      "id": "roma",
+      "name": "AS Roma",
+      "ovr": 80,
+      "badge": "ROM",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/12.png"
+    },
+    {
+      "id": "torino",
+      "name": "Torino",
+      "ovr": 76,
+      "badge": "TOR",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/416.png"
+    },
+    {
+      "id": "udinese",
+      "name": "Udinese",
+      "ovr": 74,
+      "badge": "UDI",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/410.png"
+    },
+    {
+      "id": "venezia",
+      "name": "Venezia",
+      "ovr": 70,
+      "badge": "VEN",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/6072.png"
+    }
+  ],
+  "turkey": [
+    {
+      "id": "adana",
+      "name": "Adana Demirspor",
+      "ovr": 71,
+      "badge": "ADS",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/127.png"
+    },
+    {
+      "id": "alanyaspor",
+      "name": "Alanyaspor",
+      "ovr": 71,
+      "badge": "ALA",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/11272.png"
+    },
+    {
+      "id": "antalyaspor",
+      "name": "Antalyaspor",
+      "ovr": 72,
+      "badge": "ANT",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/589.png"
+    },
+    {
+      "id": "basaksehir",
+      "name": "Başakşehir",
+      "ovr": 74,
+      "badge": "IBFK",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/6890.png"
+    },
+    {
+      "id": "besiktas",
+      "name": "Beşiktaş",
+      "ovr": 78,
+      "badge": "BJK",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/14.png"
+    },
+    {
+      "id": "bodrum",
+      "name": "Bodrum FK",
+      "ovr": 68,
+      "badge": "BOD",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/128.png"
+    },
+    {
+      "id": "eyupspor",
+      "name": "Eyüpspor",
+      "ovr": 69,
+      "badge": "EYU",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/129.png"
+    },
+    {
+      "id": "fenerbahce",
+      "name": "Fenerbahçe",
+      "ovr": 80,
+      "badge": "FB",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/36.png"
+    },
+    {
+      "id": "galatasaray",
+      "name": "Galatasaray",
+      "ovr": 81,
+      "badge": "GS",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/141.png"
+    },
+    {
+      "id": "gaziantep",
+      "name": "Gaziantep FK",
+      "ovr": 70,
+      "badge": "GAZ",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/126.png"
+    },
+    {
+      "id": "hatayspor",
+      "name": "Hatayspor",
+      "ovr": 70,
+      "badge": "HAT",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/453.png"
+    },
+    {
+      "id": "kasimpasa",
+      "name": "Kasımpaşa",
+      "ovr": 72,
+      "badge": "KAS",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/10484.png"
+    },
+    {
+      "id": "kayserispor",
+      "name": "Kayserispor",
+      "ovr": 70,
+      "badge": "KAY",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/114.png"
+    },
+    {
+      "id": "konyaspor",
+      "name": "Konyaspor",
+      "ovr": 71,
+      "badge": "KON",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/10281.png"
+    },
+    {
+      "id": "rizespor",
+      "name": "Rizespor",
+      "ovr": 71,
+      "badge": "RIZ",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/125.png"
+    },
+    {
+      "id": "samsunspor",
+      "name": "Samsunspor",
+      "ovr": 73,
+      "badge": "SAM",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/124.png"
+    },
+    {
+      "id": "sivasspor",
+      "name": "Sivasspor",
+      "ovr": 71,
+      "badge": "SIV",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/2381.png"
+    },
+    {
+      "id": "trabzonspor",
+      "name": "Trabzonspor",
+      "ovr": 76,
+      "badge": "TS",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/449.png"
+    }
+  ],
+  "vleague1": [
+    {
+      "id": "bacninh",
+      "name": "Bắc Ninh FC",
+      "ovr": 66,
+      "badge": "BN",
+      "logo": null
+    },
+    {
+      "id": "cahcmc",
+      "name": "Công An TP.HCM",
+      "ovr": 74,
+      "badge": "CH",
+      "logo": null
+    },
+    {
+      "id": "cahn",
+      "name": "Công An Hà Nội",
+      "ovr": 79,
+      "badge": "CA",
+      "logo": null
+    },
+    {
+      "id": "danang",
+      "name": "SHB Đà Nẵng",
+      "ovr": 70,
+      "badge": "DN",
+      "logo": null
+    },
+    {
+      "id": "dongnai",
+      "name": "Đồng Nai City",
+      "ovr": 65,
+      "badge": "ĐN",
+      "logo": null
+    },
+    {
+      "id": "hagl",
+      "name": "Hoàng Anh Gia Lai",
+      "ovr": 70,
+      "badge": "HG",
+      "logo": null
+    },
+    {
+      "id": "haiphong",
+      "name": "Hải Phòng FC",
+      "ovr": 72,
+      "badge": "HP",
+      "logo": null
+    },
+    {
+      "id": "hanoi",
+      "name": "Hà Nội FC",
+      "ovr": 75,
+      "badge": "HN",
+      "logo": null
+    },
+    {
+      "id": "hatinh",
+      "name": "Hồng Lĩnh Hà Tĩnh",
+      "ovr": 68,
+      "badge": "HT",
+      "logo": null
+    },
+    {
+      "id": "namdinh",
+      "name": "Thép Xanh Nam Định",
+      "ovr": 74,
+      "badge": "ND",
+      "logo": null
+    },
+    {
+      "id": "ninhbinh",
+      "name": "Phù Đổng Ninh Bình",
+      "ovr": 74,
+      "badge": "NB",
+      "logo": null
+    },
+    {
+      "id": "slna",
+      "name": "Sông Lam Nghệ An",
+      "ovr": 71,
+      "badge": "SL",
+      "logo": null
+    },
+    {
+      "id": "thanhhoa",
+      "name": "Thanh Hóa FC",
+      "ovr": 70,
+      "badge": "TH",
+      "logo": null
+    },
+    {
+      "id": "viettel",
+      "name": "Thể Công - Viettel",
+      "ovr": 76,
+      "badge": "VT",
+      "logo": null
+    }
+  ]
+}
